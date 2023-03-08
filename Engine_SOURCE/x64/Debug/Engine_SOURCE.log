@@ -1,0 +1,26 @@
+﻿  unity_NH0NMCMTT8R6QX5L.cpp
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaMath.h(16,1): warning C4005: 'XM_CONSTEXPR': 매크로 재정의
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\DirectXMath.h(37,1): message : 'XM_CONSTEXPR'의 이전 정의를 참조하십시오.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaConstantBuffer.cpp(20,24): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaEntity.cpp(6,38): warning C4311: 'reinterpret_cast': 'ya::Entity *'에서 'UINT32'(으)로 포인터가 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaEntity.cpp(6,38): warning C4302: 'reinterpret_cast': 'ya::Entity *'에서 'UINT32'(으)로 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaEntity.cpp(10,38): warning C4311: 'reinterpret_cast': 'ya::Entity *'에서 'UINT32'(으)로 포인터가 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaEntity.cpp(10,38): warning C4302: 'reinterpret_cast': 'ya::Entity *'에서 'UINT32'(으)로 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaGridScript.cpp(53,15): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaGridScript.cpp(54,16): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaInput.cpp(80,30): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaInput.cpp(81,30): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(51,57): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(58,56): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(62,57): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(66,58): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(74,62): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(106,27): warning C4267: '인수': 'size_t'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty=UINT
+          ]
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(113,72): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaRenderer.cpp(114,63): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER-PC\Desktop\44Engine\44Engine\Engine_SOURCE\yaTime.cpp(49,46): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Engine_SOURCE.vcxproj -> C:\Users\USER-PC\Desktop\44Engine\44Engine\x64\Debug\Lib\Engine_SOURCE.lib
