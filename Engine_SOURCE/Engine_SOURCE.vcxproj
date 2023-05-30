@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6dafa788-499e-4b34-98ec-f4075a483b9e}</ProjectGuid>
+    <RootNamespace>EngineSOURCE</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>false</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>false</EnableUnitySupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Lib\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="ksAfterimage.h" />
+    <ClInclude Include="ksAnimation.h" />
+    <ClInclude Include="ksAnimator.h" />
+    <ClInclude Include="ksBoss_Ent.h" />
+    <ClInclude Include="ksBoss_Flime.h" />
+    <ClInclude Include="ksCollider3D.h" />
+    <ClInclude Include="ksCollider2D.h" />
+    <ClInclude Include="ksCollisionManager.h" />
+    <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="ksApplication.h" />
+    <ClInclude Include="ksBaseRenderer.h" />
+    <ClInclude Include="ksCamera.h" />
+    <ClInclude Include="ksCameraScript.h" />
+    <ClInclude Include="ksCollider.h" />
+    <ClInclude Include="ksComponent.h" />
+    <ClInclude Include="ksCursor.h" />
+    <ClInclude Include="ksCursorScript.h" />
+    <ClInclude Include="ksDiary.h" />
+    <ClInclude Include="ksEnt_Poison.h" />
+    <ClInclude Include="ksEnt_Sphere.h" />
+    <ClInclude Include="ksFadeEffect.h" />
+    <ClInclude Include="ksCloud.h" />
+    <ClInclude Include="ksFlime_Missile.h" />
+    <ClInclude Include="ksForest_Fairy.h" />
+    <ClInclude Include="ksMonsterMissile.h" />
+    <ClInclude Include="ksMonster_Trap_Line.h" />
+    <ClInclude Include="ksMouse.h" />
+    <ClInclude Include="ksPlayerAttack.h" />
+    <ClInclude Include="ksPlayerAttackScript.h" />
+    <ClInclude Include="ksPlayerEffect.h" />
+    <ClInclude Include="ksPlayerMissile.h" />
+    <ClInclude Include="ksPlayerUi.h" />
+    <ClInclude Include="ksSlime_Green.h" />
+    <ClInclude Include="ksSnake_Green.h" />
+    <ClInclude Include="ksStage1_1.h" />
+    <ClInclude Include="ksStage1_1Move.h" />
+    <ClInclude Include="ksStage1_1Parts.h" />
+    <ClInclude Include="ksStage1_1Shadows.h" />
+    <ClInclude Include="ksStart_Effect.h" />
+    <ClInclude Include="ksStatus.h" />
+    <ClInclude Include="ksConstantBuffer.h" />
+    <ClInclude Include="ksEngine.h" />
+    <ClInclude Include="ksEntity.h" />
+    <ClInclude Include="ksEnums.h" />
+    <ClInclude Include="ksGameObject.h" />
+    <ClInclude Include="ksGraphicDevice_DX11.h" />
+    <ClInclude Include="ksGraphics.h" />
+    <ClInclude Include="ksGridScript.h" />
+    <ClInclude Include="ksInput.h" />
+    <ClInclude Include="ksLayer.h" />
+    <ClInclude Include="ksLight.h" />
+    <ClInclude Include="ksMaterial.h" />
+    <ClInclude Include="ksMath.h" />
+    <ClInclude Include="ksMesh.h" />
+    <ClInclude Include="ksMeshRenderer.h" />
+    <ClInclude Include="ksMonster.h" />
+    <ClInclude Include="ksObject.h" />
+    <ClInclude Include="ksPlayer.h" />
+    <ClInclude Include="ksPlayerScript.h" />
+    <ClInclude Include="ksPlayScene.h" />
+    <ClInclude Include="ksPrefab.h" />
+    <ClInclude Include="ksRenderer.h" />
+    <ClInclude Include="ksResource.h" />
+    <ClInclude Include="ksResources.h" />
+    <ClInclude Include="ksScene.h" />
+    <ClInclude Include="ksSceneManager.h" />
+    <ClInclude Include="ksScript.h" />
+    <ClInclude Include="ksShader.h" />
+    <ClInclude Include="ksSpriteRenderer.h" />
+    <ClInclude Include="ksStructedBuffer.h" />
+    <ClInclude Include="ksTexture.h" />
+    <ClInclude Include="ksTime.h" />
+    <ClInclude Include="ksTitleScene.h" />
+    <ClInclude Include="ksTransform.h" />
+    <ClInclude Include="ksUIBase.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ksAfterimage.cpp" />
+    <ClCompile Include="ksAnimation.cpp" />
+    <ClCompile Include="ksAnimator.cpp" />
+    <ClCompile Include="ksBoss_Ent.cpp" />
+    <ClCompile Include="ksBoss_Flime.cpp" />
+    <ClCompile Include="ksCollider3D.cpp" />
+    <ClCompile Include="ksCollider2D.cpp" />
+    <ClCompile Include="ksCollisionManager.cpp" />
+    <ClCompile Include="ksApplication.cpp" />
+    <ClCompile Include="ksBaseRenderer.cpp" />
+    <ClCompile Include="ksCamera.cpp" />
+    <ClCompile Include="ksCameraScript.cpp" />
+    <ClCompile Include="ksCollider.cpp" />
+    <ClCompile Include="ksComponent.cpp" />
+    <ClCompile Include="ksCursor.cpp" />
+    <ClCompile Include="ksCursorScript.cpp" />
+    <ClCompile Include="ksDiary.cpp" />
+    <ClCompile Include="ksEnt_Poison.cpp" />
+    <ClCompile Include="ksEnt_Sphere.cpp" />
+    <ClCompile Include="ksFadeEffect.cpp" />
+    <ClCompile Include="ksCloud.cpp" />
+    <ClCompile Include="ksFlime_Missile.cpp" />
+    <ClCompile Include="ksForest_Fairy.cpp" />
+    <ClCompile Include="ksMonsterMissile.cpp" />
+    <ClCompile Include="ksMonster_Trap_Line.cpp" />
+    <ClCompile Include="ksMouse.cpp" />
+    <ClCompile Include="ksPlayerAttack.cpp" />
+    <ClCompile Include="ksPlayerAttackScript.cpp" />
+    <ClCompile Include="ksPlayerEffect.cpp" />
+    <ClCompile Include="ksPlayerMissile.cpp" />
+    <ClCompile Include="ksPlayerUi.cpp" />
+    <ClCompile Include="ksSlime_Green.cpp" />
+    <ClCompile Include="ksSnake_Green.cpp" />
+    <ClCompile Include="ksStage1_1.cpp" />
+    <ClCompile Include="ksStage1_1Move.cpp" />
+    <ClCompile Include="ksStage1_1Parts.cpp" />
+    <ClCompile Include="ksStage1_1Shadows.cpp" />
+    <ClCompile Include="ksStart_Effect.cpp" />
+    <ClCompile Include="ksStatus.cpp" />
+    <ClCompile Include="ksConstantBuffer.cpp" />
+    <ClCompile Include="ksEntity.cpp" />
+    <ClCompile Include="ksGameObject.cpp" />
+    <ClCompile Include="ksGraphicDevice_DX11.cpp" />
+    <ClCompile Include="ksGridScript.cpp" />
+    <ClCompile Include="ksInput.cpp" />
+    <ClCompile Include="ksLayer.cpp" />
+    <ClCompile Include="ksLight.cpp" />
+    <ClCompile Include="ksMaterial.cpp" />
+    <ClCompile Include="ksMath.cpp" />
+    <ClCompile Include="ksMesh.cpp" />
+    <ClCompile Include="ksMeshRenderer.cpp" />
+    <ClCompile Include="ksMonster.cpp" />
+    <ClCompile Include="ksPlayer.cpp" />
+    <ClCompile Include="ksPlayerScript.cpp" />
+    <ClCompile Include="ksPlayScene.cpp" />
+    <ClCompile Include="ksPrefab.cpp" />
+    <ClCompile Include="ksRenderer.cpp" />
+    <ClCompile Include="ksResource.cpp" />
+    <ClCompile Include="ksResources.cpp" />
+    <ClCompile Include="ksScene.cpp" />
+    <ClCompile Include="ksSceneManager.cpp" />
+    <ClCompile Include="ksScript.cpp" />
+    <ClCompile Include="ksShader.cpp" />
+    <ClCompile Include="ksSpriteRenderer.cpp" />
+    <ClCompile Include="ksStructedBuffer.cpp" />
+    <ClCompile Include="ksTexture.cpp" />
+    <ClCompile Include="ksTime.cpp" />
+    <ClCompile Include="ksTitleScene.cpp" />
+    <ClCompile Include="ksTransform.cpp" />
+    <ClCompile Include="ksUIBase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ksMath.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

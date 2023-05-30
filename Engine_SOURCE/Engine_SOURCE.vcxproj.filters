@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{0bc27fa8-afac-4a02-8354-f8ac7e3056e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{ef2cc17f-dc8c-4713-acb5-11a43c435929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{84407bf0-b431-49e7-b0cd-167e818415ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{8f5edaa5-ad5d-423a-bc41-5e68a8621da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{767d4264-e56a-430c-8c2d-f49d85c35b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{d5cea299-11de-49f8-9c0c-c110056dd303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{cd4b9eba-c6cf-46a9-a814-89a620c95213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{f2d38e5b-5248-43e0-b712-e484a165f414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{976687b1-0493-449e-87e3-f6bf27d49c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{68d11966-8044-4e2a-abef-cc0a1a1642f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{5ddde7d6-5dbf-4474-8ff2-f014eaefe47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{f6d54454-faa4-4b11-8592-0408c79bef47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Manager">
+      <UniqueIdentifier>{566c056d-bc1c-4a66-9874-1eb8b38721ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{d54e1d46-871f-40f8-ad58-0a2d4ec246e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{b120460a-4944-428f-b9a0-e7253c288eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{2e19c4b5-25ef-434b-bb7c-23ab21873a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script">
+      <UniqueIdentifier>{5d1a9b1c-e367-41ff-827a-0670e743acf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{33646287-989c-4565-ad3c-77fa53030165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{6cbbc9fb-29a5-4e89-a66a-edbeee8d0a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents">
+      <UniqueIdentifier>{0c9e0d2f-bd3f-44cc-a073-834f8bdf9d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{d5d09f34-c98b-40e4-9959-3f7e7df27f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Script">
+      <UniqueIdentifier>{bd5eb4ff-9f54-4ada-b23b-dd4130c98faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{2bf45b05-0f71-4108-ade3-0f445677916d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{1e71bc42-a7cc-46d6-9577-a9d25d0f359c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{ed02c5d8-b13c-4afe-85b6-3e56a722014f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{92b865c2-1040-44bb-9ddb-b9ebff3bccbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Prefab">
+      <UniqueIdentifier>{b366b499-a62e-4505-9f52-19a691c5fba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\Manager">
+      <UniqueIdentifier>{0347b04d-368f-41d2-b90e-b1a726c5fc71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D">
+      <UniqueIdentifier>{51ad1f08-b1a8-4cce-a84d-49b9b06e11a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\3D">
+      <UniqueIdentifier>{6b267699-3830-4c57-89d0-68c916e6fb9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{5617f228-a6b1-4d89-8a60-2aea1ca48f8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Light">
+      <UniqueIdentifier>{8a4cefad-b3b9-4953-99ce-2821de45ba85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Status">
+      <UniqueIdentifier>{453481d6-7c52-444a-beb4-479694064cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Afterimage">
+      <UniqueIdentifier>{f7d93d03-cf49-4527-8e11-d10e077a1626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Dungeon">
+      <UniqueIdentifier>{e798dee4-8315-4516-9c97-ca71d96bff80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Dungeon\1Stage">
+      <UniqueIdentifier>{629824c8-b966-46cc-a260-d9239f8fee0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\FadeEffect">
+      <UniqueIdentifier>{b29684f2-3853-49e9-8239-76ba4aadebc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Monster">
+      <UniqueIdentifier>{16c68bf6-b3cc-4942-80df-d43d6aa52439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Monster\Base">
+      <UniqueIdentifier>{0df027c4-ddd2-49b1-ad3d-cd90733146d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Monster\Attack">
+      <UniqueIdentifier>{50359204-d98a-41f3-babe-1375da3815b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Monster\Boss">
+      <UniqueIdentifier>{7427d54d-7fb0-42af-bf14-b3b4b2deb822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Object">
+      <UniqueIdentifier>{6e2f402a-3f63-48cf-add4-515f96a6f4e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{844e9622-5324-4181-8e29-b0ae4917a0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Base">
+      <UniqueIdentifier>{0309def6-8523-46c3-9b34-6fd3e9a6e974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\PlayerUi">
+      <UniqueIdentifier>{78b30fc0-7527-4703-a13d-ffb71c3e657a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ksApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ksGraphicDevice_DX11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ksTime.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ksInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ksEntity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ksResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ksRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ksGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ksShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ksResources.cpp">
+      <Filter>Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ksComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="ksTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="ksScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ksTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMeshRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCamera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCameraScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSpriteRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ksBaseRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ksConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ksGridScript.cpp">
+      <Filter>Resource\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ksTitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ksLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="ksScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSceneManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCollisionManager.cpp">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPrefab.cpp">
+      <Filter>Resource\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCollider2D.cpp">
+      <Filter>Component\Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCollider3D.cpp">
+      <Filter>Component\Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ksAnimation.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="ksAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="ksLight.cpp" />
+    <ClCompile Include="ksStructedBuffer.cpp" />
+    <ClCompile Include="ksCursor.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCursorScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMouse.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerAttack.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerEffect.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ksStatus.cpp">
+      <Filter>Component\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerMissile.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ksAfterimage.cpp">
+      <Filter>Component\Afterimage</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayer.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ksStage1_1.cpp">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ksStage1_1Shadows.cpp">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ksStage1_1Parts.cpp">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ksFadeEffect.cpp">
+      <Filter>Component\FadeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCloud.cpp">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ksForest_Fairy.cpp">
+      <Filter>Component\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMonster.cpp">
+      <Filter>Component\Monster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSlime_Green.cpp">
+      <Filter>Component\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSnake_Green.cpp">
+      <Filter>Component\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ksStage1_1Move.cpp">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMonsterMissile.cpp">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMonster_Trap_Line.cpp">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="ksFlime_Missile.cpp">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="ksBoss_Ent.cpp">
+      <Filter>Component\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ksBoss_Flime.cpp">
+      <Filter>Component\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ksEnt_Poison.cpp">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="ksEnt_Sphere.cpp">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="ksDiary.cpp">
+      <Filter>GameObject\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ksStart_Effect.cpp">
+      <Filter>GameObject\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerAttackScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ksUIBase.cpp">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerUi.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ksApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ksGraphicDevice_DX11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ksTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="ksInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ksEntity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ksResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ksGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ksEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ksEnums.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ksRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ksGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ksShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ksResources.h">
+      <Filter>Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ksComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ksTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="ksScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMeshRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerScript.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCamera.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCameraScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSpriteRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ksObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBaseRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ksConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ksGridScript.h">
+      <Filter>Resource\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksTitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ksLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="ksScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSceneManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCollisionManager.h">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPrefab.h">
+      <Filter>Resource\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCollider2D.h">
+      <Filter>Component\Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCollider3D.h">
+      <Filter>Component\Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ksAnimator.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="ksAnimation.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="ksLight.h" />
+    <ClInclude Include="ksStructedBuffer.h" />
+    <ClInclude Include="ksCursor.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCursorScript.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMouse.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerAttack.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerEffect.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ksStatus.h">
+      <Filter>Component\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerMissile.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ksAfterimage.h">
+      <Filter>Component\Afterimage</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayer.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksStage1_1.h">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ksStage1_1Shadows.h">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ksStage1_1Parts.h">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFadeEffect.h">
+      <Filter>Component\FadeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCloud.h">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ksForest_Fairy.h">
+      <Filter>Component\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMonster.h">
+      <Filter>Component\Monster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSlime_Green.h">
+      <Filter>Component\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSnake_Green.h">
+      <Filter>Component\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ksStage1_1Move.h">
+      <Filter>GameObject\Dungeon\1Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMonsterMissile.h">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMonster_Trap_Line.h">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFlime_Missile.h">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBoss_Ent.h">
+      <Filter>Component\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBoss_Flime.h">
+      <Filter>Component\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ksEnt_Poison.h">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="ksEnt_Sphere.h">
+      <Filter>Component\Monster\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="ksDiary.h">
+      <Filter>GameObject\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ksStart_Effect.h">
+      <Filter>GameObject\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerAttackScript.h">
+      <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ksUIBase.h">
+      <Filter>GameObject\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerUi.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ksMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
+  </ItemGroup>
+</Project>
