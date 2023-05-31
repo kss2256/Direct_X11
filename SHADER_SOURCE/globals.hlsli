@@ -54,6 +54,13 @@ cbuffer Trap : register(b5)
 }
 
 
+cbuffer Meter : register(b6)
+{    
+    float metertime;
+    float meterendtime;
+    float2 metersize;
+}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);

@@ -11,7 +11,15 @@ namespace ks
 
 	UIBase::~UIBase()
 	{
-	}	
+	}
+	void UIBase::Update()
+	{
+
+		MouseOnCheak();
+
+		GameObject::Update();
+	}
+
 
 	void UIBase::MouseOnCheak()
 	{
@@ -35,6 +43,8 @@ namespace ks
 			mMouseOn = false;
 		}
 
+
+		
 
 	}
 

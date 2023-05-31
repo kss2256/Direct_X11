@@ -3,11 +3,17 @@
 #include "ksFadeEffect.h"
 
 
+#define MAX_STAMINA 100
+
+
+
 namespace ks
 {
 	Player::Player()
 	{
 		mHp = 10;
+		mStamina = 100;
+		mStaninaFull = true;
 	}
 
 	Player::~Player()
@@ -60,8 +66,14 @@ namespace ks
 			break;	
 		}
 
-		
-
+		if (mStamina >= MAX_STAMINA)
+		{
+			mStaninaFull = true;
+		}
+		else if (mStamina < MAX_STAMINA)
+		{
+			mStaninaFull = false;
+		}
 
 
 
@@ -79,5 +91,18 @@ namespace ks
 	{
 		GameObject::Render();
 	}
+
+	bool Player::Usestamina(float value)
+	{
+		if (mStamina < value)
+			return false;
+		else
+		{
+			mStamina -= value;
+			return true;
+		}
+	}
+
+	
 
 }

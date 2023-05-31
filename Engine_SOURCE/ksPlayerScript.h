@@ -81,6 +81,7 @@ namespace ks
 		static float		mfStaff;
 		float		mDelayTime;
 		float		mTime;
+		
 		static UINT			miRef;
 	};
 }

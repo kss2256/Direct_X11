@@ -228,6 +228,13 @@ namespace ks::renderer
 			, uiShader->GetVSBlobBufferSize()
 			, uiShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, meterShader->GetVSBlobBufferPointer()
+			, meterShader->GetVSBlobBufferSize()
+			, meterShader->GetInputLayoutAddressOf());
+
+
 		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, gridShader->GetVSBlobBufferPointer()
@@ -414,6 +421,10 @@ namespace ks::renderer
 		constantBuffers[(UINT)eCBType::Trap_Line] = new ConstantBuffer(eCBType::Trap_Line);
 		constantBuffers[(UINT)eCBType::Trap_Line]->Create(sizeof(Trap));
 
+
+		constantBuffers[(UINT)eCBType::Meter] = new ConstantBuffer(eCBType::Meter);
+		constantBuffers[(UINT)eCBType::Meter]->Create(sizeof(Meter));
+
 	}
 
 	void LoadShader()
@@ -485,6 +496,15 @@ namespace ks::renderer
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"UIShader", uiShader);
+
+		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
+		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
+		meterShader->Create(eShaderStage::PS, L"MeterPS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"MeterShader", meterShader);
+
+
+		
 
 		// Grid Shader
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
@@ -625,7 +645,7 @@ namespace ks::renderer
 
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
 		Resources::Insert<Material>(L"MonsterMaterial", spriteMaterial);
-		Resources::Insert<Material>(L"PlayerUiMaterial", spriteMaterial);
+		
 		
 		//Afterimage
 		std::shared_ptr<Shader> afterimageShader = Resources::Find<Shader>(L"AfterimageShader");
@@ -670,6 +690,15 @@ namespace ks::renderer
 		uiMaterial->SetShader(uiShader);
 		//uiMaterial->SetTexture(uiTexture);
 		Resources::Insert<Material>(L"UIMaterial", uiMaterial);
+		
+
+		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
+		std::shared_ptr<Material> meterMaterial = std::make_shared<Material>();
+		meterMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		meterMaterial->SetShader(meterShader);
+		//uiMaterial->SetTexture(uiTexture);
+		Resources::Insert<Material>(L"MeterMaterial", meterMaterial);
+
 
 		// Grid
 		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");

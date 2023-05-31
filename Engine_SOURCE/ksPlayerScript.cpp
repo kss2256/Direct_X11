@@ -124,6 +124,18 @@ namespace ks
 
 #pragma region None -> Idle 로 변경, Idle 에서 휴식(Sit) 애니메이션으로 전환
 
+		if (mState.situation == eSituation::Idle || mState.situation == eSituation::None || mState.situation == eSituation::Sit)
+		{
+			if (!mPlayer->StaminaFull())
+			{
+				float stanima = mPlayer->GetStamina();
+
+				stanima += 10 * Time::DeltaTime();
+				mPlayer->RestoreStamina(stanima);
+			}
+		}
+
+
 
 		//행동 끝나고 전부 None 상태로 변경 None 상태에서는 Idle로 변경 후 Default 애니메이션으로 변경
 		if (mState.situation == eSituation::None && (mbAttackWalk == false))
@@ -136,6 +148,7 @@ namespace ks
 		//Idle 상태 3초 이상 지속 되면 Sit 상태로 변경 후 휴식 애니메이션 랜덤으루 재생
 		if (mState.situation == eSituation::Idle && (mbAttackWalk == false))
 		{
+
 			if (Input::GetKey(eKeyCode::A))
 			{
 				mState.direction = eDirection::Left;
@@ -1075,6 +1088,9 @@ namespace ks
 			directionAnimation(L"Evade", false, true);			
 			mCheakTime = 0.f;
 			miRef = 0;
+			mPlayer->Usestamina(10.f);
+
+
 		}
 
 		//공격 키

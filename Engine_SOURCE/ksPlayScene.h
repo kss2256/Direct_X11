@@ -42,6 +42,7 @@ namespace ks
 		void CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
 			, Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration);
 
+		
 
 	private:
 

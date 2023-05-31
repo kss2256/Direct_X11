@@ -107,6 +107,7 @@ namespace ks::graphics
 		Animation,
 		Fade_Effect,
 		Trap_Line,
+		Meter,
 		End,
 	};
 

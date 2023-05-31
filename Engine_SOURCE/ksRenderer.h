@@ -70,6 +70,14 @@ namespace ks::renderer
 		Vector2		linesize;
 	};
 
+	CBUFFER(Meter, CBSLOT_FADEEFFECT)
+	{
+		float		metertime;
+		float		meterendtime;
+		Vector2		metersize;
+	};
+
+
 	extern Vertex vertexes[4];
 	extern Vertex fadeeffect[4];
 	extern Camera* mainCamera;

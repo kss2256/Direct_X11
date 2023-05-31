@@ -64,6 +64,12 @@ namespace ks
 		eGroundStage GetGroundStage() { return mPlayerStage; }
 		UINT GetPlayerHp() { return mHp; }
 		float GetPlayerStr() { return mStr; }
+		float GetStamina() { return mStamina; }
+
+
+		bool StaminaFull() { return mStaninaFull; }
+		bool Usestamina(float value);
+		void RestoreStamina(float value) { mStamina = value; }
 
 
 		void SetPlayer(sPlayer weapon) { mPlayer = weapon; }
@@ -81,9 +87,10 @@ namespace ks
 		eGroundStage			mPlayerStage;
 
 		UINT					mHp;
+		float					mStamina;
 		float					mStr;
 
-
+		bool					mStaninaFull;
 
 		//GameObject* head;
 		//GameObject* body;

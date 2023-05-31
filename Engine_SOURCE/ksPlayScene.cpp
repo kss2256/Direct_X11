@@ -30,7 +30,8 @@
 #include "ksBoss_Ent.h"
 #include "ksCollider2D.h"
 #include "ksMonster_Trap_Line.h"
-#include "ksPlayerUi.h"
+#include "ksPlayerLayout.h"
+#include "ksPlayerTpMeter.h"
 
 
 #include "ksMonsterMissile.h"
@@ -87,21 +88,37 @@ namespace ks
 			mPlayer->SetGroundStage(eGroundStage::Start);
 			cameraComp->SetTarget(mPlayer);
 			
+			
 
 		}
 
 		{
+			PlayerTpMeter* meter = object::Instantiate<PlayerTpMeter>(eLayerType::UI);
+			meter->SetName(L"TpMeter");
+			meter->SetTarget(mPlayer);
 
-			PlayerUi* test = object::Instantiate<PlayerUi>(eLayerType::UI);
-			test->SetName(L"TEST");
+			Transform* tr = meter->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-0.12f, -4.29f, 0.0f));
+			tr->SetScale(Vector3(3.2f, 0.3f, 1.0f));			
 
-
-			Transform* tr = test->GetComponent<Transform>();
-			tr->SetPosition(Vector3(350.0f, -2.0f, 2.0f));
-			tr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+			//tr->SetPosition(Vector3(0.0f, -2.0f, 0.0f));
+			//tr->SetScale(Vector3(5.f, 5.f, 1.0f));
 
 		}
+
+		{
+			PlayerLayout* layout = object::Instantiate<PlayerLayout>(eLayerType::UI);
+			layout->SetName(L"Layout");
+			layout->SetTarget(mPlayer);
+
+			Transform* tr = layout->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, -3.8f, 0.0f));			
+			tr->SetScale(Vector3(4.5f, 1.8f, 1.0f));
+		}
 	
+
+
+
 
 
 		{
@@ -693,6 +710,10 @@ namespace ks
 
 
 	}
+
+
+
+
 
 
 }

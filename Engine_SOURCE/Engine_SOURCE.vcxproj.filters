@@ -341,7 +341,10 @@
     <ClCompile Include="ksUIBase.cpp">
       <Filter>GameObject\UI\Base</Filter>
     </ClCompile>
-    <ClCompile Include="ksPlayerUi.cpp">
+    <ClCompile Include="ksPlayerLayout.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerTpMeter.cpp">
       <Filter>GameObject\UI\PlayerUi</Filter>
     </ClCompile>
   </ItemGroup>
@@ -564,7 +567,10 @@
     <ClInclude Include="ksUIBase.h">
       <Filter>GameObject\UI\Base</Filter>
     </ClInclude>
-    <ClInclude Include="ksPlayerUi.h">
+    <ClInclude Include="ksPlayerLayout.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerTpMeter.h">
       <Filter>GameObject\UI\PlayerUi</Filter>
     </ClInclude>
   </ItemGroup>
