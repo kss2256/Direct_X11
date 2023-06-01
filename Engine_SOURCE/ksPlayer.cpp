@@ -1,7 +1,7 @@
 #include "ksPlayer.h"
 #include "ksCollider2D.h"
 #include "ksFadeEffect.h"
-
+#include "ksPlayerScript.h"
 
 #define MAX_STAMINA 100
 
@@ -92,10 +92,13 @@ namespace ks
 		GameObject::Render();
 	}
 
-	bool Player::Usestamina(float value)
+	bool Player::Usestamina(float value, PlayerScript* script)
 	{
 		if (mStamina < value)
+		{
+			script->SetAttackFailed(true);
 			return false;
+		}
 		else
 		{
 			mStamina -= value;

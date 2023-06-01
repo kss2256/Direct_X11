@@ -64,6 +64,9 @@ namespace ks
 		, mCheakTime(0.f)
 		, mDelayTime(0.f)
 		, mTime(0.f)
+		, mStaffStnmina(false)
+		, mOnceCheak(false)
+		, mStaffAttack(false)
 	{		
 		srand((unsigned int)time(nullptr));
 		int a = rand();
@@ -124,10 +127,11 @@ namespace ks
 
 #pragma region None -> Idle 로 변경, Idle 에서 휴식(Sit) 애니메이션으로 전환
 
-		if (mState.situation == eSituation::Idle || mState.situation == eSituation::None || mState.situation == eSituation::Sit)
+		if (mState.situation == eSituation::Idle || mState.situation == eSituation::None 
+			|| mState.situation == eSituation::Sit)
 		{
-			if (!mPlayer->StaminaFull())
-			{
+			if (!mPlayer->StaminaFull() && !mStaffStnminaRecovery)
+			{				
 				float stanima = mPlayer->GetStamina();
 
 				stanima += 10 * Time::DeltaTime();
@@ -1081,6 +1085,8 @@ namespace ks
 		{
 			if (mPlayerState.skil == eSkil::Evade)
 				return;
+			if (!mPlayer->Usestamina(10.f, this))
+				return;
 			mPlayerState.skil = eSkil::Evade;
 			mPlayer->SetPlayer(mPlayerState);
 			mState.situation = eSituation::Skil;
@@ -1088,7 +1094,6 @@ namespace ks
 			directionAnimation(L"Evade", false, true);			
 			mCheakTime = 0.f;
 			miRef = 0;
-			mPlayer->Usestamina(10.f);
 
 
 		}
@@ -1101,6 +1106,36 @@ namespace ks
 				return;
 
 
+			
+			
+			switch (mPlayerState.weapon)
+			{
+			case ks::eWeapon::None:
+			{
+				if (!mPlayer->Usestamina(10.f, this))
+					return;
+			}
+			break;
+			case ks::eWeapon::Sword:
+			{
+				if (!mPlayer->Usestamina(7.f, this))
+					return;
+			}
+			break;
+			case ks::eWeapon::Bow:
+			{		
+				if (!mPlayer->Usestamina(5.f, this))
+					return;
+			}
+
+			break;
+			case ks::eWeapon::Staff:
+			{
+				if (!mPlayer->Usestamina(10.f, this))
+					return;
+			}
+				break;
+			}
 
 
 			mPlayerState = mPlayer->GetPlayer();
@@ -1173,7 +1208,8 @@ namespace ks
 
 				break;
 			case ks::eWeapon::Staff:
-				mbAttackWalk = true;
+				mbAttackWalk = true;		
+				mStaffAttack = true;
 				break;
 			}
 
@@ -1216,31 +1252,43 @@ namespace ks
 
 						if (miRef == 0)
 						{
+							if (!mPlayer->Usestamina(7.f, this))
+								return;
 							directionAnimation(L"Attack1_Sword", false);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 						}
 						else if (miRef == 1)
 						{
+							if (!mPlayer->Usestamina(7.f, this))
+								return;
 							directionAnimation(L"Attack2_Sword", false);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 						}
 						else if (miRef == 2)
 						{
+							if (!mPlayer->Usestamina(7.f, this))
+								return;
 							directionAnimation(L"Attack1_Sword", false);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 						}
 						else if (miRef == 3)
 						{
+							if (!mPlayer->Usestamina(7.f, this))
+								return;
 							directionAnimation(L"Attack2_Sword", false);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 						}
 						else if (miRef == 4)
 						{
+							if (!mPlayer->Usestamina(7.f, this))
+								return;
 							directionAnimation(L"Attack3_Sword", false);
 
 						}
 						else if (miRef == 5)
 						{
+							if (!mPlayer->Usestamina(7.f, this))
+								return;
 							directionAnimation(L"Attack4_Sword", false);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.2f);
 						}
@@ -1264,6 +1312,8 @@ namespace ks
 					{
 						if (mCheakTime > 0.35 && mCheakTime < 0.4)
 						{
+							if (!mPlayer->Usestamina(5.f, this))
+								return;
 							mState.situation = eSituation::Auto;
 							mStatus->SetStateInfo(mState);
 							mbAttackWalk = true;
@@ -1278,6 +1328,8 @@ namespace ks
 					{
 						if (mCheakTime > 0.25 && mCheakTime < 0.3)
 						{
+							if (!mPlayer->Usestamina(5.f, this))
+								return;
 							mState.situation = eSituation::Auto;
 							mStatus->SetStateInfo(mState);
 							mbAttackWalk = true;
@@ -1293,12 +1345,19 @@ namespace ks
 			break;
 			case ks::eWeapon::Staff:
 			{
+				
 				if(mbAttackWalk &&mCargeFinsh == false)
 				{
 					mCheakTime += Time::DeltaTime();
-
+					if(mStaffStnmina)
+					{
+						if (!mPlayer->Usestamina(0.01f, this))
+							return;
+					}
 					if (mCheakTime >= MIN_TIME && mCarge == false)
 					{
+						mStaffStnmina = true;
+						mStaffStnminaRecovery = true;
 						PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
 						mPlayerState.skil = eSkil::Attack;
 						mPlayerState.progress = eProgress::Step_8;
@@ -1310,10 +1369,11 @@ namespace ks
 					}
 
 					if (mCheakTime >= MAX_TIME && mCargeEffect == false)
-					{
+					{		
 						effectDeath(eLayerType::Player_Effect);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Start, 0.6f);
 						mCargeEffect = true;
+						mStaffStnmina = false;
 					}
 				}
 
@@ -1364,7 +1424,9 @@ namespace ks
 			case ks::eWeapon::Staff:
 			{
 				if (mbAttackWalk)
-				{					
+				{				
+					mStaffStnminaRecovery = false;
+					mStaffStnmina = false;
 					if (mCheakTime < MIN_TIME)
 					{
 						angleDirection();
@@ -1412,12 +1474,42 @@ namespace ks
 			break;
 
 			}
+		}
 
-
-
+		if (mPlayerShake)
+		{	
+			playerShake(0.5f, 0.01f, 50.f);
 		}
 
 
+		if (mAttackFailed)
+		{
+			if (mStaffAttack)
+			{
+				angleDirection();
+				mState.situation = eSituation::Attack;
+				mStatus->SetStateInfo(mState);
+				directionAnimation(L"Attack_None", false);
+				attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
+				effectDeath(eLayerType::Player_Effect);
+				mbAttackWalk = false;
+				mCarge = false;
+				mCargeEffect = false;
+				mCheakTime = 0.f;
+				mStaffAttack = false;
+			}
+			else
+			{
+				mState.situation = eSituation::None;
+				mStatus->SetStateInfo(mState);
+				miRef = 0;
+				mbAttackWalk = false;
+				mCheakTime = 0.f;				
+			}		
+			mAttackFailed = false;
+			mPlayerShake = true;
+			mOnceCheak = false;
+		}
 
 		//스킬 키
 		if (Input::GetKeyDown(eKeyCode::RBTN))
@@ -1494,12 +1586,7 @@ namespace ks
 
 
 
-		if (Input::GetKeyDown(eKeyCode::LBTN))
-		{
 
-
-
-		}
 
 		if (Input::GetKeyDown(eKeyCode::RBTN))
 		{
@@ -1537,8 +1624,6 @@ namespace ks
 
 		tr->SetPosition(pos);*/
 
-
-		mCheakTime;
 
 
 	}
@@ -1819,6 +1904,50 @@ namespace ks
 
 	}
 
+
+	void PlayerScript::playerShake(float time, float distance, float speed)
+	{
+
+		mShakePos = mTransform->GetPosition();
+		mShakeTime += Time::DeltaTime();
+		if (mShakeTime >= time)
+		{
+			mShakeTime = 0.0f;
+			mPlayerShake = false;			
+		}
+		
+		if (!mOnceCheak)
+		{
+			if (mTransform != nullptr)
+			{
+				mShakePos = mTransform->GetPosition();
+				mFixPos = Vec3::Zero;
+				mOnceCheak = true;
+
+			}
+		}
+		else
+		{
+
+			if (mFixPos.x < distance)
+			{
+				mShakePos.x += speed * Time::DeltaTime();
+				mFixPos.x += speed * Time::DeltaTime();
+			}
+			else if (mFixPos.x > distance)
+			{
+				mShakePos.x -= speed * Time::DeltaTime();
+				mFixPos.x -= speed * Time::DeltaTime();
+			}
+
+		mTransform->SetPosition(mShakePos);
+		}
+
+
+
+	}
+	
+
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
 	{
 		if (dynamic_cast<Snake_Green*>(collider->GetOwner()))
@@ -1958,6 +2087,7 @@ namespace ks
 	{
 
 	}
+
 
 }
 

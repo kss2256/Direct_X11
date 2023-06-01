@@ -40,7 +40,7 @@ namespace ks
 		GameObject* GetTarget() { return (Player*)mPlayer; }
 
 		void SetTarget(GameObject* target) { mPlayer = (Player*)target; }
-
+		void SetAttackFailed(bool failed) { mAttackFailed = failed; }
 
 
 
@@ -52,15 +52,16 @@ namespace ks
 		void attackCommand(eLayerType type, eDirection dir, eSkil skil, eProgress progress, float colldowntime);
 		void attackCommandmagic(eLayerType type, eDirection dir, eSkil skil, eProgress progress, float colldowntime, float scale);
 		void effectDeath(eLayerType layer);
+		void playerShake(float time, float distance, float speed);
 
 
 	private:
 
-		Animator*			mAnimator;
-		Status*				mStatus;
-		Transform*			mTransform;
-		Player*				mPlayer;
-		Afterimage*			mAfterimage;
+		Animator* mAnimator;
+		Status* mStatus;
+		Transform* mTransform;
+		Player* mPlayer;
+		Afterimage* mAfterimage;
 
 		//PlayerAttack*		mAttack;
 
@@ -68,6 +69,8 @@ namespace ks
 		sPlayer				mPlayerState;
 
 		Vec3				mPrevPos;
+		Vec3				mFixPos;
+		Vec3				mShakePos;
 
 
 		static bool			mbRunning;
@@ -76,12 +79,22 @@ namespace ks
 		static bool			mCargeEffect;
 		static bool			mCargeFinsh;
 		bool				mCheak;
+		bool				mStaffStnmina;
+		bool				mStaffStnminaRecovery;
+		bool				mStaffAttack;
+		bool				mAttackFailed;
+		bool				mPlayerShake;
+		bool				mOnceCheak;
 
-		float		mCheakTime;
+		float				mCheakTime;
 		static float		mfStaff;
-		float		mDelayTime;
-		float		mTime;
-		
+		float				mDelayTime;
+		float				mTime;
+		float				mShakeTime;
+
 		static UINT			miRef;
+
+		
+
 	};
 }

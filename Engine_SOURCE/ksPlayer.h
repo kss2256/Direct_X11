@@ -46,7 +46,7 @@ namespace ks
 		eProgress progress;
 	};
 
-
+	class PlayerScript;
 	class Player : public GameObject
 	{
 	public:
@@ -68,7 +68,7 @@ namespace ks
 
 
 		bool StaminaFull() { return mStaninaFull; }
-		bool Usestamina(float value);
+		bool Usestamina(float value, PlayerScript* script);
 		void RestoreStamina(float value) { mStamina = value; }
 
 
