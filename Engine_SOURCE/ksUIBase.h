@@ -55,6 +55,9 @@ namespace ks
 		Vector3 mSize;
 		Vector3 mScreenPos;
 
+
+		bool					mOneCheak;
+
 	private:
 
 		void MouseOnCheak();
@@ -71,7 +74,7 @@ namespace ks
 		bool					mMouseOn;
 		bool					mCmrAfctd;
 
-
+		
 
 	};
 

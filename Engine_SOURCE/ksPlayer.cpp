@@ -3,8 +3,8 @@
 #include "ksFadeEffect.h"
 #include "ksPlayerScript.h"
 
-#define MAX_STAMINA 100
 
+#include "ksInput.h"
 
 
 namespace ks
@@ -13,6 +13,7 @@ namespace ks
 	{
 		mHp = 10;
 		mStamina = 100;
+	
 		mStaninaFull = true;
 	}
 
@@ -65,6 +66,12 @@ namespace ks
 		}
 			break;	
 		}
+
+		if (Input::GetKeyDown(eKeyCode::N_0))
+		{
+			mStamina = 10000;
+		}
+
 
 		if (mStamina >= MAX_STAMINA)
 		{

@@ -20,7 +20,7 @@
 
 #include "CommonInclude.h"
 #include "ksEnums.h"
-
+#include "ksdef.h"
 
 
 

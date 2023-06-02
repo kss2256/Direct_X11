@@ -23,6 +23,8 @@ namespace ks
 {
 
 
+	bool Boss_Flime::mflimeCheak = false;
+
 	Boss_Flime::Boss_Flime()
 		: mTrapCount(1)
 		, mInterval(1.3f)
@@ -79,6 +81,14 @@ namespace ks
 	void Boss_Flime::Update()
 	{
 
+		if (mflimeCheak)
+		{
+
+
+			mflimeCheak = false;
+		}
+
+
 		if (mDetection)
 		{
 
@@ -99,7 +109,9 @@ namespace ks
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
 
-					this->Death();
+					mTransform->SetPosition(Vec3::Zero);
+					mDetection = false;
+					//this->Death();
 					mTime = 0.f;
 				}
 
@@ -332,7 +344,8 @@ namespace ks
 
 
 			if (mBossHit)
-				boss_hit(0.2f, 0.2f, 50.f);
+				boss_hit(0.1f, 0.2f, 50.f);
+				
 
 			/*if (mStateInfo.situation == eSituation::Hit)
 			{

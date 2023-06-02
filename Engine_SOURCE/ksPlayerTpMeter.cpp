@@ -11,8 +11,7 @@
 #include "ksConstantBuffer.h"
 
 
-#define MAX_STAMINA 100
-#define STAMINA_PERCENTAGE 0.5
+
 
 namespace ks
 {
@@ -63,8 +62,8 @@ namespace ks
 
 		if (mTarget != nullptr)
 		{
-			mPlayerPos = mTarget->GetComponent<Transform>()->GetPosition();
-
+			//mPlayerPos = mTarget->GetComponent<Transform>()->GetPosition();
+			mPlayerPos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 
 			mFinalPos = mPlayerPos + mUiPos;
 

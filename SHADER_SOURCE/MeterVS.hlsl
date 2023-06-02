@@ -33,10 +33,10 @@ VSOut main(VSIn In)
     
     
     barStart += meterendtime;
-    barEnd += meterendtime;   
+    barEnd += meterendtime;
     
     if (uv.x < barStart || uv.x > barEnd)
-    {        
+    {
         uv.x = clamp(uv.x, barStart, barEnd);
     }
     else if (uv.x >= barStart && uv.x <= barStart + barSize)

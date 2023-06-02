@@ -1,5 +1,5 @@
-#include "ksPlayerLayout.h"
-#include "ksPlayer.h"
+#include "ksBossLayout.h"
+#include "ksMonster.h"
 #include "ksSpriteRenderer.h"
 #include "ksMaterial.h"
 #include "ksMesh.h"
@@ -13,18 +13,18 @@
 namespace ks
 {
 
-	PlayerLayout::PlayerLayout()
+	BossLayout::BossLayout()
 	{
 
 		mTransform = GetComponent<Transform>();
-		
-		
+
+
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 
 
-		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"UIMaterial");
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Layout", L"Player_UI\\Layout.png");
+		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"BossUIMaterial");
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"boss_Frame", L"Monster\\boss_Frame.png");
 		mateiral->SetTexture(texture);
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -32,51 +32,46 @@ namespace ks
 
 	}
 
-	PlayerLayout::~PlayerLayout()
+	BossLayout::~BossLayout()
 	{
 	}
 
-	void PlayerLayout::Initalize()
-	{
-
-		mUiPos = mTransform->GetPosition();
-		
-
-
-
-		GameObject::Initalize();
-	}
-
-	void PlayerLayout::Update()
-	{
-
-		if (mTarget != nullptr)
-		{
-			//mPlayerPos = mTarget->GetComponent<Transform>()->GetPosition();
-			mPlayerPos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
-			
-
-			mFinalPos = mPlayerPos + mUiPos;
-
-			mTransform->SetPosition(mFinalPos);
-		}
-		
-
-
-
-		UIBase::Update();
-	}
-
-	void PlayerLayout::FixedUpdate()
+	void BossLayout::Initalize()
 	{
 
 	
 
+		mUiPos = mTransform->GetPosition();
+
+
+		GameObject::Initalize();
+
+	}
+
+	void BossLayout::Update()
+	{		
+
+			mPlayerPos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
+
+
+			mFinalPos = mPlayerPos + mUiPos;
+
+			mTransform->SetPosition(mFinalPos);
+
+
+
+
+		UIBase::Update();
+
+	}
+
+	void BossLayout::FixedUpdate()
+	{
 
 		GameObject::FixedUpdate();
 	}
 
-	void PlayerLayout::Render()
+	void BossLayout::Render()
 	{
 
 		GameObject::Render();

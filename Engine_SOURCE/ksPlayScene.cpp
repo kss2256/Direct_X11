@@ -59,6 +59,7 @@ namespace ks
 		
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
+		mainCamera->SetFixCam(true);
 
 		{
 			mPlayer = object::Instantiate<Player>(eLayerType::Player);
@@ -67,7 +68,7 @@ namespace ks
 			Transform* tr = mPlayer->GetComponent<Transform>();
 			tr->SetPosition(Vector3(350.0f, -2.0f, 2.0f));
 			//tr->SetPosition(Vector3(35.0f, 0.0f, 2.0f));
-			//tr->SetPosition(Vector3(240.0f, 0.0f, 2.0f));
+			//tr->SetPosition(Vector3(280.0f, 0.0f, 2.0f));
 
 			//tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
@@ -75,7 +76,7 @@ namespace ks
 			loadAnimation();
 
 			SpriteRenderer* mr = mPlayer->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"PlayerMaterial");
 			mr->SetMaterial(mateiral);
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
@@ -228,7 +229,7 @@ namespace ks
 
 			Collider2D* collider = mBoss_Flime->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
-			collider->SetSize(Vector2(0.25f, 0.35f));
+			collider->SetSize(Vector2(0.30f, 0.37f));
 
 
 			Transform* montr = mBoss_Flime->GetComponent<Transform>();

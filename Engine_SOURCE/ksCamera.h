@@ -4,6 +4,8 @@
 namespace ks
 {
 	using namespace math;
+	class Boss_Flime;
+	class Boss_Ent;
 	class Player;
 	class GameObject;
 	class Camera : public Component
@@ -43,7 +45,9 @@ namespace ks
 
 		Player* GetTarget() { return mTarget; }
 		void SetTarget(Player* target) { mTarget = target; }
-
+		void SetFlimeTraget(Boss_Flime* flime) { mFlime = flime; }
+		void SetEntTarget(Boss_Ent* ent) { mEnt = ent; }
+		void SetFixCam(bool fix) { mFixCam = fix; }
 		static Vector3 CalculatePos(Vector3 pos) { return pos - mDistance; }
 		static Vector3 CalRealPos(Vector3 pos) { return pos + mDistance; }
 		static Vector3 CameraPos() { return mDistance; }
@@ -84,8 +88,12 @@ namespace ks
 		float mNear;
 		float mFar;
 		float mScale;
+		float mFixCam;
+
 
 		Player*			mTarget;
+		Boss_Flime*		mFlime;
+		Boss_Ent*		mEnt;
 
 		std::bitset<(UINT)eLayerType::End> mLayerMasks;
 		std::vector<GameObject*> mOpaqueGameObjects;

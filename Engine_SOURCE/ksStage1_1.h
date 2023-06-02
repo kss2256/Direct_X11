@@ -6,11 +6,24 @@
 
 typedef void(ks::Monster::*SetMonster)(void);
 
+enum class Step
+{
 
+    None,
+    Stet_1,
+    Stet_2,
+    Stet_3,
+    Stet_4,
+    Stet_5,
+    Stet_6,
+    End,
+};
 
 
 namespace ks
 {
+    class BossTpMeter;
+    class BossLayout;
     class Slime_Green;
     class Snake_Green;
     class Forest_Fairy;
@@ -45,7 +58,8 @@ namespace ks
         }
         void SetTextureName(std::wstring name) { mName = name; }
         void SetGroundStage(eGroundStage stage) { mGroundStage = stage; }
-       
+
+
         void SetDelegate(Monster* _pInst, SetMonster _Func)
         {
             test = _pInst;
@@ -70,6 +84,10 @@ namespace ks
         void range_In(Vector4 pos);
         void range_Out(Vector4 pos);
 
+        void flime_Start();
+        void ent_Start();
+
+
     private:
 
 
@@ -80,8 +98,13 @@ namespace ks
         std::wstring        mName;
         eGroundStage        mGroundStage;
         Collider2D*         mCollider;
+        float               mTime;
+
+        static Step                mStep;
 
         Vec3                mPrevPos;
+       static Vec3                mMoveCam;
+       static Vec3                mEndCam;
 
         Monster*            test;
         SetMonster          TEST;
@@ -93,7 +116,8 @@ namespace ks
         Slime_Green*        mSlime_Two;
         Snake_Green*        mSnake;
         Snake_Green*        mSnake_Two;
-
+        BossLayout*         mBossLayout;
+        BossTpMeter*        mBossMeter;
        
 
     };

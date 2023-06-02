@@ -155,9 +155,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ksBossTpMeter.h" />
+    <ClInclude Include="ksdef.h" />
     <ClInclude Include="ksAfterimage.h" />
     <ClInclude Include="ksAnimation.h" />
     <ClInclude Include="ksAnimator.h" />
+    <ClInclude Include="ksBossLayout.h" />
     <ClInclude Include="ksBoss_Ent.h" />
     <ClInclude Include="ksBoss_Flime.h" />
     <ClInclude Include="ksCollider3D.h" />
@@ -236,6 +239,8 @@
     <ClCompile Include="ksAfterimage.cpp" />
     <ClCompile Include="ksAnimation.cpp" />
     <ClCompile Include="ksAnimator.cpp" />
+    <ClCompile Include="ksBossLayout.cpp" />
+    <ClCompile Include="ksBossTpMeter.cpp" />
     <ClCompile Include="ksBoss_Ent.cpp" />
     <ClCompile Include="ksBoss_Flime.cpp" />
     <ClCompile Include="ksCollider3D.cpp" />

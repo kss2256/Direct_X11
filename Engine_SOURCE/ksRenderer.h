@@ -63,18 +63,26 @@ namespace ks::renderer
 		float	dumi;
 	};
 
-	CBUFFER(Trap, CBSLOT_FADEEFFECT)
+	CBUFFER(Trap, CBSLOT_TRAP)
 	{
 		float		linecolor;
 		float		alpha;
 		Vector2		linesize;
 	};
-
-	CBUFFER(Meter, CBSLOT_FADEEFFECT)
+	
+	CBUFFER(Meter, CBSLOT_METER)
 	{
 		float		metertime;
 		float		meterendtime;
 		Vector2		metersize;
+	};
+
+
+	CBUFFER(MONSTERMeter, CBSLOT_MONTSERMETER)
+	{
+		float		monstermeter;
+		float		monstermeterend;
+		Vector2		monstermetersize;
 	};
 
 

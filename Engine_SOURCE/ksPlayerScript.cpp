@@ -46,6 +46,7 @@ namespace ks
 	bool PlayerScript::mCarge = false;
 	bool PlayerScript::mCargeFinsh = false;
 	bool PlayerScript::mCargeEffect = false;
+	bool PlayerScript::mPlayerStop = false;
 	UINT PlayerScript::miRef = 0;
 	float PlayerScript::mfStaff = 0.f;
 	//float PlayerScript::mCheakTime = 0.f;
@@ -122,100 +123,102 @@ namespace ks
 		if (nullptr != mStatus)
 			mState = mStatus->GetStateInfo();
 
-		mTransform->GetPosition();
+			mTransform->GetPosition();
 
+		if(!mPlayerStop)
+		{
 
 #pragma region None -> Idle 로 변경, Idle 에서 휴식(Sit) 애니메이션으로 전환
 
-		if (mState.situation == eSituation::Idle || mState.situation == eSituation::None 
-			|| mState.situation == eSituation::Sit)
-		{
-			if (!mPlayer->StaminaFull() && !mStaffStnminaRecovery)
-			{				
-				float stanima = mPlayer->GetStamina();
+			if (mState.situation == eSituation::Idle || mState.situation == eSituation::None
+				|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
+			{
+				if (!mPlayer->StaminaFull() && !mStaffStnminaRecovery)
+				{
+					float stanima = mPlayer->GetStamina();
 
-				stanima += 10 * Time::DeltaTime();
-				mPlayer->RestoreStamina(stanima);
+					stanima += 10 * Time::DeltaTime();
+					mPlayer->RestoreStamina(stanima);
+				}
 			}
-		}
 
 
 
-		//행동 끝나고 전부 None 상태로 변경 None 상태에서는 Idle로 변경 후 Default 애니메이션으로 변경
-		if (mState.situation == eSituation::None && (mbAttackWalk == false))
-		{
+			//행동 끝나고 전부 None 상태로 변경 None 상태에서는 Idle로 변경 후 Default 애니메이션으로 변경
+			if (mState.situation == eSituation::None && (mbAttackWalk == false))
+			{
 				mCheakTime = 0.f;
 				mState.situation = eSituation::Idle;
 				mStatus->SetStateInfo(mState);
 				directionAnimation(L"Idle", false);
-		}
-		//Idle 상태 3초 이상 지속 되면 Sit 상태로 변경 후 휴식 애니메이션 랜덤으루 재생
-		if (mState.situation == eSituation::Idle && (mbAttackWalk == false))
-		{
-
-			if (Input::GetKey(eKeyCode::A))
+			}
+			//Idle 상태 3초 이상 지속 되면 Sit 상태로 변경 후 휴식 애니메이션 랜덤으루 재생
+			if (mState.situation == eSituation::Idle && (mbAttackWalk == false))
 			{
-				mState.direction = eDirection::Left;
-				mState.situation = eSituation::Run;
-				mStatus->SetStateInfo(mState);
-				if (mbRunning)
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
+
+				if (Input::GetKey(eKeyCode::A))
+				{
+					mState.direction = eDirection::Left;
+					mState.situation = eSituation::Run;
+					mStatus->SetStateInfo(mState);
+					if (mbRunning)
+						directionAnimation(L"Run", true);
+					else
+						directionAnimation(L"Move", true);
+
+				}
+				if (Input::GetKey(eKeyCode::S))
+				{
+					mState.direction = eDirection::Down;
+					mState.situation = eSituation::Run;
+					mStatus->SetStateInfo(mState);
+					if (mbRunning)
+
+						directionAnimation(L"Run", true);
+					else
+						directionAnimation(L"Move", true);
+
+				}
+				if (Input::GetKey(eKeyCode::D))
+				{
+					mState.direction = eDirection::Right;
+					mState.situation = eSituation::Run;
+					mStatus->SetStateInfo(mState);
+					if (mbRunning)
+
+						directionAnimation(L"Run", true);
+					else
+						directionAnimation(L"Move", true);
+
+				}
+				if (Input::GetKey(eKeyCode::W))
+				{
+					mState.direction = eDirection::Up;
+					mState.situation = eSituation::Run;
+					mStatus->SetStateInfo(mState);
+					if (mbRunning)
+
+						directionAnimation(L"Run", true);
+					else
+						directionAnimation(L"Move", true);
+
+				}
+
+				mCheakTime += Time::DeltaTime();
+				if (mCheakTime >= 5.0f)
+				{
+					mState.situation = eSituation::Sit;
+					mStatus->SetStateInfo(mState);
+					int a = rand() % 2;
+					if (a == 1)
+						mAnimator->Play(L"Sit_Pray", true);
+					if (a == 0)
+						mAnimator->Play(L"Sit_Down", false);
+
+					mCheakTime = 0.f;
+				}
 
 			}
-			if (Input::GetKey(eKeyCode::S))
-			{
-				mState.direction = eDirection::Down;
-				mState.situation = eSituation::Run;
-				mStatus->SetStateInfo(mState);
-				if (mbRunning)
-
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-
-			}
-			if (Input::GetKey(eKeyCode::D))
-			{
-				mState.direction = eDirection::Right;
-				mState.situation = eSituation::Run;
-				mStatus->SetStateInfo(mState);
-				if (mbRunning)
-
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-
-			}
-			if (Input::GetKey(eKeyCode::W))
-			{
-				mState.direction = eDirection::Up;
-				mState.situation = eSituation::Run;
-				mStatus->SetStateInfo(mState);
-				if (mbRunning)
-
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-
-			}
-
-			mCheakTime += Time::DeltaTime();
-			if (mCheakTime >= 5.0f)
-			{
-				mState.situation = eSituation::Sit;
-				mStatus->SetStateInfo(mState);
-				int a = rand() % 2;
-				if(a == 1)
-				mAnimator->Play(L"Sit_Pray", true);
-				if(a == 0)
-				mAnimator->Play(L"Sit_Down", false);
-								
-				mCheakTime = 0.f;
-			}
-
-		}
 
 #pragma endregion
 
@@ -223,122 +226,122 @@ namespace ks
 
 #pragma region 기본 무기 공격 후 딜레이 설정 (None, Sword, Bow, Staff)
 
-		if (mState.situation == eSituation::Attack || mState.situation == eSituation::Continue || mState.situation == eSituation::Connect)
-		{
-			mCheakTime += Time::DeltaTime();
-			mPlayerState = mPlayer->GetPlayer();
+			if (mState.situation == eSituation::Attack || mState.situation == eSituation::Continue || mState.situation == eSituation::Connect)
+			{
+				mCheakTime += Time::DeltaTime();
+				mPlayerState = mPlayer->GetPlayer();
 
-			switch (mPlayerState.weapon)
-			{
-			case ks::eWeapon::None:
-			{
-				if (mCheakTime >= 0.45f)
+				switch (mPlayerState.weapon)
 				{
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
-					mCheakTime = 0.f;
-				}
-			}
-			break;
-			case ks::eWeapon::Sword:
-			{
-				
-				if (miRef < 5)
+				case ks::eWeapon::None:
 				{
-					if (mCheakTime >= 0.2f && mCheakTime < 0.25f)
+					if (mCheakTime >= 0.45f)
 					{
-						if (mState.situation == eSituation::Continue)
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						mCheakTime = 0.f;
+					}
+				}
+				break;
+				case ks::eWeapon::Sword:
+				{
+
+					if (miRef < 5)
+					{
+						if (mCheakTime >= 0.2f && mCheakTime < 0.25f)
 						{
-							mState.situation = eSituation::Connect;
+							if (mState.situation == eSituation::Continue)
+							{
+								mState.situation = eSituation::Connect;
+								mStatus->SetStateInfo(mState);
+								mCheakTime = 0.f;
+							}
+						}
+						else if (mCheakTime >= 0.35f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+							miRef = 0;
+						}
+					}
+
+					else if (miRef == 5)
+					{
+						if (mCheakTime >= 0.3f)
+						{
+							directionAnimation(L"Attack4_Sword", false);
+							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.4f);
+							mState.situation = eSituation::Continue;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+							++miRef;
+						}
+					}
+
+					else if (miRef > 5)
+					{
+						if (mCheakTime >= 0.4f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							miRef = 0;
+							mCheakTime = 0.f;
+						}
+
+					}
+				}
+				break;
+				case ks::eWeapon::Bow:
+				{
+					if (mState.situation == eSituation::Auto)
+					{
+						if (mCheakTime >= 0.2f)
+						{
+
+							mCheakTime = 0.f;
+						}
+					}
+
+					else
+					{
+						if (mCheakTime >= 0.45f)
+						{
+
+							mState.situation = eSituation::None;
 							mStatus->SetStateInfo(mState);
 							mCheakTime = 0.f;
 						}
 					}
-					else if (mCheakTime >= 0.35f)
-					{
-						mState.situation = eSituation::None;
-						mStatus->SetStateInfo(mState);
-						mCheakTime = 0.f;
-						miRef = 0;
-					}
 				}
-
-				else if (miRef == 5)
+				break;
+				case ks::eWeapon::Staff:
 				{
-					if (mCheakTime >= 0.3f)
+
+					if (mCargeFinsh)
 					{
-						directionAnimation(L"Attack4_Sword", false);
-						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.4f);
-						mState.situation = eSituation::Continue;
-						mStatus->SetStateInfo(mState);
-						mCheakTime = 0.f;
-						++miRef;
+						if (mCheakTime >= 0.8f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+							mCargeFinsh = false;
+						}
+					}
+					else
+					{
+						if (mCheakTime >= 0.45f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+						}
 					}
 				}
-
-				else if (miRef > 5)
-				{
-					if (mCheakTime >= 0.4f)
-					{
-						mState.situation = eSituation::None;
-						mStatus->SetStateInfo(mState);
-						miRef = 0;
-						mCheakTime = 0.f;
-					}
-
+				break;
 				}
+
 			}
-			break;
-			case ks::eWeapon::Bow:
-			{
-				if (mState.situation == eSituation::Auto)
-				{
-					if (mCheakTime >= 0.2f)
-					{
-
-						mCheakTime = 0.f;
-					}
-				}
-
-				else
-				{
-					if (mCheakTime >= 0.45f)
-					{
-						
-						mState.situation = eSituation::None;
-						mStatus->SetStateInfo(mState);
-						mCheakTime = 0.f;
-					}
-				}
-			}
-			break;
-			case ks::eWeapon::Staff:
-			{
-
-				if (mCargeFinsh)
-				{
-					if (mCheakTime >= 0.8f)
-					{
-						mState.situation = eSituation::None;
-						mStatus->SetStateInfo(mState);
-						mCheakTime = 0.f;
-						mCargeFinsh = false;
-					}
-				}
-				else 
-				{
-					if (mCheakTime >= 0.45f)
-					{
-						mState.situation = eSituation::None;
-						mStatus->SetStateInfo(mState);
-						mCheakTime = 0.f;
-					}
-				}
-			}
-			break;
-			}
-
-		}
 
 #pragma endregion
 
@@ -348,81 +351,81 @@ namespace ks
 
 
 
-		if (mState.situation == eSituation::Skil)
-		{
-			mCheakTime += Time::DeltaTime();
-
-			mPlayerState = mPlayer->GetPlayer();
-
-			switch (mPlayerState.skil)
+			if (mState.situation == eSituation::Skil)
 			{
-			case ks::eSkil::Evade:
-			{
-				if (mCheakTime > 0.5f)
+				mCheakTime += Time::DeltaTime();
+
+				mPlayerState = mPlayer->GetPlayer();
+
+				switch (mPlayerState.skil)
 				{
-					mPlayerState.skil = eSkil::None;
-					mPlayer->SetPlayer(mPlayerState);
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
-					mAnimator->ClearSpriteSheet();					
-					mCheakTime = 0.f;
-				}
-				else
+				case ks::eSkil::Evade:
 				{
-					Vector3 pos = mTransform->GetPosition();
-					mPrevPos = mTransform->GetPosition();
-					switch (mState.direction)
+					if (mCheakTime > 0.5f)
 					{
-					case ks::eDirection::Left:
-						pos.x -= 6.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::Right:
-						pos.x += 6.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::Up:
-						pos.y += 6.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::Down:
-						pos.y -= 6.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::UpLeft:
-						pos.x -= 4.0f * Time::DeltaTime();
-						pos.y += 4.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::UpRight:
-						pos.x += 4.0f * Time::DeltaTime();
-						pos.y += 4.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::DownLeft:
-						pos.x -= 4.0f * Time::DeltaTime();
-						pos.y -= 4.0f * Time::DeltaTime();
-						break;
-					case ks::eDirection::DownRight:
-						pos.x += 4.0f * Time::DeltaTime();
-						pos.y -= 4.0f * Time::DeltaTime();
-						break;
+						mPlayerState.skil = eSkil::None;
+						mPlayer->SetPlayer(mPlayerState);
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						mAnimator->ClearSpriteSheet();
+						mCheakTime = 0.f;
 					}
-					mTransform->SetPosition(pos);
-					if (mCheakTime < 0.45f)
+					else
 					{
-						mDelayTime += Time::DeltaTime();
-						if (mDelayTime > 0.05f)
+						Vector3 pos = mTransform->GetPosition();
+						mPrevPos = mTransform->GetPosition();
+						switch (mState.direction)
 						{
-							mAfterimage = object::Instantiate<Afterimage>(eLayerType::Player_Afterimage);
-							mAfterimage->SetTarget(mPlayer);
-							mAfterimage->PlayAfterimage(mAnimator->GetSpriteSheet(), mPrevPos);
-							mDelayTime = 0.f;
+						case ks::eDirection::Left:
+							pos.x -= 6.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::Right:
+							pos.x += 6.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::Up:
+							pos.y += 6.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::Down:
+							pos.y -= 6.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::UpLeft:
+							pos.x -= 4.0f * Time::DeltaTime();
+							pos.y += 4.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::UpRight:
+							pos.x += 4.0f * Time::DeltaTime();
+							pos.y += 4.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::DownLeft:
+							pos.x -= 4.0f * Time::DeltaTime();
+							pos.y -= 4.0f * Time::DeltaTime();
+							break;
+						case ks::eDirection::DownRight:
+							pos.x += 4.0f * Time::DeltaTime();
+							pos.y -= 4.0f * Time::DeltaTime();
+							break;
 						}
-						
+						mTransform->SetPosition(pos);
+						if (mCheakTime < 0.45f)
+						{
+							mDelayTime += Time::DeltaTime();
+							if (mDelayTime > 0.05f)
+							{
+								mAfterimage = object::Instantiate<Afterimage>(eLayerType::Player_Afterimage);
+								mAfterimage->SetTarget(mPlayer);
+								mAfterimage->PlayAfterimage(mAnimator->GetSpriteSheet(), mPrevPos);
+								mDelayTime = 0.f;
+							}
+
+						}
+
 					}
-					
+
 				}
+				break;
 
+				}
 			}
-			break;
-
-			}
-		}
 
 #pragma endregion
 
@@ -434,343 +437,304 @@ namespace ks
 
 
 
-		if (Input::GetKeyState(eKeyCode::Q) == eKeyState::PRESSED)
-		{
+			if (Input::GetKeyState(eKeyCode::Q) == eKeyState::PRESSED)
+			{
 
 
-		}
+			}
 
-		if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
-		{
+			if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
+			{
 
 
-		}
+			}
 
 
 #pragma	region 이동 로직 ASDW Idle, Run, Sit 상태에서만 이동 반응 + 무기 활일떄도 이동 가능 + 무기 스태프 충전 중일때도 가능
 
 
-		if (Input::GetKey(eKeyCode::D))
-		{
-			if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
-				|| mState.situation == eSituation::Sit || mbAttackWalk == true)
+			if (Input::GetKey(eKeyCode::D))
 			{
-				Vector3 pos = mTransform->GetPosition();
-				if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
+				if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
+					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
-					if (mState.direction == eDirection::UpRight || mState.direction == eDirection::DownRight)
-						pos.x += 2.5f * 0.75f * Time::DeltaTime();
-					else
-						pos.x += 2.5f * Time::DeltaTime();
-
-					mTransform->SetPosition(pos);
-				}
-				else
-				{
-					if (mState.direction == eDirection::UpRight || mState.direction == eDirection::DownRight)
+					Vector3 pos = mTransform->GetPosition();
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
 					{
-						if (mbRunning)
-							pos.x += 5.5f * 0.75f * Time::DeltaTime();
-						else
+						if (mState.direction == eDirection::UpRight || mState.direction == eDirection::DownRight)
 							pos.x += 2.5f * 0.75f * Time::DeltaTime();
-					}
-					else if (mState.direction == eDirection::Right)
-					{
-						if (mbRunning)
-							pos.x += 5.5f * Time::DeltaTime();
 						else
 							pos.x += 2.5f * Time::DeltaTime();
+
+						mTransform->SetPosition(pos);
 					}
-					mTransform->SetPosition(pos);
-				}
-			}
-			//mCheakTime = 0.f;
-		}
-
-
-
-		if (Input::GetKey(eKeyCode::A))
-		{
-			if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
-				|| mState.situation == eSituation::Sit || mbAttackWalk == true)
-			{
-				Vector3 pos = mTransform->GetPosition();
-				if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
-				{
-					if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::DownLeft)
-						pos.x -= 2.5f * 0.75f * Time::DeltaTime();
 					else
-						pos.x -= 2.5f * Time::DeltaTime();
-
-					mTransform->SetPosition(pos);
-				}
-				else
-				{
-					if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::DownLeft)
 					{
-						if (mbRunning)
-							pos.x -= 5.5f * 0.75f * Time::DeltaTime();
-						else
-							pos.x -= 2.5f * 0.75f * Time::DeltaTime();
+						if (mState.direction == eDirection::UpRight || mState.direction == eDirection::DownRight)
+						{
+							if (mbRunning)
+								pos.x += 5.5f * 0.75f * Time::DeltaTime();
+							else
+								pos.x += 2.5f * 0.75f * Time::DeltaTime();
+						}
+						else if (mState.direction == eDirection::Right)
+						{
+							if (mbRunning)
+								pos.x += 5.5f * Time::DeltaTime();
+							else
+								pos.x += 2.5f * Time::DeltaTime();
+						}
+						mTransform->SetPosition(pos);
 					}
-					else if(mState.direction == eDirection::Left)
+				}
+				//mCheakTime = 0.f;
+			}
+
+
+
+			if (Input::GetKey(eKeyCode::A))
+			{
+				if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
+					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
+				{
+					Vector3 pos = mTransform->GetPosition();
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
 					{
-						if (mbRunning)
-							pos.x -= 5.5f * Time::DeltaTime();
+						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::DownLeft)
+							pos.x -= 2.5f * 0.75f * Time::DeltaTime();
 						else
 							pos.x -= 2.5f * Time::DeltaTime();
+
+						mTransform->SetPosition(pos);
 					}
-					mTransform->SetPosition(pos);
-				}
-			}
-			//mCheakTime = 0.f;
-		}
-
-
-		if (Input::GetKey(eKeyCode::W))
-		{
-			if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
-				|| mState.situation == eSituation::Sit || mbAttackWalk == true)
-			{
-				Vector3 pos = mTransform->GetPosition();
-				if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
-				{
-					if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::UpRight)
-						pos.y += 2.5f * 0.75f * Time::DeltaTime();
 					else
-						pos.y += 2.5f * Time::DeltaTime();
-
-					mTransform->SetPosition(pos);
-				}
-				else
-				{
-					if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::UpRight)
 					{
-						if (mbRunning)
-							pos.y += 5.5f * 0.75f * Time::DeltaTime();
-						else
-							pos.y += 2.5f * 0.75f * Time::DeltaTime();
+						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::DownLeft)
+						{
+							if (mbRunning)
+								pos.x -= 5.5f * 0.75f * Time::DeltaTime();
+							else
+								pos.x -= 2.5f * 0.75f * Time::DeltaTime();
+						}
+						else if (mState.direction == eDirection::Left)
+						{
+							if (mbRunning)
+								pos.x -= 5.5f * Time::DeltaTime();
+							else
+								pos.x -= 2.5f * Time::DeltaTime();
+						}
+						mTransform->SetPosition(pos);
 					}
-					else if (mState.direction == eDirection::Up)
+				}
+				//mCheakTime = 0.f;
+			}
+
+
+			if (Input::GetKey(eKeyCode::W))
+			{
+				if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
+					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
+				{
+					Vector3 pos = mTransform->GetPosition();
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
 					{
-						if (mbRunning)
-							pos.y += 5.5f * Time::DeltaTime();
+						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::UpRight)
+							pos.y += 2.5f * 0.75f * Time::DeltaTime();
 						else
 							pos.y += 2.5f * Time::DeltaTime();
+
+						mTransform->SetPosition(pos);
 					}
-					mTransform->SetPosition(pos);
-				}
-			}
-			//mCheakTime = 0.f;
-		}
-
-
-		if (Input::GetKey(eKeyCode::S))
-		{
-			if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
-				|| mState.situation == eSituation::Sit || mbAttackWalk == true)
-			{
-				Vector3 pos = mTransform->GetPosition();
-				if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
-				{
-					if (mState.direction == eDirection::DownLeft || mState.direction == eDirection::DownRight)
-						pos.y -= 2.5f * 0.75f * Time::DeltaTime();
 					else
-						pos.y -= 2.5f * Time::DeltaTime();
-
-					mTransform->SetPosition(pos);
-				}
-				else
-				{
-					if (mState.direction == eDirection::DownLeft || mState.direction == eDirection::DownRight)
 					{
-						if (mbRunning)
-							pos.y -= 5.5f * 0.75f * Time::DeltaTime();
-						else
-							pos.y -= 2.5f * 0.75f * Time::DeltaTime();
+						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::UpRight)
+						{
+							if (mbRunning)
+								pos.y += 5.5f * 0.75f * Time::DeltaTime();
+							else
+								pos.y += 2.5f * 0.75f * Time::DeltaTime();
+						}
+						else if (mState.direction == eDirection::Up)
+						{
+							if (mbRunning)
+								pos.y += 5.5f * Time::DeltaTime();
+							else
+								pos.y += 2.5f * Time::DeltaTime();
+						}
+						mTransform->SetPosition(pos);
 					}
-					else if (mState.direction == eDirection::Down)
+				}
+				//mCheakTime = 0.f;
+			}
+
+
+			if (Input::GetKey(eKeyCode::S))
+			{
+				if (mState.situation == eSituation::Idle || mState.situation == eSituation::Run
+					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
+				{
+					Vector3 pos = mTransform->GetPosition();
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
 					{
-						if (mbRunning)
-							pos.y -= 5.5f * Time::DeltaTime();
+						if (mState.direction == eDirection::DownLeft || mState.direction == eDirection::DownRight)
+							pos.y -= 2.5f * 0.75f * Time::DeltaTime();
 						else
 							pos.y -= 2.5f * Time::DeltaTime();
+
+						mTransform->SetPosition(pos);
 					}
-					mTransform->SetPosition(pos);
+					else
+					{
+						if (mState.direction == eDirection::DownLeft || mState.direction == eDirection::DownRight)
+						{
+							if (mbRunning)
+								pos.y -= 5.5f * 0.75f * Time::DeltaTime();
+							else
+								pos.y -= 2.5f * 0.75f * Time::DeltaTime();
+						}
+						else if (mState.direction == eDirection::Down)
+						{
+							if (mbRunning)
+								pos.y -= 5.5f * Time::DeltaTime();
+							else
+								pos.y -= 2.5f * Time::DeltaTime();
+						}
+						mTransform->SetPosition(pos);
+					}
 				}
+				//mCheakTime = 0.f;
 			}
-			//mCheakTime = 0.f;
-		}
 
 #pragma endregion
 
 
 #pragma region 키 눌렀을때 ( (None, Idle, Sit), Run 상태에서만 반응 )
-		//Animation Start
-		if (Input::GetKeyDown(eKeyCode::D))
-		{
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit)
+			//Animation Start
+			if (Input::GetKeyDown(eKeyCode::D))
 			{
-				mState.direction = eDirection::Right;
-				mState.situation = eSituation::Run;
-				if (mbRunning)
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-
-			}
-			else if (mState.situation == eSituation::Run)
-			{
-				switch (mState.direction)
-				{
-
-				case ks::eDirection::Left:
-				{
-					mState.direction = eDirection::BothX;
-					mAnimator->Play(L"Idle_Left");
-				}
-				break;
-				case ks::eDirection::Up:
-				{
-					mState.direction = eDirection::UpRight;
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-
-				}
-				break;
-				case ks::eDirection::Down:
-				{
-					mState.direction = eDirection::DownRight;
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-
-				case ks::eDirection::BothY:
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit)
 				{
 					mState.direction = eDirection::Right;
 					mState.situation = eSituation::Run;
-
 					if (mbRunning)
 						directionAnimation(L"Run", true);
 					else
 						directionAnimation(L"Move", true);
+
 				}
-				break;
+				else if (mState.situation == eSituation::Run)
+				{
+					switch (mState.direction)
+					{
+
+					case ks::eDirection::Left:
+					{
+						mState.direction = eDirection::BothX;
+						mAnimator->Play(L"Idle_Left");
+					}
+					break;
+					case ks::eDirection::Up:
+					{
+						mState.direction = eDirection::UpRight;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+
+					}
+					break;
+					case ks::eDirection::Down:
+					{
+						mState.direction = eDirection::DownRight;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+
+					case ks::eDirection::BothY:
+					{
+						mState.direction = eDirection::Right;
+						mState.situation = eSituation::Run;
+
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					}
 				}
+
+
+				mStatus->SetStateInfo(mState);
+
 			}
-
-
-			mStatus->SetStateInfo(mState);
-
-		}
-		if (Input::GetKeyDown(eKeyCode::A))
-		{
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit)
+			if (Input::GetKeyDown(eKeyCode::A))
 			{
-				mState.direction = eDirection::Left;
-				mState.situation = eSituation::Run;
-
-				if (mbRunning)
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-			}
-			else if (mState.situation == eSituation::Run)
-			{
-				switch (mState.direction)
-				{
-				case ks::eDirection::Right:
-				{
-					mState.direction = eDirection::BothX;
-					mAnimator->Play(L"Idle_Right");
-				}
-
-				break;
-				case ks::eDirection::Up:
-				{
-					mState.direction = eDirection::UpLeft;
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-
-				break;
-				case ks::eDirection::Down:
-				{
-					mState.direction = eDirection::DownLeft;
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothY:
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit)
 				{
 					mState.direction = eDirection::Left;
 					mState.situation = eSituation::Run;
+
 					if (mbRunning)
 						directionAnimation(L"Run", true);
 					else
 						directionAnimation(L"Move", true);
 				}
-				break;
+				else if (mState.situation == eSituation::Run)
+				{
+					switch (mState.direction)
+					{
+					case ks::eDirection::Right:
+					{
+						mState.direction = eDirection::BothX;
+						mAnimator->Play(L"Idle_Right");
+					}
+
+					break;
+					case ks::eDirection::Up:
+					{
+						mState.direction = eDirection::UpLeft;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+
+					break;
+					case ks::eDirection::Down:
+					{
+						mState.direction = eDirection::DownLeft;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothY:
+					{
+						mState.direction = eDirection::Left;
+						mState.situation = eSituation::Run;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					}
 				}
+				mStatus->SetStateInfo(mState);
 			}
-			mStatus->SetStateInfo(mState);
-		}
 
-		if (Input::GetKeyDown(eKeyCode::S))
-		{
-
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit)
+			if (Input::GetKeyDown(eKeyCode::S))
 			{
-				mState.direction = eDirection::Down;
-				mState.situation = eSituation::Run;
 
-				if (mbRunning)
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-			}
-			else if (mState.situation == eSituation::Run)
-			{
-				switch (mState.direction)
-				{
-				case ks::eDirection::Right:
-				{
-					mState.direction = eDirection::DownRight;
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::Left:
-				{
-					mState.direction = eDirection::DownLeft;
-
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::Up:
-				{
-					mState.direction = eDirection::BothY;
-					mAnimator->Play(L"Idle_Up");
-				}
-				break;
-				case ks::eDirection::BothX:
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit)
 				{
 					mState.direction = eDirection::Down;
 					mState.situation = eSituation::Run;
@@ -780,817 +744,857 @@ namespace ks
 					else
 						directionAnimation(L"Move", true);
 				}
-				break;
+				else if (mState.situation == eSituation::Run)
+				{
+					switch (mState.direction)
+					{
+					case ks::eDirection::Right:
+					{
+						mState.direction = eDirection::DownRight;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::Left:
+					{
+						mState.direction = eDirection::DownLeft;
+
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::Up:
+					{
+						mState.direction = eDirection::BothY;
+						mAnimator->Play(L"Idle_Up");
+					}
+					break;
+					case ks::eDirection::BothX:
+					{
+						mState.direction = eDirection::Down;
+						mState.situation = eSituation::Run;
+
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					}
 				}
+				mStatus->SetStateInfo(mState);
 			}
-			mStatus->SetStateInfo(mState);
-		}
 
 
-		if (Input::GetKeyDown(eKeyCode::W))
-		{
-
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit)
+			if (Input::GetKeyDown(eKeyCode::W))
 			{
-				mState.direction = eDirection::Up;
-				mState.situation = eSituation::Run;
 
-
-				if (mbRunning)
-					directionAnimation(L"Run", true);
-				else
-					directionAnimation(L"Move", true);
-			}
-			else if (mState.situation == eSituation::Run)
-			{
-				switch (mState.direction)
-				{
-				case ks::eDirection::Right:
-				{
-					mState.direction = eDirection::UpRight;
-
-
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::Left:
-				{
-					mState.direction = eDirection::UpLeft;
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::Down:
-				{
-					mState.direction = eDirection::BothY;
-					mAnimator->Play(L"Idle_Down");
-				}
-				break;
-
-				case ks::eDirection::BothX:
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit)
 				{
 					mState.direction = eDirection::Up;
 					mState.situation = eSituation::Run;
 
 
 					if (mbRunning)
+						directionAnimation(L"Run", true);
+					else
+						directionAnimation(L"Move", true);
+				}
+				else if (mState.situation == eSituation::Run)
+				{
+					switch (mState.direction)
+					{
+					case ks::eDirection::Right:
+					{
+						mState.direction = eDirection::UpRight;
+
+
+						if (mbRunning)
 							directionAnimation(L"Run", true);
 						else
 							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::Left:
+					{
+						mState.direction = eDirection::UpLeft;
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::Down:
+					{
+						mState.direction = eDirection::BothY;
+						mAnimator->Play(L"Idle_Down");
+					}
+					break;
+
+					case ks::eDirection::BothX:
+					{
+						mState.direction = eDirection::Up;
+						mState.situation = eSituation::Run;
+
+
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					}
 				}
-				break;
-				}
+				mStatus->SetStateInfo(mState);
 			}
-			mStatus->SetStateInfo(mState);
-		}
 #pragma endregion
 
 
 
 #pragma region 키 눌렀다 올라올때  (None, Idle, Sit, Run 상태에서만 반응)
-		if (Input::GetKeyUp(eKeyCode::D))
-		{
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
+			if (Input::GetKeyUp(eKeyCode::D))
 			{
-				switch (mState.direction)
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
 				{
-				case ks::eDirection::Right:
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
+					switch (mState.direction)
+					{
+					case ks::eDirection::Right:
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						break;
+					case ks::eDirection::UpRight:
+					{
+						mState.direction = eDirection::Up;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
 					break;
-				case ks::eDirection::UpRight:
-				{
-					mState.direction = eDirection::Up;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::DownRight:
-				{
-					mState.direction = eDirection::Down;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothX:
-				{
-					mState.direction = eDirection::Left;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothY:
-				{
-					mState.direction = eDirection::Right;
-					mStatus->SetStateInfo(mState);
+					case ks::eDirection::DownRight:
+					{
+						mState.direction = eDirection::Down;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothX:
+					{
+						mState.direction = eDirection::Left;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothY:
+					{
+						mState.direction = eDirection::Right;
+						mStatus->SetStateInfo(mState);
 
-					mAnimator->Play(L"Idle_Right");
-				}
-				break;
+						mAnimator->Play(L"Idle_Right");
+					}
+					break;
+					}
 				}
 			}
-		}
 
-		if (Input::GetKeyUp(eKeyCode::A))
-		{
-
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
+			if (Input::GetKeyUp(eKeyCode::A))
 			{
-				switch (mState.direction)
+
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
 				{
-				case ks::eDirection::Left:
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
+					switch (mState.direction)
+					{
+					case ks::eDirection::Left:
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						break;
+					case ks::eDirection::UpLeft:
+					{
+						mState.direction = eDirection::Up;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
 					break;
-				case ks::eDirection::UpLeft:
-				{
-					mState.direction = eDirection::Up;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::DownLeft:
-				{
-					mState.direction = eDirection::Down;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothX:
-				{
-					mState.direction = eDirection::Right;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothY:
-				{
-					mState.direction = eDirection::Left;
-					mStatus->SetStateInfo(mState);
+					case ks::eDirection::DownLeft:
+					{
+						mState.direction = eDirection::Down;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothX:
+					{
+						mState.direction = eDirection::Right;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothY:
+					{
+						mState.direction = eDirection::Left;
+						mStatus->SetStateInfo(mState);
 
-					mAnimator->Play(L"Idle_Left");
+						mAnimator->Play(L"Idle_Left");
+					}
+					break;
+					}
+					mStatus->SetStateInfo(mState);
 				}
-				break;
-				}
-				mStatus->SetStateInfo(mState);
 			}
-		}
 
 
 
 
-		if (Input::GetKeyUp(eKeyCode::S))
-		{
-
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
+			if (Input::GetKeyUp(eKeyCode::S))
 			{
-				switch (mState.direction)
+
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
 				{
-				case ks::eDirection::Down:
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
+					switch (mState.direction)
+					{
+					case ks::eDirection::Down:
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						break;
+					case ks::eDirection::DownLeft:
+					{
+						mState.direction = eDirection::Left;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
 					break;
-				case ks::eDirection::DownLeft:
-				{
-					mState.direction = eDirection::Left;
+					case ks::eDirection::DownRight:
+					{
+						mState.direction = eDirection::Right;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothY:
+					{
+						mState.direction = eDirection::Up;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothX:
+					{
+						mState.direction = eDirection::Down;
+						mStatus->SetStateInfo(mState);
+
+						mAnimator->Play(L"Idle_Down");
+					}
+					break;
+					}
 					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
 				}
-				break;
-				case ks::eDirection::DownRight:
-				{
-					mState.direction = eDirection::Right;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothY:
-				{
-					mState.direction = eDirection::Up;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothX:
-				{
-					mState.direction = eDirection::Down;
-					mStatus->SetStateInfo(mState);
-					
-					mAnimator->Play(L"Idle_Down");
-				}
-				break;
-				}
-				mStatus->SetStateInfo(mState);
 			}
-		}
 
 
 
-		if (Input::GetKeyUp(eKeyCode::W))
-		{
-			if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
-				|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
+			if (Input::GetKeyUp(eKeyCode::W))
 			{
-				switch (mState.direction)
+				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
+					|| mState.situation == eSituation::Sit || mState.situation == eSituation::Run)
 				{
-				case ks::eDirection::Up:
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
+					switch (mState.direction)
+					{
+					case ks::eDirection::Up:
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						break;
+					case ks::eDirection::UpLeft:
+					{
+						mState.direction = eDirection::Left;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
 					break;
-				case ks::eDirection::UpLeft:
-				{
-					mState.direction = eDirection::Left;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::UpRight:
-				{
-					mState.direction = eDirection::Right;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothY:
-				{
-					mState.direction = eDirection::Down;
-					mStatus->SetStateInfo(mState);
-					if (mbRunning)
-						directionAnimation(L"Run", true);
-					else
-						directionAnimation(L"Move", true);
-				}
-				break;
-				case ks::eDirection::BothX:
-				{
-					mState.direction = eDirection::Up;
-					mStatus->SetStateInfo(mState);
+					case ks::eDirection::UpRight:
+					{
+						mState.direction = eDirection::Right;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothY:
+					{
+						mState.direction = eDirection::Down;
+						mStatus->SetStateInfo(mState);
+						if (mbRunning)
+							directionAnimation(L"Run", true);
+						else
+							directionAnimation(L"Move", true);
+					}
+					break;
+					case ks::eDirection::BothX:
+					{
+						mState.direction = eDirection::Up;
+						mStatus->SetStateInfo(mState);
 
-					mAnimator->Play(L"Idle_Up");					
+						mAnimator->Play(L"Idle_Up");
+					}
+					break;
+					}
+					mStatus->SetStateInfo(mState);
 				}
-				break;
-				}
-				mStatus->SetStateInfo(mState);
 			}
-		}
 
 
 #pragma endregion
 
 
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
-		{
-			if (mPlayerState.skil == eSkil::Evade)
-				return;
-			if (!mPlayer->Usestamina(10.f, this))
-				return;
-			mPlayerState.skil = eSkil::Evade;
-			mPlayer->SetPlayer(mPlayerState);
-			mState.situation = eSituation::Skil;
-			mStatus->SetStateInfo(mState);
-			directionAnimation(L"Evade", false, true);			
-			mCheakTime = 0.f;
-			miRef = 0;
-
-
-		}
-
-		//공격 키
-		if (Input::GetKeyDown(eKeyCode::LBTN))
-		{
-			if (mState.situation == eSituation::Attack || mState.situation == eSituation::Skil
-				|| mState.situation == eSituation::Continue)
-				return;
-
-
-			
-			
-			switch (mPlayerState.weapon)
+			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
-			case ks::eWeapon::None:
-			{
+				if (mPlayerState.skil == eSkil::Evade)
+					return;
 				if (!mPlayer->Usestamina(10.f, this))
 					return;
-			}
-			break;
-			case ks::eWeapon::Sword:
-			{
-				if (!mPlayer->Usestamina(7.f, this))
-					return;
-			}
-			break;
-			case ks::eWeapon::Bow:
-			{		
-				if (!mPlayer->Usestamina(5.f, this))
-					return;
+				mPlayerState.skil = eSkil::Evade;
+				mPlayer->SetPlayer(mPlayerState);
+				mState.situation = eSituation::Skil;
+				mStatus->SetStateInfo(mState);
+				directionAnimation(L"Evade", false, true);
+				mCheakTime = 0.f;
+				miRef = 0;
+
+
 			}
 
-			break;
-			case ks::eWeapon::Staff:
+			//공격 키
+			if (Input::GetKeyDown(eKeyCode::LBTN))
 			{
-				if (!mPlayer->Usestamina(10.f, this))
+				if (mState.situation == eSituation::Attack || mState.situation == eSituation::Skil
+					|| mState.situation == eSituation::Continue)
 					return;
-			}
+
+
+
+
+				switch (mPlayerState.weapon)
+				{
+				case ks::eWeapon::None:
+				{
+					if (!mPlayer->Usestamina(10.f, this))
+						return;
+				}
 				break;
-			}
+				case ks::eWeapon::Sword:
+				{
+					if (!mPlayer->Usestamina(7.f, this))
+						return;
+				}
+				break;
+				case ks::eWeapon::Bow:
+				{
+					if (!mPlayer->Usestamina(5.f, this))
+						return;
+				}
+
+				break;
+				case ks::eWeapon::Staff:
+				{
+					if (!mPlayer->Usestamina(10.f, this))
+						return;
+				}
+				break;
+				}
 
 
-			mPlayerState = mPlayer->GetPlayer();
-			mPlayer->SetPlayer(mPlayerState);
+				mPlayerState = mPlayer->GetPlayer();
+				mPlayer->SetPlayer(mPlayerState);
 
 
 #pragma region 기본 무기 공격 애니메이션
-			switch (mPlayerState.weapon)
-			{
-			case ks::eWeapon::None:
-			{
-				angleDirection();
-				mState.situation = eSituation::Attack;
-				directionAnimation(L"Attack_None", false);
-				attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f);
-			}
+				switch (mPlayerState.weapon)
+				{
+				case ks::eWeapon::None:
+				{
+					angleDirection();
+					mState.situation = eSituation::Attack;
+					directionAnimation(L"Attack_None", false);
+					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f);
+				}
 				break;
-			case ks::eWeapon::Sword:
-			{
-				angleDirection();
-				mState.situation = eSituation::Attack;
-				if (miRef == 0)
+				case ks::eWeapon::Sword:
 				{
-					directionAnimation(L"Attack1_Sword", false);
-					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);	
+					angleDirection();
+					mState.situation = eSituation::Attack;
+					if (miRef == 0)
+					{
+						directionAnimation(L"Attack1_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+					}
+					else if (miRef == 1)
+					{
+						directionAnimation(L"Attack2_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+					}
+					else if (miRef == 2)
+					{
+						directionAnimation(L"Attack1_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+					}
+					else if (miRef == 3)
+					{
+						directionAnimation(L"Attack2_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+					}
+					else if (miRef == 4)
+					{
+						directionAnimation(L"Attack3_Sword", false);
+					}
+
+					if (miRef >= 5)
+						return;
+					++miRef;
 				}
-				else if (miRef == 1)
+				break;
+				case ks::eWeapon::Bow:
 				{
-					directionAnimation(L"Attack2_Sword", false);
-					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
-				}
-				else if (miRef == 2)
-				{
-					directionAnimation(L"Attack1_Sword", false);
+					angleDirection();
+					mState.situation = eSituation::Attack;
+					directionAnimation(L"Attack_Stand_Bow", false);
 					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-				}
-				else if (miRef == 3)
-				{
-					directionAnimation(L"Attack2_Sword", false);
-					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
-				}
-				else if (miRef == 4)
-				{
-					directionAnimation(L"Attack3_Sword", false);
-				}
 
-				if (miRef >= 5)
-					return;
-				++miRef;
-			}
-			break;
-			case ks::eWeapon::Bow:
-			{
-				angleDirection();
-				mState.situation = eSituation::Attack;
-				directionAnimation(L"Attack_Stand_Bow", false);
-				attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-
-				//PlayerMissile* mAttack = object::Instantiate<PlayerMissile>(eLayerType::Player_Effect);
-				//mPlayerState.skil = eSkil::Attack;
-				//mPlayerState.progress = eProgress::Step_1;
-				//mPlayer->SetPlayer(mPlayerState);
-				//
-				////mAttack->SetDirection(mState.direction);
-				////mAttack->SetCooldownTime(2.2f);
-				//mAttack->SetTarget(mPlayer);
-				//mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
-				//mAttack->SetDirection(mTransform->GetDirection());								
-			}
+					//PlayerMissile* mAttack = object::Instantiate<PlayerMissile>(eLayerType::Player_Effect);
+					//mPlayerState.skil = eSkil::Attack;
+					//mPlayerState.progress = eProgress::Step_1;
+					//mPlayer->SetPlayer(mPlayerState);
+					//
+					////mAttack->SetDirection(mState.direction);
+					////mAttack->SetCooldownTime(2.2f);
+					//mAttack->SetTarget(mPlayer);
+					//mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
+					//mAttack->SetDirection(mTransform->GetDirection());								
+				}
 
 				break;
-			case ks::eWeapon::Staff:
-				mbAttackWalk = true;		
-				mStaffAttack = true;
-				break;
-			}
+				case ks::eWeapon::Staff:
+					mbAttackWalk = true;
+					mStaffAttack = true;
+					break;
+				}
 
-			mStatus->SetStateInfo(mState);
-			mCheakTime = 0.f;
+				mStatus->SetStateInfo(mState);
+				mCheakTime = 0.f;
 
 #pragma endregion 
 
-		}
+			}
 
 
-		if (Input::GetKey(eKeyCode::LBTN))
-		{
+			if (Input::GetKey(eKeyCode::LBTN))
+			{
 
 #pragma region 자동 공격 애니메이션
-			switch (mPlayerState.weapon)
-			{
-			case ks::eWeapon::None:
-				break;
-			case ks::eWeapon::Sword:
-			{
-				mCheakTime += Time::DeltaTime();
-
-				if (mState.situation == eSituation::Attack || mState.situation == eSituation::Auto)
+				switch (mPlayerState.weapon)
 				{
-					if (mCheakTime > 0.26 && mCheakTime < 0.31)
-					{
-						mState.situation = eSituation::Auto;
-						mStatus->SetStateInfo(mState);
-
-						if (miRef > 6)
-						{
-							mState.situation = eSituation::Auto;
-							mStatus->SetStateInfo(mState);
-							miRef = 0;
-							mCheakTime = 0.f;
-							return;
-						}
-						angleDirection();
-
-						if (miRef == 0)
-						{
-							if (!mPlayer->Usestamina(7.f, this))
-								return;
-							directionAnimation(L"Attack1_Sword", false);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-						}
-						else if (miRef == 1)
-						{
-							if (!mPlayer->Usestamina(7.f, this))
-								return;
-							directionAnimation(L"Attack2_Sword", false);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
-						}
-						else if (miRef == 2)
-						{
-							if (!mPlayer->Usestamina(7.f, this))
-								return;
-							directionAnimation(L"Attack1_Sword", false);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-						}
-						else if (miRef == 3)
-						{
-							if (!mPlayer->Usestamina(7.f, this))
-								return;
-							directionAnimation(L"Attack2_Sword", false);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
-						}
-						else if (miRef == 4)
-						{
-							if (!mPlayer->Usestamina(7.f, this))
-								return;
-							directionAnimation(L"Attack3_Sword", false);
-
-						}
-						else if (miRef == 5)
-						{
-							if (!mPlayer->Usestamina(7.f, this))
-								return;
-							directionAnimation(L"Attack4_Sword", false);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.2f);
-						}
-
-						mCheakTime = 0.f;
-						++miRef;
-					}
-				}
-			}
-			break;
-			case ks::eWeapon::Bow:
-			{
-
-				angleDirection();
-				mCheakTime += Time::DeltaTime();
-
-				if (mState.situation == eSituation::Attack || mState.situation == eSituation::Auto)
-				{
-
-					if (mState.situation == eSituation::Attack)
-					{
-						if (mCheakTime > 0.35 && mCheakTime < 0.4)
-						{
-							if (!mPlayer->Usestamina(5.f, this))
-								return;
-							mState.situation = eSituation::Auto;
-							mStatus->SetStateInfo(mState);
-							mbAttackWalk = true;
-							directionAnimation(L"Attack_Walk_Bow", true);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-							mCheakTime = 0.f;
-
-						}
-					}
-
-					else if (mState.situation == eSituation::Auto)
-					{
-						if (mCheakTime > 0.25 && mCheakTime < 0.3)
-						{
-							if (!mPlayer->Usestamina(5.f, this))
-								return;
-							mState.situation = eSituation::Auto;
-							mStatus->SetStateInfo(mState);
-							mbAttackWalk = true;
-							directionAnimation(L"Attack_Walk_Bow", true);
-							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-							mCheakTime = 0.f;
-						}
-
-					}
-				
-				}
-			}
-			break;
-			case ks::eWeapon::Staff:
-			{
-				
-				if(mbAttackWalk &&mCargeFinsh == false)
+				case ks::eWeapon::None:
+					break;
+				case ks::eWeapon::Sword:
 				{
 					mCheakTime += Time::DeltaTime();
-					if(mStaffStnmina)
-					{
-						if (!mPlayer->Usestamina(0.01f, this))
-							return;
-					}
-					if (mCheakTime >= MIN_TIME && mCarge == false)
-					{
-						mStaffStnmina = true;
-						mStaffStnminaRecovery = true;
-						PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
-						mPlayerState.skil = eSkil::Attack;
-						mPlayerState.progress = eProgress::Step_8;
-						mPlayer->SetPlayer(mPlayerState);
-						mAttack->SetTarget(mPlayer);
-						mAttack->SetPlayer(mPlayerState);
-						mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
-						mCarge = true;
-					}
 
-					if (mCheakTime >= MAX_TIME && mCargeEffect == false)
-					{		
-						effectDeath(eLayerType::Player_Effect);
-						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Start, 0.6f);
-						mCargeEffect = true;
-						mStaffStnmina = false;
+					if (mState.situation == eSituation::Attack || mState.situation == eSituation::Auto)
+					{
+						if (mCheakTime > 0.26 && mCheakTime < 0.31)
+						{
+							mState.situation = eSituation::Auto;
+							mStatus->SetStateInfo(mState);
+
+							if (miRef > 6)
+							{
+								mState.situation = eSituation::Auto;
+								mStatus->SetStateInfo(mState);
+								miRef = 0;
+								mCheakTime = 0.f;
+								return;
+							}
+							angleDirection();
+
+							if (miRef == 0)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack1_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+							}
+							else if (miRef == 1)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack2_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+							}
+							else if (miRef == 2)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack1_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+							}
+							else if (miRef == 3)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack2_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+							}
+							else if (miRef == 4)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack3_Sword", false);
+
+							}
+							else if (miRef == 5)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack4_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.2f);
+							}
+
+							mCheakTime = 0.f;
+							++miRef;
+						}
 					}
 				}
+				break;
+				case ks::eWeapon::Bow:
+				{
 
-			}
-			break;
-			}
+					angleDirection();
+					mCheakTime += Time::DeltaTime();
+
+					if (mState.situation == eSituation::Attack || mState.situation == eSituation::Auto)
+					{
+
+						if (mState.situation == eSituation::Attack)
+						{
+							if (mCheakTime > 0.35 && mCheakTime < 0.4)
+							{
+								if (!mPlayer->Usestamina(5.f, this))
+									return;
+								mState.situation = eSituation::Auto;
+								mStatus->SetStateInfo(mState);
+								mbAttackWalk = true;
+								directionAnimation(L"Attack_Walk_Bow", true);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+								mCheakTime = 0.f;
+
+							}
+						}
+
+						else if (mState.situation == eSituation::Auto)
+						{
+							if (mCheakTime > 0.25 && mCheakTime < 0.3)
+							{
+								if (!mPlayer->Usestamina(5.f, this))
+									return;
+								mState.situation = eSituation::Auto;
+								mStatus->SetStateInfo(mState);
+								mbAttackWalk = true;
+								directionAnimation(L"Attack_Walk_Bow", true);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+								mCheakTime = 0.f;
+							}
+
+						}
+
+					}
+				}
+				break;
+				case ks::eWeapon::Staff:
+				{
+
+					if (mbAttackWalk && mCargeFinsh == false)
+					{
+						mCheakTime += Time::DeltaTime();
+						if (mStaffStnmina)
+						{
+							if (!mPlayer->Usestamina(0.01f, this))
+								return;
+						}
+						if (mCheakTime >= MIN_TIME && mCarge == false)
+						{
+							mStaffStnmina = true;
+							mStaffStnminaRecovery = true;
+							PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
+							mPlayerState.skil = eSkil::Attack;
+							mPlayerState.progress = eProgress::Step_8;
+							mPlayer->SetPlayer(mPlayerState);
+							mAttack->SetTarget(mPlayer);
+							mAttack->SetPlayer(mPlayerState);
+							mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
+							mCarge = true;
+						}
+
+						if (mCheakTime >= MAX_TIME && mCargeEffect == false)
+						{
+							effectDeath(eLayerType::Player_Effect);
+							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Start, 0.6f);
+							mCargeEffect = true;
+							mStaffStnmina = false;
+						}
+					}
+
+				}
+				break;
+				}
 #pragma endregion
 
 
 
-		}
+			}
 
-		if (Input::GetKeyUp(eKeyCode::LBTN))
-		{
+			if (Input::GetKeyUp(eKeyCode::LBTN))
+			{
 
-			switch (mPlayerState.weapon)
-			{
-			case ks::eWeapon::None:
-				break;
-			case ks::eWeapon::Sword:
-			{
-				if (mState.situation == eSituation::Attack)
+				switch (mPlayerState.weapon)
 				{
-					mState.situation = eSituation::Continue;
-					mStatus->SetStateInfo(mState);
+				case ks::eWeapon::None:
+					break;
+				case ks::eWeapon::Sword:
+				{
+					if (mState.situation == eSituation::Attack)
+					{
+						mState.situation = eSituation::Continue;
+						mStatus->SetStateInfo(mState);
+
+					}
+					else if (mState.situation == eSituation::Auto)
+					{
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						miRef = 0;
+						mCheakTime = 0.f;
+					}
+				}
+				break;
+				case ks::eWeapon::Bow:
+				{
+					if (mState.situation == eSituation::Auto)
+					{
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						mbAttackWalk = false;
+						mCheakTime = 0.f;
+					}
+				}
+				break;
+				case ks::eWeapon::Staff:
+				{
+					if (mbAttackWalk)
+					{
+						mStaffStnminaRecovery = false;
+						mStaffStnmina = false;
+						if (mCheakTime < MIN_TIME)
+						{
+							angleDirection();
+							mState.situation = eSituation::Attack;
+							mStatus->SetStateInfo(mState);
+							directionAnimation(L"Attack_None", false);
+							attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
+							effectDeath(eLayerType::Player_Effect);
+							mbAttackWalk = false;
+							mCarge = false;
+							mCargeEffect = false;
+							mCheakTime = 0.f;
+						}
+						else if (mCheakTime >= MIN_TIME && mCheakTime < MAX_TIME)
+						{
+							angleDirection();
+							mState.situation = eSituation::Attack;
+							mStatus->SetStateInfo(mState);
+							directionAnimation(L"Attack_None", false);
+							attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
+							effectDeath(eLayerType::Player_Effect);
+							mbAttackWalk = false;
+							mCarge = false;
+							mCargeEffect = false;
+							mCheakTime = 0.f;
+						}
+
+						else if (mCheakTime >= MAX_TIME)
+						{
+							angleDirection();
+							mState.situation = eSituation::Attack;
+							mStatus->SetStateInfo(mState);
+							directionAnimation(L"Attack_Staffcharge", false);
+							attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.8f, mCheakTime);
+							effectDeath(eLayerType::Player_Effect);
+							mbAttackWalk = false;
+							mCarge = false;
+							mCargeEffect = false;
+							mCargeFinsh = true;
+							mCheakTime = 0.f;
+						}
+					}
 
 				}
-				else if (mState.situation == eSituation::Auto)
+				break;
+
+				}
+			}
+
+			if (mPlayerShake)
+			{
+				playerShake(0.5f, 0.01f, 50.f);
+			}
+
+
+			if (mAttackFailed)
+			{
+				if (mStaffAttack)
+				{
+					angleDirection();
+					mState.situation = eSituation::Attack;
+					mStatus->SetStateInfo(mState);
+					directionAnimation(L"Attack_None", false);
+					attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
+					effectDeath(eLayerType::Player_Effect);
+					mbAttackWalk = false;
+					mCarge = false;
+					mCargeEffect = false;
+					mCheakTime = 0.f;
+					mStaffAttack = false;
+				}
+				else
 				{
 					mState.situation = eSituation::None;
 					mStatus->SetStateInfo(mState);
 					miRef = 0;
-					mCheakTime = 0.f;
-				}
-			}
-			break;
-			case ks::eWeapon::Bow:
-			{
-				if (mState.situation == eSituation::Auto)
-				{
-					mState.situation = eSituation::None;
-					mStatus->SetStateInfo(mState);
 					mbAttackWalk = false;
 					mCheakTime = 0.f;
 				}
+				mAttackFailed = false;
+				mPlayerShake = true;
+				mOnceCheak = false;
 			}
-			break;
-			case ks::eWeapon::Staff:
-			{
-				if (mbAttackWalk)
-				{				
-					mStaffStnminaRecovery = false;
-					mStaffStnmina = false;
-					if (mCheakTime < MIN_TIME)
-					{
-						angleDirection();
-						mState.situation = eSituation::Attack;
-						mStatus->SetStateInfo(mState);
-						directionAnimation(L"Attack_None", false);
-						attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
-						effectDeath(eLayerType::Player_Effect);
-						mbAttackWalk = false;
-						mCarge = false;
-						mCargeEffect = false;
-						mCheakTime = 0.f;
-					}
-					else if (mCheakTime >= MIN_TIME && mCheakTime < MAX_TIME)
-					{
-						angleDirection();
-						mState.situation = eSituation::Attack;
-						mStatus->SetStateInfo(mState);
-						directionAnimation(L"Attack_None", false);
-						attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
-						effectDeath(eLayerType::Player_Effect);
-						mbAttackWalk = false;
-						mCarge = false;
-						mCargeEffect = false;
-						mCheakTime = 0.f;
-					}
 
-					else if (mCheakTime >= MAX_TIME)
-					{
-						angleDirection();
-						mState.situation = eSituation::Attack;
-						mStatus->SetStateInfo(mState);
-						directionAnimation(L"Attack_Staffcharge", false);
-						attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.8f, mCheakTime);
-						effectDeath(eLayerType::Player_Effect);
-						mbAttackWalk = false;
-						mCarge = false;
-						mCargeEffect = false;
-						mCargeFinsh = true;
-						mCheakTime = 0.f;
-					}
+			//스킬 키
+			if (Input::GetKeyDown(eKeyCode::RBTN))
+			{
+
+
+				//mPlayer->GetComponent<Camera>()->SetShock(true); //카메라 쉐이크 효과
+
+				//mAnimator->Play(L"Charge_Staff", false);
+
+
+
+				//directionAnimation(L"Attack_Dash", false);
+				//mAnimator->Play(L"Sit_Down1", false);
+
+
+
+				//mAnimator->Play(L"Move_Down", false);
+				//mAnimator->GetStartEvent(L"Evade_DownLeft") = std::bind(&PlayerScript::Start, this);
+				//mAnimator->GetEndEvent(L"Evade_DownLeft") = std::bind(&PlayerScript::End, this);
+				//mAnimator->GetEndEvent(L"Move_Down") = std::bind(&PlayerScript::End, this);
+
+				//mAnimator->GetEvent(L"Move_Down", 1) = std::bind(&PlayerScript::End, this);
+				//mAnimator->GetCompleteEvent(L"Idle") = std::bind(&PlayerScript::Action, this);
+				//mAnimator->GetEndEvent(L"Idle") = std::bind(&PlayerScript::End, this);
+				//mAnimator->GetEvent(L"Idle", 1) = std::bind(&PlayerScript::End, this);
+
+				//mState.situation = eSituation::None;
+				//mStatus->SetStateInfo(mState);
+			}
+
+			//걷기 or 뛰기
+			if (Input::GetKeyUp(eKeyCode::LSHIFT))
+			{
+				mState = mStatus->GetStateInfo();
+				if (mbRunning)
+				{
+					mbRunning = false;
+					if (mState.situation == eSituation::Run)
+						directionAnimation(L"Move", true);
+				}
+				else
+				{
+					mbRunning = true;
+					if (mState.situation == eSituation::Run)
+						directionAnimation(L"Run", true);
 				}
 
 			}
-			break;
 
-			}
-		}
-
-		if (mPlayerShake)
-		{	
-			playerShake(0.5f, 0.01f, 50.f);
-		}
-
-
-		if (mAttackFailed)
-		{
-			if (mStaffAttack)
+			if (Input::GetKeyDown(eKeyCode::R))
 			{
-				angleDirection();
-				mState.situation = eSituation::Attack;
-				mStatus->SetStateInfo(mState);
-				directionAnimation(L"Attack_None", false);
-				attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
-				effectDeath(eLayerType::Player_Effect);
-				mbAttackWalk = false;
-				mCarge = false;
-				mCargeEffect = false;
-				mCheakTime = 0.f;
-				mStaffAttack = false;
-			}
-			else
-			{
-				mState.situation = eSituation::None;
-				mStatus->SetStateInfo(mState);
-				miRef = 0;
-				mbAttackWalk = false;
-				mCheakTime = 0.f;				
-			}		
-			mAttackFailed = false;
-			mPlayerShake = true;
-			mOnceCheak = false;
-		}
 
-		//스킬 키
-		if (Input::GetKeyDown(eKeyCode::RBTN))
-		{
+				mPlayerState = mPlayer->GetPlayer();
 
+				switch (mPlayerState.weapon)
+				{
+				case ks::eWeapon::None:
+					mPlayerState.weapon = eWeapon::Sword;
+					break;
+				case ks::eWeapon::Sword:
+					mPlayerState.weapon = eWeapon::Bow;
+					break;
+				case ks::eWeapon::Bow:
+					mPlayerState.weapon = eWeapon::Staff;
+					break;
+				case ks::eWeapon::Staff:
+					mPlayerState.weapon = eWeapon::None;
+					break;
+				}
 
-			//mPlayer->GetComponent<Camera>()->SetShock(true); //카메라 쉐이크 효과
-
-			//mAnimator->Play(L"Charge_Staff", false);
-
-
-
-			//directionAnimation(L"Attack_Dash", false);
-			//mAnimator->Play(L"Sit_Down1", false);
-			
-
-
-			//mAnimator->Play(L"Move_Down", false);
-			//mAnimator->GetStartEvent(L"Evade_DownLeft") = std::bind(&PlayerScript::Start, this);
-			//mAnimator->GetEndEvent(L"Evade_DownLeft") = std::bind(&PlayerScript::End, this);
-			//mAnimator->GetEndEvent(L"Move_Down") = std::bind(&PlayerScript::End, this);
-
-			//mAnimator->GetEvent(L"Move_Down", 1) = std::bind(&PlayerScript::End, this);
-			//mAnimator->GetCompleteEvent(L"Idle") = std::bind(&PlayerScript::Action, this);
-			//mAnimator->GetEndEvent(L"Idle") = std::bind(&PlayerScript::End, this);
-			//mAnimator->GetEvent(L"Idle", 1) = std::bind(&PlayerScript::End, this);
-
-			//mState.situation = eSituation::None;
-			//mStatus->SetStateInfo(mState);
-		}
-
-		//걷기 or 뛰기
-		if (Input::GetKeyUp(eKeyCode::LSHIFT))
-		{
-			mState = mStatus->GetStateInfo();
-			if (mbRunning)
-			{
-				mbRunning = false;
-				if (mState.situation == eSituation::Run)
-					directionAnimation(L"Move", true);
-			}
-			else
-			{
-				mbRunning = true;
-				if (mState.situation == eSituation::Run)
-					directionAnimation(L"Run", true);
+				mPlayer->SetPlayer(mPlayerState);
 			}
 
-		}
 
-		if (Input::GetKeyDown(eKeyCode::R))
-		{
 
-			mPlayerState = mPlayer->GetPlayer();
 
-			switch (mPlayerState.weapon)
+
+			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
-			case ks::eWeapon::None:
-				mPlayerState.weapon = eWeapon::Sword;
-				break;
-			case ks::eWeapon::Sword:
-				mPlayerState.weapon = eWeapon::Bow;
-				break;
-			case ks::eWeapon::Bow:
-				mPlayerState.weapon = eWeapon::Staff;
-				break;
-			case ks::eWeapon::Staff:
-				mPlayerState.weapon = eWeapon::None;
-				break;
+
 			}
-
-			mPlayer->SetPlayer(mPlayerState);
-		}
-
-
-
-
-
-		if (Input::GetKeyDown(eKeyCode::RBTN))
-		{
-
 		}
 
 		/*Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -1652,6 +1656,8 @@ namespace ks
 		//mAnimator->Play(L"Attack_Dash_Right", false);
 
 	}
+
+
 
 	void PlayerScript::directionAnimation(const std::wstring& name, bool loop, bool save)
 	{

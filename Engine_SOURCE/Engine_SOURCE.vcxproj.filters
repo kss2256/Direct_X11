@@ -136,6 +136,9 @@
     <Filter Include="GameObject\UI\PlayerUi">
       <UniqueIdentifier>{78b30fc0-7527-4703-a13d-ffb71c3e657a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\MonsterUi">
+      <UniqueIdentifier>{29327dd1-5487-42f2-88c4-105831eeeb74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -346,6 +349,12 @@
     </ClCompile>
     <ClCompile Include="ksPlayerTpMeter.cpp">
       <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksBossLayout.cpp">
+      <Filter>GameObject\UI\MonsterUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksBossTpMeter.cpp">
+      <Filter>GameObject\UI\MonsterUi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,6 +581,15 @@
     </ClInclude>
     <ClInclude Include="ksPlayerTpMeter.h">
       <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBossLayout.h">
+      <Filter>GameObject\UI\MonsterUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksdef.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBossTpMeter.h">
+      <Filter>GameObject\UI\MonsterUi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

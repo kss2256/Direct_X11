@@ -96,7 +96,9 @@ namespace ks
 					stage->KeyCount_Up();
 					mPhase = Phase::None;
 
-					this->Death();
+					mDetection = false;
+					mTransform->SetPosition(Vec3::Zero);
+					//this->Death();
 					mTime = 0.f;
 				}
 
@@ -371,13 +373,55 @@ namespace ks
 
 			}
 
-			if (mHp <= 120)
+			if (mHp <= 120 && mPhase == Phase::None && !(mStateInfo.situation == eSituation::Death))
 			{
 				mPhase = Phase::Phase_1;
+				mStateInfo.situation = eSituation::Connect;
+				mStep = eStep::None;
+				mAttackCool = true;
+				mCheak = false;
+				mTime = 0.f;
+
 			}
 
 			if (mBossHit)
-				boss_hit(0.2f, 0.2f, 50.f);
+				boss_hit(0.1f, 0.2f, 50.f);
+
+
+			if (mStateInfo.situation == eSituation::Connect)
+			{
+				mTime += Time::DeltaTime();
+				if (mStep == eStep::None)
+				{
+					mAnimator->Play(L"Phase", false);
+					mStep = eStep::Step_1;
+				}
+				if (mStep == eStep::Step_1)
+				{
+					if (mTime >= 2.2f)
+					{
+						mainCamera->SetShock(true);
+						mainCamera->SetShockDuration(2.5f);
+						mAnimator->Play(L"Phase_Attack_Start", true);
+						mStep = eStep::Step_2;
+						mTime = 0.f;
+					}
+				}
+
+				if (mStep == eStep::Step_2)
+				{
+					if (mTime >= 2.5f)
+					{
+						mStateInfo.situation = eSituation::None;
+						mStep = eStep::None;
+						mAttackCool = true;
+						mCheak = false;
+						mTime = 0.f;
+					}
+
+				}
+
+			}
 
 
 		}
@@ -477,12 +521,17 @@ namespace ks
 		mNumbers.push_back(21);
 		mNumbers.push_back(22);
 		mNumbers.push_back(23);
-		CreateAnimation(L"Phase", texture, mAnimator, Vector2(322.0f, 350.0f), Vec2::Zero, mNumbers, 0.1f);
+		mNumbers.push_back(24);
+		mNumbers.push_back(25);
+
+		CreateAnimation(L"Phase", texture, mAnimator, Vector2(322.0f, 350.0f), Vec2::Zero, mNumbers, 0.2f);
 		mNumbers.clear();
 
 
-		mNumbers.push_back(24);
-		mNumbers.push_back(25);
+
+
+
+
 		mNumbers.push_back(26);
 		CreateAnimation(L"Phase_Attack_Start", texture, mAnimator, Vector2(322.0f, 350.0f), Vec2::Zero, mNumbers, 0.1f);
 		mNumbers.clear();

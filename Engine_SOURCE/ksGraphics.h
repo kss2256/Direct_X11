@@ -17,6 +17,12 @@
 #define CBSLOT_GRID 2
 #define CBSLOT_ANIMATION 3
 #define CBSLOT_FADEEFFECT 4
+#define CBSLOT_TRAP 5
+#define CBSLOT_METER 6
+#define CBSLOT_MONTSERMETER 7
+
+
+
 
 
 using namespace ks::math;
@@ -108,6 +114,7 @@ namespace ks::graphics
 		Fade_Effect,
 		Trap_Line,
 		Meter,
+		Monster_Meter,
 		End,
 	};
 

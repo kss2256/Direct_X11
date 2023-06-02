@@ -33,6 +33,7 @@ namespace ks
 		, mNear(1.0f)
 		, mFar(1000.0f)
 		, mScale(1.0f)
+		, mFixCam(false)
 	{
 		EnableLayerMasks();
 		m_fShockDuration = 0.7f;
@@ -81,7 +82,7 @@ namespace ks
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		
 
-		if(mTarget)
+		if(mFixCam)
 		{
 
 			if (m_bShockCheak)
@@ -283,13 +284,7 @@ namespace ks
 					tr->SetPosition(m_vMovePos);
 				}
 
-		}
-
-		
-
-				
-		
-		
+		}		
 
 
 

@@ -61,6 +61,16 @@ cbuffer Meter : register(b6)
     float2 metersize;
 }
 
+cbuffer MONSTERMeter : register(b7)
+{
+    float   monstermeter;
+    float   monstermeterend;
+    float2  monstermetersize;
+}
+
+
+
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);

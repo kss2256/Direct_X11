@@ -41,9 +41,10 @@ namespace ks
 
 		void SetTarget(GameObject* target) { mPlayer = (Player*)target; }
 		void SetAttackFailed(bool failed) { mAttackFailed = failed; }
+		
 
-
-
+		static void SetPlayerStop(bool stop) { mPlayerStop = stop; }
+		
 
 	private:
 
@@ -78,6 +79,7 @@ namespace ks
 		static bool			mCarge;
 		static bool			mCargeEffect;
 		static bool			mCargeFinsh;
+		static bool			mPlayerStop;
 		bool				mCheak;
 		bool				mStaffStnmina;
 		bool				mStaffStnminaRecovery;

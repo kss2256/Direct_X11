@@ -190,7 +190,7 @@ namespace ks
 					if (mTime >= 3.0f)
 					{
 						Stage1_1* stage = nullptr;
-						stage->SetKeyCheak(false);						
+						stage->SetKeyCheak(false);	
 						mTime = 0.f;
 						mFadeEffectCheak = false;
 						mGroundExecuted = false;

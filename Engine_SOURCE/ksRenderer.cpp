@@ -196,6 +196,13 @@ namespace ks::renderer
 			, spriteShader->GetVSBlobBufferSize()
 			, spriteShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> playerShader = Resources::Find<Shader>(L"PlayerShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, playerShader->GetVSBlobBufferPointer()
+			, playerShader->GetVSBlobBufferSize()
+			, playerShader->GetInputLayoutAddressOf());
+
+
 		std::shared_ptr<Shader> afterimageShader = Resources::Find<Shader>(L"AfterimageShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, afterimageShader->GetVSBlobBufferPointer()
@@ -227,6 +234,21 @@ namespace ks::renderer
 			, uiShader->GetVSBlobBufferPointer()
 			, uiShader->GetVSBlobBufferSize()
 			, uiShader->GetInputLayoutAddressOf());
+
+
+		std::shared_ptr<Shader> bossuiShader = Resources::Find<Shader>(L"BossUIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, bossuiShader->GetVSBlobBufferPointer()
+			, bossuiShader->GetVSBlobBufferSize()
+			, bossuiShader->GetInputLayoutAddressOf());
+
+
+		std::shared_ptr<Shader> bossmeteruiShader = Resources::Find<Shader>(L"BossMeterShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, bossmeteruiShader->GetVSBlobBufferPointer()
+			, bossmeteruiShader->GetVSBlobBufferSize()
+			, bossmeteruiShader->GetInputLayoutAddressOf());
+
 
 		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
@@ -421,9 +443,11 @@ namespace ks::renderer
 		constantBuffers[(UINT)eCBType::Trap_Line] = new ConstantBuffer(eCBType::Trap_Line);
 		constantBuffers[(UINT)eCBType::Trap_Line]->Create(sizeof(Trap));
 
-
 		constantBuffers[(UINT)eCBType::Meter] = new ConstantBuffer(eCBType::Meter);
 		constantBuffers[(UINT)eCBType::Meter]->Create(sizeof(Meter));
+
+		constantBuffers[(UINT)eCBType::Monster_Meter] = new ConstantBuffer(eCBType::Monster_Meter);
+		constantBuffers[(UINT)eCBType::Monster_Meter]->Create(sizeof(MONSTERMeter));
 
 	}
 
@@ -457,6 +481,12 @@ namespace ks::renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
+
+		// Player
+		std::shared_ptr<Shader> playerShader = std::make_shared<Shader>();
+		playerShader->Create(eShaderStage::VS, L"PlayerVS.hlsl", "main");
+		playerShader->Create(eShaderStage::PS, L"PlayerPS.hlsl", "main");
+		Resources::Insert<Shader>(L"PlayerShader", playerShader);
 
 		//After
 		std::shared_ptr<Shader> afterimageShader = std::make_shared<Shader>();
@@ -497,11 +527,28 @@ namespace ks::renderer
 
 		Resources::Insert<Shader>(L"UIShader", uiShader);
 
+		// UI
+		std::shared_ptr<Shader> bossuiShader = std::make_shared<Shader>();
+		bossuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		bossuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"BossUIShader", bossuiShader);
+
+
+
+
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
 		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
 		meterShader->Create(eShaderStage::PS, L"MeterPS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"MeterShader", meterShader);
+
+
+		std::shared_ptr<Shader> bossmeterShader = std::make_shared<Shader>();
+		bossmeterShader->Create(eShaderStage::VS, L"BossMeterVS.hlsl", "main");
+		bossmeterShader->Create(eShaderStage::PS, L"BossMeterPS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"BossMeterShader", bossmeterShader);
 
 
 		
@@ -646,7 +693,16 @@ namespace ks::renderer
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
 		Resources::Insert<Material>(L"MonsterMaterial", spriteMaterial);
 		
-		
+
+		//Player
+		std::shared_ptr<Shader> playerShader = Resources::Find<Shader>(L"PlayerShader");
+		std::shared_ptr<Material> playerMaterial = std::make_shared<Material>();
+		playerMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		playerMaterial->SetShader(playerShader);
+
+		Resources::Insert<Material>(L"PlayerMaterial", playerMaterial);
+
+
 		//Afterimage
 		std::shared_ptr<Shader> afterimageShader = Resources::Find<Shader>(L"AfterimageShader");
 		std::shared_ptr<Material> afterimageMaterial = std::make_shared<Material>();
@@ -690,6 +746,14 @@ namespace ks::renderer
 		uiMaterial->SetShader(uiShader);
 		//uiMaterial->SetTexture(uiTexture);
 		Resources::Insert<Material>(L"UIMaterial", uiMaterial);
+
+		std::shared_ptr<Shader> bossuiShader = Resources::Find<Shader>(L"BossUIShader");
+		std::shared_ptr<Material> bossuiMaterial = std::make_shared<Material>();
+		bossuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		bossuiMaterial->SetShader(bossuiShader);
+		//uiMaterial->SetTexture(uiTexture);
+		Resources::Insert<Material>(L"BossUIMaterial", bossuiMaterial);
+
 		
 
 		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
@@ -698,6 +762,14 @@ namespace ks::renderer
 		meterMaterial->SetShader(meterShader);
 		//uiMaterial->SetTexture(uiTexture);
 		Resources::Insert<Material>(L"MeterMaterial", meterMaterial);
+
+
+		std::shared_ptr<Shader> bossmeterShader = Resources::Find<Shader>(L"BossMeterShader");
+		std::shared_ptr<Material> bossmeterMaterial = std::make_shared<Material>();
+		bossmeterMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		bossmeterMaterial->SetShader(bossmeterShader);
+		//uiMaterial->SetTexture(uiTexture);
+		Resources::Insert<Material>(L"BossMeterMaterial", bossmeterMaterial);
 
 
 		// Grid

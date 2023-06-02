@@ -20,6 +20,8 @@ namespace ks
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
+        static void FlimeCheak(bool cheak) { mflimeCheak = cheak; }
+
     private:
         void loadAnimation();
         void multipleAttack(float dir, UINT count);
@@ -34,6 +36,8 @@ namespace ks
         UINT        mTrapCount;
         float       mInterval;
         int         mMaxTrapCount;
+
+        static bool mflimeCheak;
 
 
     };

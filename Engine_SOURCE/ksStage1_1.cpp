@@ -1,4 +1,5 @@
 #include "ksStage1_1.h"
+#include "ksTime.h"
 #include "ksResources.h"
 #include "ksTransform.h"
 #include "ksMeshRenderer.h"
@@ -15,8 +16,8 @@
 #include "ksForest_Fairy.h"
 #include "ksSnake_Green.h"
 #include "ksSlime_Green.h"
-
-
+#include "ksBossLayout.h"
+#include "ksBossTpMeter.h"
 
 using namespace ks::graphics;
 
@@ -27,8 +28,13 @@ namespace ks
 	bool Stage1_1::mKey = false;
 	bool Stage1_1::mKeyCheak = false;
 	UINT Stage1_1::mKeyCount = 0;
+	Step Stage1_1::mStep = Step::None;
+	Vec3 Stage1_1::mMoveCam = Vec3::Zero;
+	Vec3 Stage1_1::mEndCam = Vec3::Zero;
 
 	Stage1_1::Stage1_1()
+		: mTime(0.f)
+		
 	{
 
 
@@ -244,23 +250,24 @@ namespace ks
 			break;
 		case ks::enums::eGroundStage::Ground5:
 		{
+			
 			//꽃 괴물	175  -0.5
 			if (!mKeyCheak)
 			{
 				//시작지점에서 이동 하면 Ckeak , 몬스터 인식 true key = false , 몬스터 전부 처치 후 key = true;
 				Vec3 pos = mTarget->GetComponent<Transform>()->GetPosition();
-				if (pos.y >= -6.1f)
-				{
-
-					mFlime->SetDetection(true);
-					mFlime->GetComponent<Transform>()->SetPosition(Vec3(175.0f, 0.5f, 2.0f));
-
-					mKeyCheak = true;
-					mKey = false;
+				if (pos.y >= -8.2f)
+				{	
+					flime_Start();
 				}
 			}
+
 			if (mKeyCount == 1)
 			{
+				
+				mBossMeter->Death();
+				mBossLayout->Death();
+				
 				mKey = true;
 				mainCamera->SetShock(true);
 				mainCamera->SetShockDuration(0.7f);
@@ -269,7 +276,8 @@ namespace ks
 
 			if (!mKey)
 			{
-				range_In(Vec4(168.3f, 183.0f, 7.73f, -6.2f));
+				//range_In(Vec4(168.3f, 183.0f, 7.73f, -6.2f));
+				range_In(Vec4(168.3f, 183.0f, 7.73f, -8.2f));
 			}
 
 		}
@@ -364,15 +372,14 @@ namespace ks
 				Vec3 pos = mTarget->GetComponent<Transform>()->GetPosition();
 				if (pos.y >= -6.9f)
 				{
-					mEnt->SetDetection(true);
-					mEnt->GetComponent<Transform>()->SetPosition(Vec3(314.4f, 6.0f, 2.0f));
 
-					mKeyCheak = true;
-					mKey = false;
+					ent_Start();					
 				}
 			}
 			if (mKeyCount == 1)
 			{
+				mBossMeter->Death();
+				mBossLayout->Death();
 				mKey = true;
 				mainCamera->SetShock(true);
 				mainCamera->SetShockDuration(0.7f);
@@ -472,6 +479,196 @@ namespace ks
 
 		tr->SetPosition(fixedpos);		
 		mPrevPos = fixedpos;
+
+	}
+
+	void Stage1_1::flime_Start()
+	{
+
+		if(mStep == Step::None)
+		{
+			mainCamera->SetFixCam(false);
+			mFlime->GetComponent<Transform>()->SetPosition(Vec3(175.0f, 0.5f, 2.0f));
+			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
+			Vec3 flimepos = mFlime->GetComponent<Transform>()->GetPosition();
+			mEndCam = flimepos;
+
+
+
+			mBossMeter = object::Instantiate<BossTpMeter>(eLayerType::UI);
+			mBossMeter->SetName(L"FlimeMeter");
+			mBossMeter->SetMonster(mFlime);
+
+
+			Transform* bossMetetr = mBossMeter->GetComponent<Transform>();
+			bossMetetr->SetPosition(Vector3(Vec3(0.0f, 4.3f, 0.0f)));
+			bossMetetr->SetScale(Vector3(9.7f, 0.8f, 1.0f));
+			mBossMeter->Initalize();
+
+			mBossLayout = object::Instantiate<BossLayout>(eLayerType::UI);
+			mBossLayout->SetName(L"FlimeLayout");
+
+			Transform* layouttr = mBossLayout->GetComponent<Transform>();
+			layouttr->SetPosition(Vector3(Vec3(0.0f, 4.3f, 0.0f)));
+			layouttr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
+			mBossLayout->Initalize();
+
+			flimepos.x += 1.0f;
+			mMoveCam = flimepos  - playerpos;
+			mMoveCam.Normalize();
+			mStep = Step::Stet_1;
+		}
+
+		if (mStep == Step::Stet_1)
+		{
+			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
+			Vec3 pos = tr->GetPosition();
+
+			pos += mMoveCam * 0.5f * Time::DeltaTime();
+
+			tr->SetPosition(pos);
+
+			if (mEndCam.y < pos.y)
+			{				
+				mStep = Step::Stet_2;
+				
+			}
+
+		}
+		if (mStep == Step::Stet_2)
+		{
+			mTime += Time::DeltaTime();
+			if (mTime >= 1.5f)
+			{
+				Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
+				Vec3 pos = tr->GetPosition();
+
+				Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
+				mEndCam = playerpos;
+				mMoveCam = playerpos - pos;
+				mMoveCam.Normalize();
+				mStep = Step::Stet_3;
+				mTime = 0.f;
+			}
+
+		}
+
+		if (mStep == Step::Stet_3)
+		{
+			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
+			Vec3 pos = tr->GetPosition();
+			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
+			mMoveCam = playerpos - pos;
+			mMoveCam.Normalize();
+			pos += mMoveCam * 0.5f * Time::DeltaTime();
+
+			tr->SetPosition(pos);
+
+			if (playerpos.y + 1.0f > pos.y)
+			{
+				mStep = Step::None;
+				mFlime->SetDetection(true);
+				mKeyCheak = true;
+				mKey = false;
+				mainCamera->SetFixCam(true);
+			}
+		}
+			
+
+
+
+
+	}
+
+	void Stage1_1::ent_Start()
+	{
+		if (mStep == Step::None)
+		{
+			mainCamera->SetFixCam(false);
+			mEnt->GetComponent<Transform>()->SetPosition(Vec3(314.4f, 6.0f, 2.0f));
+			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
+			Vec3 flimepos = mEnt->GetComponent<Transform>()->GetPosition();
+			mEndCam = flimepos;
+
+			mBossMeter = object::Instantiate<BossTpMeter>(eLayerType::UI);
+			mBossMeter->SetName(L"FlimeMeter");
+			mBossMeter->SetMonster(mEnt);
+
+
+			Transform* bossMetetr = mBossMeter->GetComponent<Transform>();
+			bossMetetr->SetPosition(Vector3(Vec3(0.0f, 4.3f, 0.0f)));
+			bossMetetr->SetScale(Vector3(9.7f, 0.8f, 1.0f));
+			mBossMeter->Initalize();
+
+			mBossLayout = object::Instantiate<BossLayout>(eLayerType::UI);
+			mBossLayout->SetName(L"FlimeLayout");
+
+			Transform* layouttr = mBossLayout->GetComponent<Transform>();
+			layouttr->SetPosition(Vector3(Vec3(0.0f, 4.3f, 0.0f)));
+			layouttr->SetScale(Vector3(10.0f, 1.0f, 1.0f));
+			mBossLayout->Initalize();
+
+			
+			mMoveCam = flimepos - playerpos;
+			mMoveCam.Normalize();
+			mStep = Step::Stet_1;
+		}
+
+		if (mStep == Step::Stet_1)
+		{
+			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
+			Vec3 pos = tr->GetPosition();
+
+			pos += mMoveCam * 0.5f * Time::DeltaTime();
+
+			tr->SetPosition(pos);
+
+			if (mEndCam.y < pos.y)
+			{
+				mStep = Step::Stet_2;
+				mTime = 0.f;
+			}
+
+		}
+		if (mStep == Step::Stet_2)
+		{
+			mTime += Time::DeltaTime();
+			if (mTime >= 1.5f)
+			{
+				Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
+				Vec3 pos = tr->GetPosition();
+
+				Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
+				mEndCam = playerpos;
+				mMoveCam = playerpos - pos;
+				mMoveCam.Normalize();
+				mStep = Step::Stet_3;
+				mTime = 0.f;
+			}
+
+		}
+
+		if (mStep == Step::Stet_3)
+		{
+			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
+			Vec3 pos = tr->GetPosition();
+			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
+			mMoveCam = playerpos - pos;
+			mMoveCam.Normalize();
+			pos += mMoveCam * 0.5f * Time::DeltaTime();
+
+			tr->SetPosition(pos);
+
+			if (playerpos.y + 1.0f > pos.y)
+			{
+				mStep = Step::None;
+				mEnt->SetDetection(true);
+				mKeyCheak = true;
+				mKey = false;
+				mainCamera->SetFixCam(true);
+			}
+		}
+
 
 	}
 

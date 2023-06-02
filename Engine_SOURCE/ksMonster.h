@@ -44,7 +44,7 @@ namespace ks
 
 		Player* GetTarget() { return mPlayer; }
 		Status* GetStatus() { return mStatus; }
-		UINT GetMonsterHp() { return mHp; }
+		int GetMonsterHp() { return mHp; }
 		Vec3 GetTargetPos() { return mTargetPos; }
 		bool GetDetection() { return mDetection; }
 		float GetMonsterStr() { return mStr; }
@@ -54,7 +54,7 @@ namespace ks
 
 		void SetTarget(Player* target) { mPlayer = target; }
 		void SetStatus(Status* status) { mStatus = status; }
-		void SetMonsterHp(UINT value);
+		void SetMonsterHp(int value);
 		void SetTargetPos(Vec3 pos) { mTargetPos = pos; }
 		void SetDetection(bool value) { mDetection = value; }
 		void SetMonsterStr(float value) { mStr = value; }
