@@ -234,6 +234,7 @@
     <ClInclude Include="ksTitleScene.h" />
     <ClInclude Include="ksTransform.h" />
     <ClInclude Include="ksUIBase.h" />
+    <ClInclude Include="ksUiMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksAfterimage.cpp" />
@@ -309,6 +310,7 @@
     <ClCompile Include="ksTitleScene.cpp" />
     <ClCompile Include="ksTransform.cpp" />
     <ClCompile Include="ksUIBase.cpp" />
+    <ClCompile Include="ksUiMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ksMath.inl" />

@@ -32,11 +32,11 @@ namespace ks
 		if (MousePos.x <= Pos.x + Scale.x && MousePos.x >= Pos.x - Scale.x
 			&& MousePos.y <= Pos.y + Scale.y && MousePos.y >= Pos.y - Scale.y )
 		{
-			mMouseOn = true;
+			MouseOn();
 		}
 		else
 		{
-			mMouseOn = false;
+			MouseOff();
 		}
 		
 

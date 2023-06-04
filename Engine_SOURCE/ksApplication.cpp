@@ -5,6 +5,9 @@
 #include "ksSceneManager.h"
 #include "ksResources.h"
 #include "ksCollisionManager.h"
+#include "ksUiMgr.h"
+
+
 
 namespace ks
 {
@@ -35,6 +38,7 @@ namespace ks
 	{
 		Time::Update();
 		Input::Update();
+		UiMgr::Update();
 		CollisionManager::Update();
 		SceneManager::Update();
 	}

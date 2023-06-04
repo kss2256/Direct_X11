@@ -38,13 +38,16 @@ namespace ks
 		bool IsMouseOn() { return mMouseOn; }
 		bool IsLbtnDown() { return mLbtnDown; }
 		bool IsLbtnUp() { return mLbtnUp; }
+		bool IsLbtnPressed() { return mLbtnPressed; }
+
+		virtual void MouseLbtnDown() { mLbtnDown = true; };
+		virtual void MouseLbtnUp() { mLbtnUp = true; };
+		virtual void MousePressed() { mLbtnPressed = true; };
 
 
-		virtual void MouseLbtnDown() {};
 
-		virtual void MouseLbtnUp() {};
-
-		virtual void MouseOn() {};
+		virtual void MouseOn() { mMouseOn = true; };
+		virtual void MouseOff() { mMouseOn = false; };
 
 
 	protected:
@@ -71,10 +74,11 @@ namespace ks
 
 		bool					mLbtnDown;
 		bool					mLbtnUp;
+		bool					mLbtnPressed;
 		bool					mMouseOn;
 		bool					mCmrAfctd;
 
-		
+		friend class UiMgr;
 
 	};
 
