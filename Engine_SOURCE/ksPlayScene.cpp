@@ -108,13 +108,21 @@ namespace ks
 		}
 
 		{
-			PlayerLayout* layout = object::Instantiate<PlayerLayout>(eLayerType::UI);
+			PlayerLayout* layout = object::Instantiate<PlayerLayout>(eLayerType::UI);			
 			layout->SetName(L"Layout");
 			layout->SetTarget(mPlayer);
+			
+
 
 			Transform* tr = layout->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, -3.8f, 0.0f));			
+			tr->SetPosition(Vector3(0.0f, -3.75f, 0.0f));			
 			tr->SetScale(Vector3(4.5f, 1.8f, 1.0f));
+
+			//tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			//tr->SetScale(Vector3(9.5f, 5.0f, 1.0f));
+
+
+			
 		}
 	
 
@@ -169,7 +177,7 @@ namespace ks
 		}
 
 		{
-			mSlime_Green = object::Instantiate<Slime_Green>(eLayerType::Monster);
+			mSlime_Green = object::Instantiate<Slime_Green>(eLayerType::Monster);			
 			mSlime_Green->SetName(L"Slime_Green");
 			mSlime_Green->SetTarget(mPlayer);
 

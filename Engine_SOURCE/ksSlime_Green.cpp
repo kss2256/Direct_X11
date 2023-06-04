@@ -150,7 +150,7 @@ namespace ks
 					{
 						int a = rand() % 2;		//0 ~ 9 까지 랜덤의 수인데 거기에 +1 을 해서
 
-						mRnadomAttack = a;
+						mRnadomAttack = (float)a;
 
 						mStep = eStep::Step_1;
 
@@ -449,7 +449,7 @@ namespace ks
 		for (size_t i = 0; i < 8; i++)
 		{
 			MonsterMissile* missile = object::Instantiate<MonsterMissile>(eLayerType::Monster_Attack);
-			missile->SetDegree((i * 45));
+			missile->SetDegree((i * 45.f));
 			missile->SetSpeed(6.0f);
 
 

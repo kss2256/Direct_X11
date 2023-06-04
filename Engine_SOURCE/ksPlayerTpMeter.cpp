@@ -69,14 +69,13 @@ namespace ks
 
 			mTransform->SetPosition(mFinalPos);
 
-			float stamina = STAMINA_PERCENTAGE / MAX_STAMINA;			
-			mStnamina = STAMINA_PERCENTAGE - (stamina * mTarget->GetStamina());
+			float stamina = (float)STAMINA_PERCENTAGE / (float)MAX_STAMINA;
+			mStnamina = (float)STAMINA_PERCENTAGE - (stamina * (float)mTarget->GetStamina());
 			
 
 		}
 
 	
-
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Meter];
 		renderer::Meter data;
 

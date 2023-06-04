@@ -28,7 +28,7 @@ namespace ks
 	bool Stage1_1::mKey = false;
 	bool Stage1_1::mKeyCheak = false;
 	UINT Stage1_1::mKeyCount = 0;
-	Step Stage1_1::mStep = Step::None;
+	Stage_Step Stage1_1::mStep = Stage_Step::None;
 	Vec3 Stage1_1::mMoveCam = Vec3::Zero;
 	Vec3 Stage1_1::mEndCam = Vec3::Zero;
 
@@ -485,7 +485,30 @@ namespace ks
 	void Stage1_1::flime_Start()
 	{
 
-		if(mStep == Step::None)
+		/*switch (mStep)
+		{
+		case Step::None:
+			break;
+		case Step::Stet_1:
+			break;
+		case Step::Stet_2:
+			break;
+		case Step::Stet_3:
+			break;
+		case Step::Stet_4:
+			break;
+		case Step::Stet_5:
+			break;
+		case Step::Stet_6:
+			break;
+		case Step::End:
+			break;
+		default:
+			break;
+		}*/
+
+
+		if(mStep == Stage_Step::None)
 		{
 			mainCamera->SetFixCam(false);
 			mFlime->GetComponent<Transform>()->SetPosition(Vec3(175.0f, 0.5f, 2.0f));
@@ -516,10 +539,10 @@ namespace ks
 			flimepos.x += 1.0f;
 			mMoveCam = flimepos  - playerpos;
 			mMoveCam.Normalize();
-			mStep = Step::Stet_1;
+			mStep = Stage_Step::Stet_1;
 		}
 
-		if (mStep == Step::Stet_1)
+		if (mStep == Stage_Step::Stet_1)
 		{
 			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 			Vec3 pos = tr->GetPosition();
@@ -530,12 +553,12 @@ namespace ks
 
 			if (mEndCam.y < pos.y)
 			{				
-				mStep = Step::Stet_2;
+				mStep = Stage_Step::Stet_2;
 				
 			}
 
 		}
-		if (mStep == Step::Stet_2)
+		if (mStep == Stage_Step::Stet_2)
 		{
 			mTime += Time::DeltaTime();
 			if (mTime >= 1.5f)
@@ -547,13 +570,13 @@ namespace ks
 				mEndCam = playerpos;
 				mMoveCam = playerpos - pos;
 				mMoveCam.Normalize();
-				mStep = Step::Stet_3;
+				mStep = Stage_Step::Stet_3;
 				mTime = 0.f;
 			}
 
 		}
 
-		if (mStep == Step::Stet_3)
+		if (mStep == Stage_Step::Stet_3)
 		{
 			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 			Vec3 pos = tr->GetPosition();
@@ -566,7 +589,7 @@ namespace ks
 
 			if (playerpos.y + 1.0f > pos.y)
 			{
-				mStep = Step::None;
+				mStep = Stage_Step::None;
 				mFlime->SetDetection(true);
 				mKeyCheak = true;
 				mKey = false;
@@ -582,7 +605,7 @@ namespace ks
 
 	void Stage1_1::ent_Start()
 	{
-		if (mStep == Step::None)
+		if (mStep == Stage_Step::None)
 		{
 			mainCamera->SetFixCam(false);
 			mEnt->GetComponent<Transform>()->SetPosition(Vec3(314.4f, 6.0f, 2.0f));
@@ -611,10 +634,10 @@ namespace ks
 			
 			mMoveCam = flimepos - playerpos;
 			mMoveCam.Normalize();
-			mStep = Step::Stet_1;
+			mStep = Stage_Step::Stet_1;
 		}
 
-		if (mStep == Step::Stet_1)
+		if (mStep == Stage_Step::Stet_1)
 		{
 			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 			Vec3 pos = tr->GetPosition();
@@ -625,12 +648,12 @@ namespace ks
 
 			if (mEndCam.y < pos.y)
 			{
-				mStep = Step::Stet_2;
+				mStep = Stage_Step::Stet_2;
 				mTime = 0.f;
 			}
 
 		}
-		if (mStep == Step::Stet_2)
+		if (mStep == Stage_Step::Stet_2)
 		{
 			mTime += Time::DeltaTime();
 			if (mTime >= 1.5f)
@@ -642,13 +665,13 @@ namespace ks
 				mEndCam = playerpos;
 				mMoveCam = playerpos - pos;
 				mMoveCam.Normalize();
-				mStep = Step::Stet_3;
+				mStep = Stage_Step::Stet_3;
 				mTime = 0.f;
 			}
 
 		}
 
-		if (mStep == Step::Stet_3)
+		if (mStep == Stage_Step::Stet_3)
 		{
 			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 			Vec3 pos = tr->GetPosition();
@@ -661,7 +684,7 @@ namespace ks
 
 			if (playerpos.y + 1.0f > pos.y)
 			{
-				mStep = Step::None;
+				mStep = Stage_Step::None;
 				mEnt->SetDetection(true);
 				mKeyCheak = true;
 				mKey = false;

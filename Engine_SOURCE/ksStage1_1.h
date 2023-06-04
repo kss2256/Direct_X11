@@ -6,7 +6,7 @@
 
 typedef void(ks::Monster::*SetMonster)(void);
 
-enum class Step
+enum class Stage_Step
 {
 
     None,
@@ -22,6 +22,9 @@ enum class Step
 
 namespace ks
 {
+
+
+
     class BossTpMeter;
     class BossLayout;
     class Slime_Green;
@@ -100,7 +103,7 @@ namespace ks
         Collider2D*         mCollider;
         float               mTime;
 
-        static Step                mStep;
+        static Stage_Step                mStep;
 
         Vec3                mPrevPos;
        static Vec3                mMoveCam;

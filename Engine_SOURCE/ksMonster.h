@@ -44,7 +44,7 @@ namespace ks
 
 		Player* GetTarget() { return mPlayer; }
 		Status* GetStatus() { return mStatus; }
-		int GetMonsterHp() { return mHp; }
+		float GetMonsterHp() { return mHp; }
 		Vec3 GetTargetPos() { return mTargetPos; }
 		bool GetDetection() { return mDetection; }
 		float GetMonsterStr() { return mStr; }
@@ -54,7 +54,7 @@ namespace ks
 
 		void SetTarget(Player* target) { mPlayer = target; }
 		void SetStatus(Status* status) { mStatus = status; }
-		void SetMonsterHp(int value);
+		void SetMonsterHp(float value);
 		void SetTargetPos(Vec3 pos) { mTargetPos = pos; }
 		void SetDetection(bool value) { mDetection = value; }
 		void SetMonsterStr(float value) { mStr = value; }
@@ -102,7 +102,7 @@ namespace ks
 		Animator*				mAnimator;
 		Collider2D*				mCollider;
 
-		int						mHp;
+		float					mHp;
 		float					mStr;
 		float					mTime;
 		float					mShakeTime;

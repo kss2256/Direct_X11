@@ -62,7 +62,7 @@ namespace ks
 
 		sPlayer GetPlayer() { return mPlayer; }
 		eGroundStage GetGroundStage() { return mPlayerStage; }
-		UINT GetPlayerHp() { return mHp; }
+		float GetPlayerHp() { return mHp; }
 		float GetPlayerStr() { return mStr; }
 		float GetStamina() { return mStamina; }
 
@@ -74,7 +74,7 @@ namespace ks
 
 		void SetPlayer(sPlayer weapon) { mPlayer = weapon; }
 		void SetGroundStage(eGroundStage stage) { mPlayerStage = stage; }
-		void SetPlayerHp(UINT value) { mHp = value; }
+		void SetPlayerHp(float value) { mHp = value; }
 		void SetPlayerStr(float value) { mStr = value; }
 
 
@@ -86,7 +86,7 @@ namespace ks
 		std::vector<sPlayer>	mPlayers;
 		eGroundStage			mPlayerStage;
 
-		UINT					mHp;
+		float					mHp;
 		float					mStamina;
 		float					mStr;
 

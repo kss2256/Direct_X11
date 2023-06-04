@@ -157,7 +157,7 @@ namespace ks
 					{
 
 						int a = rand() % 3;		//0 ~ 9 까지 랜덤의 수인데 거기에 +1 을 해서					
-						mRnadomAttack = a;
+						mRnadomAttack = (float)a;
 
 						if (mPrevRnadom != mRnadomAttack)
 						{

@@ -25,16 +25,12 @@ namespace ks
 	{
 
 		Vec3 Pos = GetComponent<Transform>()->GetPosition();
-		Vec3 Scale = GetComponent<Transform>()->GetScale();
+		Vec3 Scale = GetComponent<Transform>()->GetScale() * 0.5f;
 		Vec3 MousePos = Input::GetMousWorldPosition();
 
-		if (mCmrAfctd)
-		{
-			MousePos = Camera::GetMovePos();
-		}
 
-		if (Pos.x <= MousePos.x && MousePos.x <= Pos.x + Scale.x
-			&& Pos.y <= MousePos.y && MousePos.y <= Pos.y + Scale.y)
+		if (MousePos.x <= Pos.x + Scale.x && MousePos.x >= Pos.x - Scale.x
+			&& MousePos.y <= Pos.y + Scale.y && MousePos.y >= Pos.y - Scale.y )
 		{
 			mMouseOn = true;
 		}
@@ -42,8 +38,6 @@ namespace ks
 		{
 			mMouseOn = false;
 		}
-
-
 		
 
 	}

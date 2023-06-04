@@ -50,8 +50,11 @@ namespace ks
 		Matrix position;
 		position.Translation(mPosition);
 		
-
+		
 		mWorld = scale * rotation * position;
+		
+
+
 
 		mFoward = Vector3::TransformNormal(Vector3::Forward, rotation);
 		mRight = Vector3::TransformNormal(Vector3::Right, rotation);

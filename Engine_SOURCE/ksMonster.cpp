@@ -58,7 +58,7 @@ namespace ks
 
 		GameObject::Render();
 	}
-	void Monster::SetMonsterHp(int value)
+	void Monster::SetMonsterHp(float value)
 	{
 
 		 mHp -= value; 

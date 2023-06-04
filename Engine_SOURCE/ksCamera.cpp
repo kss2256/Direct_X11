@@ -105,22 +105,22 @@ namespace ks
 					if (playerpos.x <= 30.0f)
 					{
 						fixedpos.x = 30.0f;
-						m_vMovePos.x = 31;
+						m_vMovePos.x = 31.f;
 					}
 					if (playerpos.x >= 40.67f)
 					{
 						fixedpos.x = 40.67f;
-						m_vMovePos.x = 39.67;
+						m_vMovePos.x = 39.67f;
 					}
 					if (playerpos.y >= 6.24f)
 					{
 						fixedpos.y = 6.24f;
-						m_vMovePos.y = 5.24;
+						m_vMovePos.y = 5.24f;
 					}
 					if (playerpos.y <= -6.24f)
 					{
 						fixedpos.y = -6.24f;
-						m_vMovePos.y = -5.24;
+						m_vMovePos.y = -5.24f;
 					}
 					tr->SetPosition(fixedpos);
 				}

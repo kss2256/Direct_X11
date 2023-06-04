@@ -178,7 +178,7 @@ namespace ks
 								}
 								mTime = 0.f;
 								++mTrapCount;
-								if (mTrapCount == 6)
+								if (mTrapCount >= 6)
 								{
 									mStep = eStep::Step_2;
 									mTrapCount = 0;
@@ -683,7 +683,7 @@ namespace ks
 			{
 				Ent_Poison* poison = object::Instantiate<Ent_Poison>(eLayerType::Monster_Attack);
 
-				poison->SetDegree((dir * 9));
+				poison->SetDegree(((float)dir * 9));
 				Transform* tr = poison->GetComponent<Transform>();
 
 				Vec3 Pos = mTransform->GetPosition();
@@ -720,7 +720,7 @@ namespace ks
 			Ent_Sphere* sphere = object::Instantiate<Ent_Sphere>(eLayerType::Monster_Attack);
 			Transform* tr = sphere->GetComponent<Transform>();
 			//sphere->SetDegree(mTargetDir + i * 10);
-			sphere->SetTargetPos(Vec3(mSphereMovePos.x - i * 0.25, mSphereMovePos.y, mSphereMovePos.z));
+			sphere->SetTargetPos(Vec3(mSphereMovePos.x - i * 0.25f, mSphereMovePos.y, mSphereMovePos.z));
 			sphere->SetSphereType(Sphere_Type::Direction_3);
 			Vec3 Pos = mTransform->GetPosition();
 			sphere->AddComponent<Collider2D>();
@@ -751,7 +751,7 @@ namespace ks
 		{
 			Ent_Sphere* sphere = object::Instantiate<Ent_Sphere>(eLayerType::Monster_Attack);
 			Transform* tr = sphere->GetComponent<Transform>();
-			sphere->SetDegree((12 * dir) + (i * 45));
+			sphere->SetDegree((12 * dir) + ((float)i * 45));
 			sphere->SetSphereType(Sphere_Type::Direction_8);
 			Vec3 Pos = mTransform->GetPosition();
 			sphere->AddComponent<Collider2D>();

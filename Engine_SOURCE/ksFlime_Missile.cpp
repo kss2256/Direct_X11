@@ -171,8 +171,8 @@ namespace ks
 		case ks::Flime_Step::Step_7:
 		{
 			mTime += Time::DeltaTime();
-			mScale.x += 6.5 * Time::DeltaTime();
-			mScale.y += 6.5 * Time::DeltaTime();
+			mScale.x += 6.5f * Time::DeltaTime();
+			mScale.y += 6.5f * Time::DeltaTime();
 			if (mTime >= 2.0f)
 			{
 				mTime = 0.f;

@@ -75,16 +75,16 @@ namespace ks
 			if (dynamic_cast<Boss_Flime*>(mTarget))
 			{
 				
-				float flimehp = STAMINA_PERCENTAGE / MAX_FLIME_HP;
-				mFlimeHp = STAMINA_PERCENTAGE - (flimehp * mTarget->GetMonsterHp());
+				float flimehp = (float)STAMINA_PERCENTAGE / (float)MAX_FLIME_HP;
+				mFlimeHp = (float)STAMINA_PERCENTAGE - (flimehp * (float)mTarget->GetMonsterHp());
 
 			}
 
 			if (dynamic_cast<Boss_Ent*>(mTarget))
 			{
 
-				float flimehp = STAMINA_PERCENTAGE / MAX_ENT_HP;
-				mFlimeHp = STAMINA_PERCENTAGE - (flimehp * mTarget->GetMonsterHp());
+				float flimehp = (float)STAMINA_PERCENTAGE / (float)MAX_ENT_HP;
+				mFlimeHp = (float)STAMINA_PERCENTAGE - (flimehp * (float)mTarget->GetMonsterHp());
 
 			}
 
