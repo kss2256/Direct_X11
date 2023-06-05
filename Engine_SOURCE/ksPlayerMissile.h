@@ -37,7 +37,7 @@ namespace ks
         Transform*      mTransform;
         Animator*       mAnimator;
         Player*         mPlayer;
-        sPlayer         mState;
+        s_PlayerInfo         mState;
 
         Vec3            mPos;
         Vec3            mDir;

@@ -534,7 +534,19 @@ namespace ks::renderer
 
 		Resources::Insert<Shader>(L"BossUIShader", bossuiShader);
 
+		// player_weapon
+		std::shared_ptr<Shader> weaponuiShader = std::make_shared<Shader>();
+		weaponuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		weaponuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
+		Resources::Insert<Shader>(L"WeaponUIShader", weaponuiShader);
+
+		// Player_Slot
+		std::shared_ptr<Shader> slotuiShader = std::make_shared<Shader>();
+		slotuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		slotuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"SlotUIShader", slotuiShader);
 
 
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
@@ -753,6 +765,20 @@ namespace ks::renderer
 		bossuiMaterial->SetShader(bossuiShader);
 		//uiMaterial->SetTexture(uiTexture);
 		Resources::Insert<Material>(L"BossUIMaterial", bossuiMaterial);
+
+
+		std::shared_ptr<Shader> weaponuiShader = Resources::Find<Shader>(L"WeaponUIShader");
+		std::shared_ptr<Material> weaponuiMaterial = std::make_shared<Material>();
+		weaponuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		weaponuiMaterial->SetShader(weaponuiShader);
+		Resources::Insert<Material>(L"WeaponUIMaterial", weaponuiMaterial);
+
+
+		std::shared_ptr<Shader> slotuiShader = Resources::Find<Shader>(L"SlotUIShader");
+		std::shared_ptr<Material> slotuiMaterial = std::make_shared<Material>();
+		slotuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		slotuiMaterial->SetShader(slotuiShader);
+		Resources::Insert<Material>(L"SlotUIMaterial", slotuiMaterial);
 
 		
 

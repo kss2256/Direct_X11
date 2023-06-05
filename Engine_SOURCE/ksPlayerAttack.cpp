@@ -109,7 +109,7 @@ namespace ks
 	void PlayerAttack::Update()
 	{
 		if (mPlayer != nullptr)
-			mState = mPlayer->GetPlayer();	
+			mState = mPlayer->GetPlayerInfo();	
 		eWeapon weapon = mState.weapon;
 
 		mCheakTime;
@@ -134,7 +134,7 @@ namespace ks
 					dirAnimation(1.56f);
 					mAnimator->Play(L"Attack_none1", false);
 					mState.progress = eProgress::Step_2;
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 
 					mDir = mPlayer->GetComponent<Transform>()->GetDirection();
 					mPos = mTransform->GetPosition();
@@ -170,7 +170,7 @@ namespace ks
 					dirAnimation();
 					mAnimator->Play(L"Attack_sword1", false);
 					mState.progress = eProgress::End;
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 				}
 
 				if (mState.progress == eProgress::Step_2)
@@ -180,7 +180,7 @@ namespace ks
 					dirAnimation();
 					mAnimator->Play(L"Attack_sword2", false);
 					mState.progress = eProgress::End;
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 				}
 
 				if (mState.progress == eProgress::Step_3)
@@ -190,7 +190,7 @@ namespace ks
 					dirAnimation();
 					mAnimator->Play(L"Attack_sword3", false);
 					mState.progress = eProgress::End;
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 				}
 				if (mState.progress == eProgress::End)
 				{
@@ -208,7 +208,7 @@ namespace ks
 					dirAnimation(1.56f);
 					mAnimator->Play(L"Attack_bow1", false);
 					mState.progress = eProgress::Step_2;
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 
 					mDir = mPlayer->GetComponent<Transform>()->GetDirection();
 					mPos = mTransform->GetPosition();
@@ -246,7 +246,7 @@ namespace ks
 					//dirAnimation(1.56f);
 					mAnimator->Play(L"Effect_Charge_Finish", false);
 					mState.progress = eProgress::Step_3;	
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 				}
 
 				if (mState.progress == eProgress::Step_3)
@@ -281,7 +281,7 @@ namespace ks
 					mAnimator->Play(L"Attack_staff1", false);
 
 					mState.progress = eProgress::Step_2;
-					mPlayer->SetPlayer(mState);
+					mPlayer->SetPlayerInfo(mState);
 
 					mDir = mPlayer->GetComponent<Transform>()->GetDirection();
 					mPos = mTransform->GetPosition();

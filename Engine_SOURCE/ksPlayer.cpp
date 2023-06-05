@@ -15,6 +15,7 @@ namespace ks
 		mStamina = 100;
 	
 		mStaninaFull = true;
+		mPlayer.weapon_Slot = eSlot::Slot_1;
 	}
 
 	Player::~Player()

@@ -45,7 +45,7 @@ namespace ks
         Transform*      mTransform;
         Animator*       mAnimator;
         Player*         mPlayer;
-        sPlayer         mState;
+        s_PlayerInfo         mState;
 
         Collider2D*     mCollider;
 

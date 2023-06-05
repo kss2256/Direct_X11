@@ -39,10 +39,27 @@ namespace ks
 	};
 
 
-	struct sPlayer
+	enum class eSlot
+	{
+		Slot_1,
+		Slot_2,
+	};
+
+
+	enum class eItem
+	{
+		None,
+		Sword,
+		Staff,
+		Bow,
+	};
+
+	struct s_PlayerInfo
 	{
 		eSkil skil;
+		eItem item;
 		eWeapon weapon;
+		eSlot weapon_Slot;
 		eProgress progress;
 	};
 
@@ -60,7 +77,7 @@ namespace ks
 
 	public:
 
-		sPlayer GetPlayer() { return mPlayer; }
+		s_PlayerInfo GetPlayerInfo() { return mPlayer; }
 		eGroundStage GetGroundStage() { return mPlayerStage; }
 		float GetPlayerHp() { return mHp; }
 		float GetPlayerStr() { return mStr; }
@@ -72,7 +89,7 @@ namespace ks
 		void RestoreStamina(float value) { mStamina = value; }
 
 
-		void SetPlayer(sPlayer weapon) { mPlayer = weapon; }
+		void SetPlayerInfo(s_PlayerInfo weapon) { mPlayer = weapon; }
 		void SetGroundStage(eGroundStage stage) { mPlayerStage = stage; }
 		void SetPlayerHp(float value) { mHp = value; }
 		void SetPlayerStr(float value) { mStr = value; }
@@ -82,15 +99,15 @@ namespace ks
 	private:
 
 
-		sPlayer					mPlayer;
-		std::vector<sPlayer>	mPlayers;
-		eGroundStage			mPlayerStage;
+		s_PlayerInfo					mPlayer;
+		std::vector<s_PlayerInfo>		mPlayers;
+		eGroundStage					mPlayerStage;
 
-		float					mHp;
-		float					mStamina;
-		float					mStr;
+		float							mHp;
+		float							mStamina;
+		float							mStr;
 
-		bool					mStaninaFull;
+		bool							mStaninaFull;
 
 		//GameObject* head;
 		//GameObject* body;

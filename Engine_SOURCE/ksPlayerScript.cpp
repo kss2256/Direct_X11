@@ -229,7 +229,7 @@ namespace ks
 			if (mState.situation == eSituation::Attack || mState.situation == eSituation::Continue || mState.situation == eSituation::Connect)
 			{
 				mCheakTime += Time::DeltaTime();
-				mPlayerState = mPlayer->GetPlayer();
+				mPlayerState = mPlayer->GetPlayerInfo();
 
 				switch (mPlayerState.weapon)
 				{
@@ -355,7 +355,7 @@ namespace ks
 			{
 				mCheakTime += Time::DeltaTime();
 
-				mPlayerState = mPlayer->GetPlayer();
+				mPlayerState = mPlayer->GetPlayerInfo();
 
 				switch (mPlayerState.skil)
 				{
@@ -364,7 +364,7 @@ namespace ks
 					if (mCheakTime > 0.5f)
 					{
 						mPlayerState.skil = eSkil::None;
-						mPlayer->SetPlayer(mPlayerState);
+						mPlayer->SetPlayerInfo(mPlayerState);
 						mState.situation = eSituation::None;
 						mStatus->SetStateInfo(mState);
 						mAnimator->ClearSpriteSheet();
@@ -1091,7 +1091,7 @@ namespace ks
 				if (!mPlayer->Usestamina(10.f, this))
 					return;
 				mPlayerState.skil = eSkil::Evade;
-				mPlayer->SetPlayer(mPlayerState);
+				mPlayer->SetPlayerInfo(mPlayerState);
 				mState.situation = eSituation::Skil;
 				mStatus->SetStateInfo(mState);
 				directionAnimation(L"Evade", false, true);
@@ -1141,8 +1141,8 @@ namespace ks
 				}
 
 
-				mPlayerState = mPlayer->GetPlayer();
-				mPlayer->SetPlayer(mPlayerState);
+				mPlayerState = mPlayer->GetPlayerInfo();
+				mPlayer->SetPlayerInfo(mPlayerState);
 
 
 #pragma region 기본 무기 공격 애니메이션
@@ -1364,7 +1364,7 @@ namespace ks
 							PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
 							mPlayerState.skil = eSkil::Attack;
 							mPlayerState.progress = eProgress::Step_8;
-							mPlayer->SetPlayer(mPlayerState);
+							mPlayer->SetPlayerInfo(mPlayerState);
 							mAttack->SetTarget(mPlayer);
 							mAttack->SetPlayer(mPlayerState);
 							mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
@@ -1566,7 +1566,18 @@ namespace ks
 			if (Input::GetKeyDown(eKeyCode::R))
 			{
 
-				mPlayerState = mPlayer->GetPlayer();
+				mPlayerState = mPlayer->GetPlayerInfo();
+
+				switch (mPlayerState.weapon_Slot)
+				{
+				case ks::eSlot::Slot_1:
+					mPlayerState.weapon_Slot = eSlot::Slot_2;
+					break;
+				case ks::eSlot::Slot_2:
+					mPlayerState.weapon_Slot = eSlot::Slot_1;
+					break;
+				}
+
 
 				switch (mPlayerState.weapon)
 				{
@@ -1584,7 +1595,7 @@ namespace ks
 					break;
 				}
 
-				mPlayer->SetPlayer(mPlayerState);
+				mPlayer->SetPlayerInfo(mPlayerState);
 			}
 
 
@@ -1858,7 +1869,7 @@ namespace ks
 			PlayerAttack* mAttack = object::Instantiate<PlayerAttack>(type);
 			mPlayerState.skil = skil;
 			mPlayerState.progress = progress;
-			mPlayer->SetPlayer(mPlayerState);
+			mPlayer->SetPlayerInfo(mPlayerState);
 
 			Collider2D* collider = mAttack->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
@@ -1877,7 +1888,7 @@ namespace ks
 		PlayerAttack* mAttack = object::Instantiate<PlayerAttack>(type);
 		mPlayerState.skil = skil;
 		mPlayerState.progress = progress;
-		mPlayer->SetPlayer(mPlayerState);
+		mPlayer->SetPlayerInfo(mPlayerState);
 
 		Collider2D* collider = mAttack->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);

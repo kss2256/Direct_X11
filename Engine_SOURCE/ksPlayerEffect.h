@@ -28,12 +28,12 @@ namespace ks
 
 
         GameObject* GetTarget() { return mPlayer; }
-        sPlayer GetPlayer() { return mState;}
+        s_PlayerInfo GetPlayer() { return mState;}
 
 
 
         void SetTarget(GameObject* target) { mPlayer = (Player*)target; }
-		void SetPlayer(sPlayer player) { mState = player; }
+		void SetPlayer(s_PlayerInfo player) { mState = player; }
 
 
     private:
@@ -42,7 +42,7 @@ namespace ks
         Transform* mTransform;
         Animator* mAnimator;
 
-        sPlayer         mState;
+        s_PlayerInfo         mState;
         eDirection      mDirection;
 
 

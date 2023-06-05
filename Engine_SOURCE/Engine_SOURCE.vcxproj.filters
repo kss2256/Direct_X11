@@ -142,6 +142,9 @@
     <Filter Include="GameObject\UI\UIManager">
       <UniqueIdentifier>{b3535caa-74f8-4f8d-8cb2-5c0efc30b76e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\DungeonUi">
+      <UniqueIdentifier>{c2ef499e-041e-4199-bced-5766fe22197f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -361,6 +364,12 @@
     </ClCompile>
     <ClCompile Include="ksUiMgr.cpp">
       <Filter>GameObject\UI\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerSlot.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksPlayerItem.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -599,6 +608,12 @@
     </ClInclude>
     <ClInclude Include="ksUiMgr.h">
       <Filter>GameObject\UI\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerSlot.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksPlayerItem.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

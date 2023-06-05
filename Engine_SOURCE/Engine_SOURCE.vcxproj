@@ -191,6 +191,8 @@
     <ClInclude Include="ksPlayerMissile.h" />
     <ClInclude Include="ksPlayerLayout.h" />
     <ClInclude Include="ksPlayerTpMeter.h" />
+    <ClInclude Include="ksPlayerSlot.h" />
+    <ClInclude Include="ksPlayerItem.h" />
     <ClInclude Include="ksSlime_Green.h" />
     <ClInclude Include="ksSnake_Green.h" />
     <ClInclude Include="ksStage1_1.h" />
@@ -271,6 +273,8 @@
     <ClCompile Include="ksPlayerMissile.cpp" />
     <ClCompile Include="ksPlayerLayout.cpp" />
     <ClCompile Include="ksPlayerTpMeter.cpp" />
+    <ClCompile Include="ksPlayerSlot.cpp" />
+    <ClCompile Include="ksPlayerItem.cpp" />
     <ClCompile Include="ksSlime_Green.cpp" />
     <ClCompile Include="ksSnake_Green.cpp" />
     <ClCompile Include="ksStage1_1.cpp" />

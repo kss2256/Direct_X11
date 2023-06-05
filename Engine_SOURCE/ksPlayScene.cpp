@@ -32,6 +32,11 @@
 #include "ksMonster_Trap_Line.h"
 #include "ksPlayerLayout.h"
 #include "ksPlayerTpMeter.h"
+#include "ksPlayerSlot.h"
+#include "ksPlayerItem.h"
+
+
+
 
 
 #include "ksMonsterMissile.h"
@@ -124,10 +129,50 @@ namespace ks
 
 			
 		}
-	
+		{
+			PlayerSlot* sloat = object::Instantiate<PlayerSlot>(eLayerType::UI);
+			sloat->SetName(L"Sloat");
+			sloat->SetTarget(mPlayer);
+
+			Transform* tr = sloat->GetComponent<Transform>();
+			tr->SetPosition(Vector3(8.3f, -4.1f, 0.0f));
+			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+		}
 
 
+		{
+			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);
+			weapon->SetName(L"Weapon_Sword");
+			weapon->SetTarget(mPlayer);
+			weapon->SetPlayerItem(eItem::Sword);
 
+			Transform* tr = weapon->GetComponent<Transform>();
+			tr->SetPosition(Vector3(35.0f, 4.0f, 2.0f));
+			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		}
+
+
+		{
+			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);
+			weapon->SetName(L"Weapon_Staff");
+			weapon->SetTarget(mPlayer);
+			weapon->SetPlayerItem(eItem::Staff);
+
+			Transform* tr = weapon->GetComponent<Transform>();
+			tr->SetPosition(Vector3(32.0f, 4.0f, 2.0f));
+			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		}
+
+		{
+			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);
+			weapon->SetName(L"Weapon_Bow");
+			weapon->SetTarget(mPlayer);
+			weapon->SetPlayerItem(eItem::Bow);
+
+			Transform* tr = weapon->GetComponent<Transform>();
+			tr->SetPosition(Vector3(38.0f, 4.0f, 2.0f));
+			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		}
 
 
 		{
@@ -364,6 +409,7 @@ namespace ks
 		LayerObjectClear(eLayerType::Ground_Parts);
 		LayerObjectClear(eLayerType::Ground_Shadows);
 		LayerObjectClear(eLayerType::Object);
+		LayerObjectClear(eLayerType::UI);
 
 
 

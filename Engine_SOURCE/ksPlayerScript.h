@@ -58,16 +58,16 @@ namespace ks
 
 	private:
 
-		Animator* mAnimator;
-		Status* mStatus;
-		Transform* mTransform;
-		Player* mPlayer;
-		Afterimage* mAfterimage;
+		Animator*			mAnimator;
+		Status*				mStatus;
+		Transform*			mTransform;
+		Player*				mPlayer;
+		Afterimage*			mAfterimage;
 
 		//PlayerAttack*		mAttack;
 
 		tStateInfo			mState;
-		sPlayer				mPlayerState;
+		s_PlayerInfo		mPlayerState;
 
 		Vec3				mPrevPos;
 		Vec3				mFixPos;
