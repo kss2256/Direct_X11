@@ -6,6 +6,7 @@
 
 namespace ks
 {
+	class Inventory;
 	class Boss_Ent;
 	class Boss_Flime;
 	class FadeEffect;
@@ -59,6 +60,9 @@ namespace ks
 		Snake_Green*			mSnake_Green_Two;
 		Boss_Flime*				mBoss_Flime;
 		Boss_Ent*				mBoss_Ent;
+		Inventory*				mInventory;
+
+		UINT					mSlotname;
 
 
 		FadeEffect*				mFadeEffect;

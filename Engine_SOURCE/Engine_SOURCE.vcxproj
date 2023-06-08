@@ -182,6 +182,9 @@
     <ClInclude Include="ksCloud.h" />
     <ClInclude Include="ksFlime_Missile.h" />
     <ClInclude Include="ksForest_Fairy.h" />
+    <ClInclude Include="ksInventory.h" />
+    <ClInclude Include="ksInventoryItem.h" />
+    <ClInclude Include="ksInventorySlot.h" />
     <ClInclude Include="ksMonsterMissile.h" />
     <ClInclude Include="ksMonster_Trap_Line.h" />
     <ClInclude Include="ksMouse.h" />
@@ -264,6 +267,9 @@
     <ClCompile Include="ksCloud.cpp" />
     <ClCompile Include="ksFlime_Missile.cpp" />
     <ClCompile Include="ksForest_Fairy.cpp" />
+    <ClCompile Include="ksInventory.cpp" />
+    <ClCompile Include="ksInventoryItem.cpp" />
+    <ClCompile Include="ksInventorySlot.cpp" />
     <ClCompile Include="ksMonsterMissile.cpp" />
     <ClCompile Include="ksMonster_Trap_Line.cpp" />
     <ClCompile Include="ksMouse.cpp" />

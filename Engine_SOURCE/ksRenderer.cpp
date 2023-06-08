@@ -243,6 +243,38 @@ namespace ks::renderer
 			, bossuiShader->GetInputLayoutAddressOf());
 
 
+		std::shared_ptr<Shader> weaponuiShader = Resources::Find<Shader>(L"WeaponUIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, weaponuiShader->GetVSBlobBufferPointer()
+			, weaponuiShader->GetVSBlobBufferSize()
+			, weaponuiShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> slotuiShader = Resources::Find<Shader>(L"SlotUIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, slotuiShader->GetVSBlobBufferPointer()
+			, slotuiShader->GetVSBlobBufferSize()
+			, slotuiShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> inventoryuiShader = Resources::Find<Shader>(L"InventoryUIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, inventoryuiShader->GetVSBlobBufferPointer()
+			, inventoryuiShader->GetVSBlobBufferSize()
+			, inventoryuiShader->GetInputLayoutAddressOf());
+
+
+		std::shared_ptr<Shader> inventoryslotuiShader = Resources::Find<Shader>(L"InventorySlotUIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, inventoryslotuiShader->GetVSBlobBufferPointer()
+			, inventoryslotuiShader->GetVSBlobBufferSize()
+			, inventoryslotuiShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> inventoryslot_1uiShader = Resources::Find<Shader>(L"InventorySlot_1UIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, inventoryslot_1uiShader->GetVSBlobBufferPointer()
+			, inventoryslot_1uiShader->GetVSBlobBufferSize()
+			, inventoryslot_1uiShader->GetInputLayoutAddressOf());
+
+
 		std::shared_ptr<Shader> bossmeteruiShader = Resources::Find<Shader>(L"BossMeterShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, bossmeteruiShader->GetVSBlobBufferPointer()
@@ -548,6 +580,30 @@ namespace ks::renderer
 
 		Resources::Insert<Shader>(L"SlotUIShader", slotuiShader);
 
+		// Inventory
+		std::shared_ptr<Shader> inventoryuiShader = std::make_shared<Shader>();
+		inventoryuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		inventoryuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+		
+
+		Resources::Insert<Shader>(L"InventoryUIShader", inventoryuiShader);
+
+		// Inventory Slot
+		std::shared_ptr<Shader> inventoryslotuiShader = std::make_shared<Shader>();
+		inventoryslotuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		inventoryslotuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"InventorySlotUIShader", inventoryslotuiShader);
+
+		// Inventory Slot
+		std::shared_ptr<Shader> inventoryslot_1uiShader = std::make_shared<Shader>();
+		inventoryslot_1uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		inventoryslot_1uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"InventorySlot_1UIShader", inventoryslot_1uiShader);
+
 
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
 		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
@@ -779,6 +835,26 @@ namespace ks::renderer
 		slotuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		slotuiMaterial->SetShader(slotuiShader);
 		Resources::Insert<Material>(L"SlotUIMaterial", slotuiMaterial);
+
+
+		std::shared_ptr<Shader> inventoryuiShader = Resources::Find<Shader>(L"InventoryUIShader");
+		std::shared_ptr<Material> inventoryuiMaterial = std::make_shared<Material>();
+		inventoryuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		inventoryuiMaterial->SetShader(inventoryuiShader);
+		Resources::Insert<Material>(L"InventoryUIMaterial", inventoryuiMaterial);
+
+
+		std::shared_ptr<Shader> inventoryslotuiShader = Resources::Find<Shader>(L"InventorySlotUIShader");
+		std::shared_ptr<Material> inventoryslotuiMaterial = std::make_shared<Material>();
+		inventoryslotuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		inventoryslotuiMaterial->SetShader(inventoryslotuiShader);
+		Resources::Insert<Material>(L"InventorySlotUIMaterial", inventoryslotuiMaterial);	
+		
+		std::shared_ptr<Shader> inventoryslot_1uiShader = Resources::Find<Shader>(L"InventorySlot_1UIShader");
+		std::shared_ptr<Material> inventoryslot_1uiMaterial = std::make_shared<Material>();
+		inventoryslot_1uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		inventoryslot_1uiMaterial->SetShader(inventoryslot_1uiShader);
+		Resources::Insert<Material>(L"InventorySlot_1UIMaterial", inventoryslot_1uiMaterial);
 
 		
 

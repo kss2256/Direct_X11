@@ -63,6 +63,7 @@ namespace ks
 		eProgress progress;
 	};
 
+	class UIBase;
 	class PlayerScript;
 	class Player : public GameObject
 	{
@@ -82,8 +83,10 @@ namespace ks
 		float GetPlayerHp() { return mHp; }
 		float GetPlayerStr() { return mStr; }
 		float GetStamina() { return mStamina; }
+		UIBase* GetInventoryTarget() { return mInventory; }
 
 
+		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
 		bool StaminaFull() { return mStaninaFull; }
 		bool Usestamina(float value, PlayerScript* script);
 		void RestoreStamina(float value) { mStamina = value; }
@@ -102,6 +105,8 @@ namespace ks
 		s_PlayerInfo					mPlayer;
 		std::vector<s_PlayerInfo>		mPlayers;
 		eGroundStage					mPlayerStage;
+		UIBase*							mInventory;
+
 
 		float							mHp;
 		float							mStamina;

@@ -6,7 +6,7 @@
 
 namespace ks
 {
-
+	class Inventory;
 	class Afterimage;
 	class PlayerAttack;
 	class GameObject;
@@ -44,6 +44,7 @@ namespace ks
 		
 
 		static void SetPlayerStop(bool stop) { mPlayerStop = stop; }
+		static void SetPlayerAttackStop(bool stop) { mAttackStop = stop; }
 		
 
 	private:
@@ -63,6 +64,7 @@ namespace ks
 		Transform*			mTransform;
 		Player*				mPlayer;
 		Afterimage*			mAfterimage;
+		Inventory*			mInventory;
 
 		//PlayerAttack*		mAttack;
 
@@ -79,6 +81,7 @@ namespace ks
 		static bool			mCarge;
 		static bool			mCargeEffect;
 		static bool			mCargeFinsh;
+		static bool			mAttackStop;
 		static bool			mPlayerStop;
 		bool				mCheak;
 		bool				mStaffStnmina;

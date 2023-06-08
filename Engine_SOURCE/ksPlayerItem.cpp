@@ -5,7 +5,7 @@
 #include "ksResources.h"
 #include "ksTransform.h"
 #include "ksShader.h"
-
+#include "ksInventory.h"
 
 #include "ksInput.h"
 
@@ -13,7 +13,7 @@ namespace ks
 {
 
 
-	PlayerItem::PlayerItem()
+	PlayerItem::PlayerItem()	
 	{
 
 		mTransform = GetComponent<Transform>();
@@ -36,6 +36,8 @@ namespace ks
 
 	PlayerItem::~PlayerItem()
 	{
+
+
 	}
 
 	void PlayerItem::Initalize()
@@ -61,8 +63,6 @@ namespace ks
 			mAnimator->Play(L"Bow", true);
 		}
 			break;
-		default:
-			break;
 		}
 
 
@@ -75,7 +75,6 @@ namespace ks
 	void PlayerItem::Update()
 	{
 		
-
 
 
 		UIBase::Update();
@@ -115,7 +114,6 @@ namespace ks
 				animation.duration = duration;
 				animation.leftTop = Vec2(j * scale.x, i * scale.y);
 				animation.offset = offset;
-				//animation.pos = mTransform->GetPosition(); // 이건 필요 없는듯 ? 필요할떄 사용예정 포지션을 받아와야함
 				animation.size = scale;
 
 
@@ -151,6 +149,7 @@ namespace ks
 
 
 	}
+
 
 	void PlayerItem::loadAnimation()
 	{

@@ -24,7 +24,7 @@ namespace ks
 
 
 		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"UIMaterial");
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Layout1", L"Player_UI\\Layout1.png");
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Layout", L"Player_UI\\Layout.png");
 		mateiral->SetTexture(texture);
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");

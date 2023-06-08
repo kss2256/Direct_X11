@@ -12,11 +12,8 @@ namespace ks
 	UIBase* UiMgr::mCurUI = nullptr;
 	UIBase* UiMgr::mPriorityUI = nullptr;
 
-
 	void UiMgr::Update()
 	{
-
-		
 
 		bool lbtnpressed = Input::GetKey(eKeyCode::LBTN);
 		bool Lbtndown = Input::GetKeyDown(eKeyCode::LBTN);
@@ -33,9 +30,13 @@ namespace ks
 		for (size_t i = 0; i < gameobject.size(); ++i)
 		{
 			mCurUI = ((UIBase*)gameobject[i]);
+			
 
 			if (nullptr == mCurUI)
 				continue;
+			//마우스 업 체크는 수시로 해주면서 true면 무조건 false로 바꿔줘야 함
+			if (mCurUI->mLbtnUp)
+				mCurUI->mLbtnUp = false;
 
 			// 마우스가 올라가있다면 클릭 됬는지 확인 할거임			
 			if(mCurUI->IsMouseOn())	
@@ -56,6 +57,7 @@ namespace ks
 				// 이번에 LBTN 이 떼졌다
 				else if (Lbtnup)
 				{
+
 					// 이전에 눌린적이 있다.
 					if (mCurUI->IsLbtnDown())
 					{
@@ -64,10 +66,11 @@ namespace ks
 						
 					}
 					mCurUI->mLbtnDown = false;
+					mCurUI->mLbtnPressed = false;
+					
 				}
 			}
 		}
-
 
 	}
 

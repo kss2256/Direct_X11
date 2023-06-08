@@ -35,6 +35,9 @@
 #include "ksPlayerSlot.h"
 #include "ksPlayerItem.h"
 
+#include "ksInventory.h"
+#include "ksInventorySlot.h"
+
 
 
 
@@ -45,6 +48,7 @@ namespace ks
 {
 	PlayScene::PlayScene()
 		: Scene(eSceneType::Play)
+		, mSlotname(1)
 	{
 
 	}
@@ -140,11 +144,89 @@ namespace ks
 		}
 
 
+
+		{
+
+			mInventory = object::Instantiate<Inventory>(eLayerType::UI);
+			mInventory->SetName(L"Inventroy");
+			mInventory->SetTarget(mPlayer);
+		
+
+			Transform* tr = mInventory->GetComponent<Transform>();
+			tr->SetPosition(Vector3(5.0f, 0.0f, 0.0f));
+			tr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+
+			for (int j = 0; j < 3; j++)
+			{
+				for (int i = -2; i < 3; i++)
+				{
+					InventorySlot* inventoryslot = new InventorySlot();
+
+					inventoryslot->SetName(std::wstring(L"inventoryslot" + std::to_wstring(mSlotname)));
+					inventoryslot->SetTarget(mPlayer);
+
+					Transform* inventorytr = inventoryslot->GetComponent<Transform>();
+					Vec3 pos = (Vector3(1 * i, 1.5f - j, 0.0f));
+					inventorytr->SetPosition(pos);
+					inventorytr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+
+					mInventory->AddChild(inventoryslot);
+					mInventory->SetSlotPos(pos);
+					mInventory->SetSlot(inventoryslot);
+					++mSlotname;
+				}
+				
+			}
+			mSlotname = 0;
+			mPlayer->SetInventoryTarget(mInventory);
+
+
+		}
+			
+		
+
+
+
+
+		
+
+		
+		//{
+		//	InventorySlot* inventoryslot = new InventorySlot();
+
+		//	inventoryslot->SetName(L"inventoryslot");
+		//	inventoryslot->SetTarget(mPlayer);
+
+		//	Transform* inventorytr = inventoryslot->GetComponent<Transform>();
+		//	inventorytr->SetPosition(Vector3(-1.0f, 1.5f, 0.0f));
+		//	inventorytr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+
+		//	
+
+
+		//	mInventory = object::Instantiate<Inventory>(eLayerType::UI);
+		//	mInventory->SetName(L"Inventroy");
+		//	mInventory->SetTarget(mPlayer);
+		//	mInventory->AddChild(inventoryslot);
+
+		//	Transform* tr = mInventory->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(5.0f, 0.0f, 0.0f));
+		//	tr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+		//}
+
+
+
+
 		{
 			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);
 			weapon->SetName(L"Weapon_Sword");
 			weapon->SetTarget(mPlayer);
 			weapon->SetPlayerItem(eItem::Sword);
+
+			Collider2D* collider = weapon->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			collider->SetSize(Vector2(0.07f, 0.09f));
+
 
 			Transform* tr = weapon->GetComponent<Transform>();
 			tr->SetPosition(Vector3(35.0f, 4.0f, 2.0f));
@@ -158,6 +240,10 @@ namespace ks
 			weapon->SetTarget(mPlayer);
 			weapon->SetPlayerItem(eItem::Staff);
 
+			Collider2D* collider = weapon->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			collider->SetSize(Vector2(0.07f, 0.09f));
+
 			Transform* tr = weapon->GetComponent<Transform>();
 			tr->SetPosition(Vector3(32.0f, 4.0f, 2.0f));
 			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
@@ -168,6 +254,10 @@ namespace ks
 			weapon->SetName(L"Weapon_Bow");
 			weapon->SetTarget(mPlayer);
 			weapon->SetPlayerItem(eItem::Bow);
+
+			Collider2D* collider = weapon->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			collider->SetSize(Vector2(0.07f, 0.09f));
 
 			Transform* tr = weapon->GetComponent<Transform>();
 			tr->SetPosition(Vector3(38.0f, 4.0f, 2.0f));
@@ -354,6 +444,7 @@ namespace ks
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Mouse, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster_Attack, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Ground, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::UI, true);
 
 
 		Scene::Initalize();

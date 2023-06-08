@@ -5,16 +5,17 @@
 #include "ksAnimator.h"
 
 
+
 namespace ks
 {	
+	class InventorySlot;
 	class Transform;
-    class PlayerItem :
+    class InventoryItem :
         public UIBase
     {
-
 	public:
-		PlayerItem();
-		virtual ~PlayerItem();
+		InventoryItem();
+		virtual ~InventoryItem();
 
 
 		virtual void Initalize() override;
@@ -22,13 +23,19 @@ namespace ks
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+	
+
 		Player* GetTarget() { return mTarget; }
 		UIBase* GetInventoryTarget() { return mInventory; }
+		std::vector<InventorySlot*> GetInventorySlot() { return mInventorysSlot; }
 		eItem GetPlayerItem() { return mPlayerItem; }
 
 		void SetTarget(Player* player) { mTarget = player; }
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
-		void SetPlayerItem(eItem item) { mPlayerItem = item; }		
+		void SetInventorySlot(std::vector<InventorySlot*> inventory) { mInventorysSlot = inventory; }
+		void SetPlayerItem(eItem item) { mPlayerItem = item; }
+
+		static void SetUiWalkPos(Vec3 pos) { mUiWalkPos = pos; }
 
 	private:
 
@@ -43,17 +50,28 @@ namespace ks
 		Animator*		mAnimator;
 		Player*			mTarget;
 		UIBase*			mInventory;
+		std::vector<InventorySlot*>	mInventorysSlot;
 		Vec3			mPlayerPos;
 		Vec3			mUiPos;
 		Vec3			mFinalPos;
+		Vec3			mUiPrevMousePos;
+		Vec3			mUiPrevItemPos;
+		
 
 		eItem			mPlayerItem;
 
-
+		std::vector<Vec3>		mSlotPosvector;
 		std::vector<Sprite>		mSprites;
 		std::vector<Sprite>		mSvaeSprite;
 
 		std::vector<UINT>       mNumbers;
+		static std::wstring			mItemName;
+
+
+		bool					mDragWalk;
+		static bool				mDragCheak;
+		static Vec3				mUiWalkPos;
+		
 
 
     };

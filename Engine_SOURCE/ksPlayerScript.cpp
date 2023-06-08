@@ -23,6 +23,9 @@
 #include "ksMonsterMissile.h"
 #include "ksDiary.h"
 #include "ksStage1_1.h"
+#include "ksInventory.h"
+#include "ksPlayerItem.h"
+
 
 
 #include <time.h>
@@ -47,6 +50,7 @@ namespace ks
 	bool PlayerScript::mCargeFinsh = false;
 	bool PlayerScript::mCargeEffect = false;
 	bool PlayerScript::mPlayerStop = false;
+	bool PlayerScript::mAttackStop = false;
 	UINT PlayerScript::miRef = 0;
 	float PlayerScript::mfStaff = 0.f;
 	//float PlayerScript::mCheakTime = 0.f;
@@ -68,6 +72,7 @@ namespace ks
 		, mStaffStnmina(false)
 		, mOnceCheak(false)
 		, mStaffAttack(false)
+		, mInventory(nullptr)
 	{		
 		srand((unsigned int)time(nullptr));
 		int a = rand();
@@ -1105,7 +1110,7 @@ namespace ks
 			if (Input::GetKeyDown(eKeyCode::LBTN))
 			{
 				if (mState.situation == eSituation::Attack || mState.situation == eSituation::Skil
-					|| mState.situation == eSituation::Continue)
+					|| mState.situation == eSituation::Continue || mAttackStop)
 					return;
 
 
@@ -1226,7 +1231,8 @@ namespace ks
 
 			if (Input::GetKey(eKeyCode::LBTN))
 			{
-
+				if (mAttackStop)
+					return;
 #pragma region 자동 공격 애니메이션
 				switch (mPlayerState.weapon)
 				{
@@ -1391,7 +1397,8 @@ namespace ks
 
 			if (Input::GetKeyUp(eKeyCode::LBTN))
 			{
-
+				if (mAttackStop)
+					return;
 				switch (mPlayerState.weapon)
 				{
 				case ks::eWeapon::None:
@@ -1606,6 +1613,23 @@ namespace ks
 			{
 
 			}
+
+			if (Input::GetKeyDown(eKeyCode::I))
+			{
+				if (mInventory->GetInventoryOnOff())
+				{
+					mInventory->SetInventoryOnOff(false);
+				}
+				else
+				{
+					mInventory->SetInventoryOnOff(true);
+				}
+
+
+			}
+
+
+
 		}
 
 		/*Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -2065,7 +2089,17 @@ namespace ks
 			}
 		}
 
-
+		if (dynamic_cast<PlayerItem*>(collider->GetOwner()))
+		{
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				PlayerItem* item = (PlayerItem*)collider->GetOwner();
+				
+				Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+				inventory->AddItem(item->GetPlayerItem());				
+				item->Death();
+			}
+		}
 
 
 		if (dynamic_cast<Stage1_1Move*>(collider->GetOwner()))

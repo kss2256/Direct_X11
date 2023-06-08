@@ -371,6 +371,15 @@
     <ClCompile Include="ksPlayerItem.cpp">
       <Filter>GameObject\UI\PlayerUi</Filter>
     </ClCompile>
+    <ClCompile Include="ksInventory.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksInventorySlot.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksInventoryItem.cpp">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -613,6 +622,15 @@
       <Filter>GameObject\UI\PlayerUi</Filter>
     </ClInclude>
     <ClInclude Include="ksPlayerItem.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksInventory.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksInventorySlot.h">
+      <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksInventoryItem.h">
       <Filter>GameObject\UI\PlayerUi</Filter>
     </ClInclude>
   </ItemGroup>

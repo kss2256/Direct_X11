@@ -21,8 +21,12 @@ namespace ks
 		void AddChild(UIBase* uiBase)
 		{
 			uiBase->mParent = this;
-			mChilds.push_back(uiBase);
+			mChilds.push_back(uiBase);			
 		}
+
+		const std::vector<UIBase*>& GetChild() { return mChilds; }
+
+
 
 		eUIType GetUIType() { return mType; }
 
@@ -33,12 +37,16 @@ namespace ks
 		Vector3 GetSize() { return mSize; }
 		void SetCmrAfctd(bool cmr) { mCmrAfctd = cmr; }
 		void SetUIType(eUIType type) { mType = type; }
+		void SetOneCheak(bool cheak) { mOneCheak = cheak; }
+		void SetTwoCheak(bool cheak) { mTwoCheak = cheak; }
 
 
 		bool IsMouseOn() { return mMouseOn; }
 		bool IsLbtnDown() { return mLbtnDown; }
 		bool IsLbtnUp() { return mLbtnUp; }
 		bool IsLbtnPressed() { return mLbtnPressed; }
+	
+
 
 		virtual void MouseLbtnDown() { mLbtnDown = true; };
 		virtual void MouseLbtnUp() { mLbtnUp = true; };
@@ -54,12 +62,13 @@ namespace ks
 
 		UIBase* mParent;
 
-		Vector3 mPos;
+		static Vector3 mPos;
 		Vector3 mSize;
 		Vector3 mScreenPos;
 
 
 		bool					mOneCheak;
+		bool					mTwoCheak;
 
 	private:
 

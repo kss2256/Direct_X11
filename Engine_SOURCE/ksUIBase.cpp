@@ -5,6 +5,8 @@
 
 namespace ks
 {
+	Vec3 UIBase::mPos = Vec3::Zero;
+
 	UIBase::UIBase()
 	{
 	}
@@ -18,8 +20,7 @@ namespace ks
 		MouseOnCheak();
 
 		GameObject::Update();
-	}
-
+	}	
 
 	void UIBase::MouseOnCheak()
 	{
@@ -28,6 +29,12 @@ namespace ks
 		Vec3 Scale = GetComponent<Transform>()->GetScale() * 0.5f;
 		Vec3 MousePos = Input::GetMousWorldPosition();
 
+		if (mOneCheak)
+		{
+			Scale /= 7;
+			if(mTwoCheak)
+			Pos = mPos;
+		}
 
 		if (MousePos.x <= Pos.x + Scale.x && MousePos.x >= Pos.x - Scale.x
 			&& MousePos.y <= Pos.y + Scale.y && MousePos.y >= Pos.y - Scale.y )
