@@ -129,6 +129,9 @@ namespace ks
 			mState = mStatus->GetStateInfo();
 
 			mTransform->GetPosition();
+			mPlayerState = mPlayer->GetPlayerInfo();
+			mPlayerState.item;
+
 
 		if(!mPlayerStop)
 		{
@@ -1583,29 +1586,13 @@ namespace ks
 				case ks::eSlot::Slot_2:
 					mPlayerState.weapon_Slot = eSlot::Slot_1;
 					break;
-				}
-
-
-				switch (mPlayerState.weapon)
-				{
-				case ks::eWeapon::None:
-					mPlayerState.weapon = eWeapon::Sword;
-					break;
-				case ks::eWeapon::Sword:
-					mPlayerState.weapon = eWeapon::Bow;
-					break;
-				case ks::eWeapon::Bow:
-					mPlayerState.weapon = eWeapon::Staff;
-					break;
-				case ks::eWeapon::Staff:
-					mPlayerState.weapon = eWeapon::None;
-					break;
-				}
-
+				}		
+			
 				mPlayer->SetPlayerInfo(mPlayerState);
 			}
 
-
+		
+		
 
 
 

@@ -36,6 +36,7 @@ namespace ks
 		void SetPlayerItem(eItem item) { mPlayerItem = item; }
 
 		static void SetUiWalkPos(Vec3 pos) { mUiWalkPos = pos; }
+		static void SetHandItem(bool item) { mHandItem = item; }
 
 	private:
 
@@ -64,11 +65,12 @@ namespace ks
 		std::vector<Sprite>		mSprites;
 		std::vector<Sprite>		mSvaeSprite;
 
-		std::vector<UINT>       mNumbers;
+		std::vector<UINT>			mNumbers;
 		static std::wstring			mItemName;
 
 
 		bool					mDragWalk;
+		static bool				mHandItem;
 		static bool				mDragCheak;
 		static Vec3				mUiWalkPos;
 		

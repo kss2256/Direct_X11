@@ -29,6 +29,8 @@ namespace ks
 		void SetTarget(Player* player) { mTarget = player; }
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
 		void SetPlayerItem(eItem item) { mPlayerItem = item; }		
+		void SetWeaponSlot(bool slot) { mWeaponSlot = slot; }
+
 
 	private:
 
@@ -54,6 +56,9 @@ namespace ks
 		std::vector<Sprite>		mSvaeSprite;
 
 		std::vector<UINT>       mNumbers;
+
+
+		bool					mWeaponSlot;
 
 
     };

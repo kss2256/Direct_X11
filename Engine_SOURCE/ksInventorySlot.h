@@ -39,7 +39,9 @@ namespace ks
 		static bool				mItemDragCheak;
 		bool					mItemOnOff;
 
+
 		Transform*				mTransform;
+		InventorySlot*			mPrevSlot;
 		Player*					mTarget;
 		Vec3					mPlayerPos;
 		Vec3					mUiPos;

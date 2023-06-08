@@ -265,6 +265,7 @@ namespace ks
 		}
 
 
+
 		{
 
 			mMouse = object::Instantiate<Mouse>(eLayerType::Mouse);

@@ -9,8 +9,8 @@ namespace ks
 	{
 		None,
 		Sword,
-		Bow,
 		Staff,
+		Bow,
 		End,
 	};
 
@@ -52,6 +52,7 @@ namespace ks
 		Sword,
 		Staff,
 		Bow,
+		End,
 	};
 
 	struct s_PlayerInfo
@@ -62,6 +63,7 @@ namespace ks
 		eSlot weapon_Slot;
 		eProgress progress;
 	};
+
 
 	class UIBase;
 	class PlayerScript;
@@ -90,12 +92,17 @@ namespace ks
 		bool StaminaFull() { return mStaninaFull; }
 		bool Usestamina(float value, PlayerScript* script);
 		void RestoreStamina(float value) { mStamina = value; }
-
+		bool GetItemWear() { return mItemWear; }
 
 		void SetPlayerInfo(s_PlayerInfo weapon) { mPlayer = weapon; }
 		void SetGroundStage(eGroundStage stage) { mPlayerStage = stage; }
 		void SetPlayerHp(float value) { mHp = value; }
 		void SetPlayerStr(float value) { mStr = value; }
+		void SetItemWear(bool item) { mItemWear = item; }
+
+	private:
+
+		void createItem(eItem item, const std::wstring name);
 
 
 
@@ -104,15 +111,16 @@ namespace ks
 
 		s_PlayerInfo					mPlayer;
 		std::vector<s_PlayerInfo>		mPlayers;
+
 		eGroundStage					mPlayerStage;
 		UIBase*							mInventory;
-
 
 		float							mHp;
 		float							mStamina;
 		float							mStr;
 
 		bool							mStaninaFull;
+		bool							mItemWear;
 
 		//GameObject* head;
 		//GameObject* body;

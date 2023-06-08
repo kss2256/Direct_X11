@@ -16,6 +16,7 @@ namespace ks
 {
 
 	bool InventoryItem::mDragCheak = false;
+	bool InventoryItem::mHandItem = false;
 	Vec3 InventoryItem::mUiWalkPos = Vec3::Zero;
 	std::wstring InventoryItem::mItemName = {};
 
@@ -122,7 +123,7 @@ namespace ks
 			Vec3 pos = mParent->GetComponent<Transform>()->GetPosition();
 			mUiPos = mTransform->GetPosition() - pos;
 
-			
+			mHandItem = false;
 			mDragWalk = false;
 			mDragCheak = false;
 		}
@@ -130,7 +131,8 @@ namespace ks
 
 		if (mDragCheak && GetName() == mItemName)
 		{
-
+			if (mHandItem)
+				return;
 			
 			Vec3 mousepos = Input::GetMousWorldPosition();
 
@@ -180,10 +182,24 @@ namespace ks
 				//SetTwoCheak(true);
 				mItemName = GetName();
 				mUiPrevItemPos = mTransform->GetPosition();
-				mDragCheak = true;
+				mDragCheak = true;				
 				mUiPrevMousePos = Input::GetMousWorldPosition();
 
 			}
+
+			
+		
+
+			if (Input::GetKeyDown(eKeyCode::RBTN))
+			{
+				s_PlayerInfo iteminfo = mTarget->GetPlayerInfo();
+				iteminfo.item = mPlayerItem;
+				mTarget->SetItemWear(true);
+				mTarget->SetPlayerInfo(iteminfo);
+			}
+		
+
+
 		}
 
 		

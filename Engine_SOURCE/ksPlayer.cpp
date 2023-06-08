@@ -2,6 +2,8 @@
 #include "ksCollider2D.h"
 #include "ksFadeEffect.h"
 #include "ksPlayerScript.h"
+#include "ksObject.h"
+#include "ksPlayerItem.h"
 
 
 #include "ksInput.h"
@@ -13,7 +15,7 @@ namespace ks
 	{
 		mHp = 10;
 		mStamina = 100;
-	
+		mItemWear = false;
 		mStaninaFull = true;
 		mPlayer.weapon_Slot = eSlot::Slot_1;
 	}
@@ -43,6 +45,41 @@ namespace ks
 
 	void Player::Update()
 	{
+
+		if(mItemWear)
+		{
+			switch (mPlayer.item)
+			{
+			case ks::eItem::None:
+			{
+				mPlayer.weapon = eWeapon::None;				
+				mItemWear = false;
+			}
+			break;
+			case ks::eItem::Sword:
+			{
+				mPlayer.weapon = eWeapon::Sword;
+				createItem(eItem::Sword, L"Sword_Slot");
+				mItemWear = false;
+			}
+			break;
+			case ks::eItem::Staff:
+			{
+				mPlayer.weapon = eWeapon::Staff;
+				createItem(eItem::Staff, L"Staff_Slot");
+				mItemWear = false;
+			}
+			break;
+			case ks::eItem::Bow:
+			{
+				mPlayer.weapon = eWeapon::Bow;
+				createItem(eItem::Bow, L"Bow_Slot");
+				mItemWear = false;
+			}
+			break;
+			}
+		}
+
 
 		switch (mPlayer.weapon)
 		{
@@ -112,6 +149,24 @@ namespace ks
 			mStamina -= value;
 			return true;
 		}
+	}
+
+	void Player::createItem(eItem item, const std::wstring name)
+	{
+		PlayerItem* playeritem = object::Instantiate<PlayerItem>(eLayerType::UI);
+
+		playeritem->SetName(name);		
+		playeritem->SetPlayerItem(item);	
+		playeritem->SetTarget(this);
+		playeritem->SetWeaponSlot(true);
+
+
+		Transform* tr = playeritem->GetComponent<Transform>();
+		tr->SetPosition(Vector3(8.25f, -4.05f, 0.0f));
+		tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
+
+		playeritem->Initalize();
+
 	}
 
 	

@@ -43,6 +43,10 @@ namespace ks
 	void PlayerItem::Initalize()
 	{	
 
+		if (mWeaponSlot)
+		{
+			mUiPos = mTransform->GetPosition();
+		}
 		
 		switch (mPlayerItem)
 		{
@@ -74,7 +78,17 @@ namespace ks
 
 	void PlayerItem::Update()
 	{
-		
+		if (mWeaponSlot)
+		{
+
+			Vec3 pos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
+			pos += mUiPos;
+			mTransform->SetPosition(pos);
+	
+
+		}
+
+
 
 
 		UIBase::Update();

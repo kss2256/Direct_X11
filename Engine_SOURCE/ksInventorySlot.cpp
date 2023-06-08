@@ -91,6 +91,7 @@ namespace ks
 				{
 					std::wstring test = GetName();
 					mItemOnOff = false;
+					mPrevSlot = this;
  					int a = 0;
 				}
 
@@ -120,10 +121,12 @@ namespace ks
 		{
 			if (IsMouseOn())
 			{
-
 			
 				if (mItemOnOff)
 				{
+					mPrevSlot->SetItemOnOff(true);
+					InventoryItem::SetUiWalkPos(mPrevSlot->mTransform->GetPosition());
+					InventoryItem::SetHandItem(true);
 					int a = 0;
 				}
 
