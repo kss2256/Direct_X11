@@ -45,6 +45,7 @@ namespace ks
 
 	void Player::Update()
 	{
+		
 
 		if(mItemWear)
 		{
@@ -58,23 +59,53 @@ namespace ks
 			break;
 			case ks::eItem::Sword:
 			{
-				mPlayer.weapon = eWeapon::Sword;
-				createItem(eItem::Sword, L"Sword_Slot");
-				mItemWear = false;
+				if (mPlayer.weapon_Slot == eSlot::Slot_1)
+				{
+					mPlayer.weapon = eWeapon::Sword;
+					createItemSlot_1(eItem::Sword, L"Sword_Slot1");
+					mItemWear = false;
+
+				}
+				else if (mPlayer.weapon_Slot == eSlot::Slot_2)
+				{
+					mPlayer.weapon = eWeapon::Sword;
+					createItemSlot_2(eItem::Sword, L"Sword_Slot2");
+					mItemWear = false;
+				}				
 			}
 			break;
 			case ks::eItem::Staff:
 			{
-				mPlayer.weapon = eWeapon::Staff;
-				createItem(eItem::Staff, L"Staff_Slot");
-				mItemWear = false;
+				if (mPlayer.weapon_Slot == eSlot::Slot_1)
+				{
+					mPlayer.weapon = eWeapon::Staff;
+					createItemSlot_1(eItem::Staff, L"Staff_Slot1");
+					mItemWear = false;
+				}
+				else if (mPlayer.weapon_Slot == eSlot::Slot_2)
+				{
+					mPlayer.weapon = eWeapon::Staff;
+					createItemSlot_2(eItem::Staff, L"Staff_Slot2");
+					mItemWear = false;
+				}
+
 			}
 			break;
 			case ks::eItem::Bow:
 			{
-				mPlayer.weapon = eWeapon::Bow;
-				createItem(eItem::Bow, L"Bow_Slot");
-				mItemWear = false;
+				if (mPlayer.weapon_Slot == eSlot::Slot_1)
+				{
+					mPlayer.weapon = eWeapon::Bow;
+					createItemSlot_1(eItem::Bow, L"Bow_Slot1");
+					mItemWear = false;
+				}
+				else if (mPlayer.weapon_Slot == eSlot::Slot_2)
+				{
+					mPlayer.weapon = eWeapon::Bow;
+					createItemSlot_2(eItem::Bow, L"Bow_Slot2");
+					mItemWear = false;
+				}
+
 			}
 			break;
 			}
@@ -104,6 +135,47 @@ namespace ks
 		}
 			break;	
 		}
+		if(mSlotChange)
+		{
+			switch (mPlayer.weapon_Slot)
+			{
+			case ks::eSlot::Slot_1:
+			{
+				if (mItemSlot_2)
+				{
+					if (mItemSlot_1 && !mItemSlot_1->IsItemUnlock())
+						mItemSlot_1->SetWeaponSlot(true);
+					mItemSlot_2->SetWeaponSlot(false);
+
+					Transform* tr = mItemSlot_2->GetComponent<Transform>();
+					tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+					tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
+
+					mSlotChange = false;
+				}
+				
+			}
+			break;
+			case ks::eSlot::Slot_2:
+			{
+				if (mItemSlot_1)
+				{
+					if (mItemSlot_2 && !mItemSlot_2->IsItemUnlock())
+						mItemSlot_2->SetWeaponSlot(true);
+					mItemSlot_1->SetWeaponSlot(false);
+
+					Transform* tr = mItemSlot_1->GetComponent<Transform>();
+					tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+					tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
+					mSlotChange = false;
+
+				}
+			}
+			break;
+			}
+			mSlotChange = false;
+		}
+
 
 		if (Input::GetKeyDown(eKeyCode::N_0))
 		{
@@ -151,21 +223,62 @@ namespace ks
 		}
 	}
 
-	void Player::createItem(eItem item, const std::wstring name)
+	void Player::createItemSlot_1(eItem item, const std::wstring name)
 	{
-		PlayerItem* playeritem = object::Instantiate<PlayerItem>(eLayerType::UI);
+		if(mItemSlot_1 == nullptr)
+		{
+			mItemSlot_1 = object::Instantiate<PlayerItem>(eLayerType::UI);
 
-		playeritem->SetName(name);		
-		playeritem->SetPlayerItem(item);	
-		playeritem->SetTarget(this);
-		playeritem->SetWeaponSlot(true);
+			mItemSlot_1->SetName(name);
+			mItemSlot_1->SetPlayerItem(item);
+			mItemSlot_1->SetTarget(this);
+			mItemSlot_1->SetWeaponSlot(true);
 
 
-		Transform* tr = playeritem->GetComponent<Transform>();
-		tr->SetPosition(Vector3(8.25f, -4.05f, 0.0f));
-		tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
+			Transform* tr = mItemSlot_1->GetComponent<Transform>();
+			tr->SetPosition(Vector3(8.25f, -4.05f, 0.0f));
+			tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
 
-		playeritem->Initalize();
+			mItemSlot_1->Initalize();
+		}
+
+		else
+		{
+			mItemSlot_1->SetItemChange(false);
+			mItemSlot_1->SetWeaponSlot(true);
+			mItemSlot_1->ItemChange(item);
+			mItemSlot_1->SetItemUnlock(false);
+		}
+
+	}
+
+	void Player::createItemSlot_2(eItem item, const std::wstring name)
+	{
+
+		if (mItemSlot_2 == nullptr)
+		{
+			mItemSlot_2 = object::Instantiate<PlayerItem>(eLayerType::UI);
+
+			mItemSlot_2->SetName(name);
+			mItemSlot_2->SetPlayerItem(item);
+			mItemSlot_2->SetTarget(this);
+			mItemSlot_2->SetWeaponSlot(true);
+
+
+			Transform* tr = mItemSlot_2->GetComponent<Transform>();
+			tr->SetPosition(Vector3(8.35f, -4.15f, 0.0f));
+			tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
+
+			mItemSlot_2->Initalize();
+		}
+		else
+		{
+			mItemSlot_2->SetItemChange(false);
+			mItemSlot_2->SetWeaponSlot(true);
+			mItemSlot_2->ItemChange(item);
+			mItemSlot_2->SetItemUnlock(false);
+		}
+
 
 	}
 

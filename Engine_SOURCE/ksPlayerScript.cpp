@@ -1589,6 +1589,7 @@ namespace ks
 				}		
 			
 				mPlayer->SetPlayerInfo(mPlayerState);
+				mPlayer->SetSlotChange(true);
 			}
 
 		

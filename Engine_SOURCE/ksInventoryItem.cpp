@@ -85,10 +85,7 @@ namespace ks
 	void InventoryItem::Update()
 	{
 		SetOneCheak(true);
-		SetPos(mUiPrevItemPos);
-
-		Vec3 TEST = Input::GetMousWorldPosition();
-		Vec3 test = mTransform->GetPosition();
+		SetPos(mUiPrevItemPos);		
 
 		if (mParent)
 		{

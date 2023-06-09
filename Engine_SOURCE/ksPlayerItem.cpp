@@ -14,6 +14,8 @@ namespace ks
 
 
 	PlayerItem::PlayerItem()	
+		: mItemChangeCheak(false)
+		, mItemUnlock(false)
 	{
 
 		mTransform = GetComponent<Transform>();
@@ -80,11 +82,30 @@ namespace ks
 	{
 		if (mWeaponSlot)
 		{
+			SetOneCheak(true);
 
 			Vec3 pos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 			pos += mUiPos;
 			mTransform->SetPosition(pos);
-	
+			
+			
+			if (IsMouseOn())
+			{
+				
+				if (Input::GetKeyDown(eKeyCode::RBTN))
+				{					
+					mWeaponSlot = false;
+					Transform* tr = GetComponent<Transform>();
+					tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+					tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));					
+					mItemUnlock = true;
+
+				}
+
+
+			}
+
+
 
 		}
 
@@ -164,6 +185,37 @@ namespace ks
 
 	}
 
+
+	void PlayerItem::ItemChange(eItem item)
+	{
+		if (!mItemChangeCheak)
+		{
+
+			switch (item)
+			{
+			case ks::eItem::None:
+				break;
+			case ks::eItem::Sword:
+			{
+				mAnimator->Play(L"Sword", true);
+			}
+			break;
+			case ks::eItem::Staff:
+			{
+				mAnimator->Play(L"Staff", true);
+			}
+			break;
+			case ks::eItem::Bow:
+			{
+				mAnimator->Play(L"Bow", true);
+			}
+			break;
+			}
+			mItemChangeCheak = true;
+		}
+
+
+	}
 
 	void PlayerItem::loadAnimation()
 	{

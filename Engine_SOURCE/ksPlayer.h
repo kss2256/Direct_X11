@@ -64,7 +64,7 @@ namespace ks
 		eProgress progress;
 	};
 
-
+	class PlayerItem;
 	class UIBase;
 	class PlayerScript;
 	class Player : public GameObject
@@ -99,10 +99,13 @@ namespace ks
 		void SetPlayerHp(float value) { mHp = value; }
 		void SetPlayerStr(float value) { mStr = value; }
 		void SetItemWear(bool item) { mItemWear = item; }
+		void SetSlotChange(bool change) { mSlotChange = change; }
+
 
 	private:
 
-		void createItem(eItem item, const std::wstring name);
+		void createItemSlot_1(eItem item, const std::wstring name);
+		void createItemSlot_2(eItem item, const std::wstring name);
 
 
 
@@ -114,6 +117,8 @@ namespace ks
 
 		eGroundStage					mPlayerStage;
 		UIBase*							mInventory;
+		PlayerItem*						mItemSlot_1;
+		PlayerItem*						mItemSlot_2;
 
 		float							mHp;
 		float							mStamina;
@@ -121,6 +126,7 @@ namespace ks
 
 		bool							mStaninaFull;
 		bool							mItemWear;
+		bool							mSlotChange;
 
 		//GameObject* head;
 		//GameObject* body;
