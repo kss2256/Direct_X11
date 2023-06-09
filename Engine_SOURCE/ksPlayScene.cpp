@@ -34,6 +34,7 @@
 #include "ksPlayerTpMeter.h"
 #include "ksPlayerSlot.h"
 #include "ksPlayerItem.h"
+#include "ksPlayerHP.h"
 
 #include "ksInventory.h"
 #include "ksInventorySlot.h"
@@ -263,6 +264,17 @@ namespace ks
 			tr->SetPosition(Vector3(38.0f, 4.0f, 2.0f));
 			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 		}
+
+		{
+			PlayerHP* playerhp = object::Instantiate<PlayerHP>(eLayerType::UI);
+			playerhp->SetName(L"Player_Hp_UI");
+			playerhp->SetTarget(mPlayer);		
+
+			/*Transform* tr = playerhp->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-1.0f, -3.5f, 0.0f));
+			tr->SetScale(Vector3(0.5f, 0.5f, 1.0f));*/
+		}
+
 
 
 

@@ -13,7 +13,8 @@ namespace ks
 {
 	Player::Player()
 	{
-		mHp = 10;
+
+		mHp = 5;		
 		mStamina = 100;
 		mItemWear = false;
 		mStaninaFull = true;
@@ -46,6 +47,25 @@ namespace ks
 	void Player::Update()
 	{
 		
+		if (Input::GetKeyDown(eKeyCode::N_1))
+		{
+			++mHp;
+		}
+		if (Input::GetKeyDown(eKeyCode::N_2))
+		{
+			mHp += 0.5f;
+		}
+		if (Input::GetKeyDown(eKeyCode::N_3))
+		{
+			--mHp;
+		}
+		if (Input::GetKeyDown(eKeyCode::N_4))
+		{
+			mHp -= 0.5f;
+		}
+
+
+
 
 		if(mItemWear)
 		{

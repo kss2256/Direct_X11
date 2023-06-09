@@ -314,6 +314,20 @@ namespace ks::renderer
 			, flimeShader->GetVSBlobBufferSize()
 			, flimeShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> fullhpShader = Resources::Find<Shader>(L"FullHpShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, fullhpShader->GetVSBlobBufferPointer()
+			, fullhpShader->GetVSBlobBufferSize()
+			, fullhpShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> halfhpShader = Resources::Find<Shader>(L"HalfHpShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, halfhpShader->GetVSBlobBufferPointer()
+			, halfhpShader->GetVSBlobBufferSize()
+			, halfhpShader->GetInputLayoutAddressOf());
+
+
+
 #pragma endregion
 		// Sampler State
 #pragma region sampler state
@@ -605,6 +619,22 @@ namespace ks::renderer
 		Resources::Insert<Shader>(L"InventorySlot_1UIShader", inventoryslot_1uiShader);
 
 
+		// FullHp
+		std::shared_ptr<Shader> fullhpShader = std::make_shared<Shader>();
+		fullhpShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		fullhpShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"FullHpShader", fullhpShader);
+
+		// HalfHp
+		std::shared_ptr<Shader> halfhpShader = std::make_shared<Shader>();
+		halfhpShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		halfhpShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"HalfHpShader", halfhpShader);
+
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
 		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
 		meterShader->Create(eShaderStage::PS, L"MeterPS.hlsl", "main");
@@ -654,6 +684,9 @@ namespace ks::renderer
 		flimeShader->Create(eShaderStage::VS, L"FlimeVS.hlsl", "main");
 		flimeShader->Create(eShaderStage::PS, L"FlimePS.hlsl", "main");
 		Resources::Insert<Shader>(L"FlimeShader", flimeShader);
+
+
+
 
 
 	}
@@ -856,7 +889,17 @@ namespace ks::renderer
 		inventoryslot_1uiMaterial->SetShader(inventoryslot_1uiShader);
 		Resources::Insert<Material>(L"InventorySlot_1UIMaterial", inventoryslot_1uiMaterial);
 
-		
+		std::shared_ptr<Shader> fullhpShader = Resources::Find<Shader>(L"FullHpShader");
+		std::shared_ptr<Material> fullhpMaterial = std::make_shared<Material>();
+		fullhpMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		fullhpMaterial->SetShader(fullhpShader);
+		Resources::Insert<Material>(L"FullHpMaterial", fullhpMaterial);
+
+		std::shared_ptr<Shader> halfhpShader = Resources::Find<Shader>(L"HalfHpShader");
+		std::shared_ptr<Material> halfhpMaterial = std::make_shared<Material>();
+		halfhpMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		halfhpMaterial->SetShader(halfhpShader);
+		Resources::Insert<Material>(L"HalfHpMaterial", halfhpMaterial);
 
 		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
 		std::shared_ptr<Material> meterMaterial = std::make_shared<Material>();

@@ -190,7 +190,9 @@
     <ClInclude Include="ksMouse.h" />
     <ClInclude Include="ksPlayerAttack.h" />
     <ClInclude Include="ksPlayerAttackScript.h" />
+    <ClInclude Include="ksPlayerCreateHp.h" />
     <ClInclude Include="ksPlayerEffect.h" />
+    <ClInclude Include="ksPlayerHP.h" />
     <ClInclude Include="ksPlayerMissile.h" />
     <ClInclude Include="ksPlayerLayout.h" />
     <ClInclude Include="ksPlayerTpMeter.h" />
@@ -275,7 +277,9 @@
     <ClCompile Include="ksMouse.cpp" />
     <ClCompile Include="ksPlayerAttack.cpp" />
     <ClCompile Include="ksPlayerAttackScript.cpp" />
+    <ClCompile Include="ksPlayerCreateHp.cpp" />
     <ClCompile Include="ksPlayerEffect.cpp" />
+    <ClCompile Include="ksPlayerHP.cpp" />
     <ClCompile Include="ksPlayerMissile.cpp" />
     <ClCompile Include="ksPlayerLayout.cpp" />
     <ClCompile Include="ksPlayerTpMeter.cpp" />
