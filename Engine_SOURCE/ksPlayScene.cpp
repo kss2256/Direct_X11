@@ -38,7 +38,7 @@
 
 #include "ksInventory.h"
 #include "ksInventorySlot.h"
-
+#include "ksCCoin.h"
 
 
 
@@ -185,8 +185,6 @@ namespace ks
 		}
 			
 		
-
-
 
 
 		

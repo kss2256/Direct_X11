@@ -14,6 +14,7 @@
 
 
 
+
 namespace ks
 {
 
@@ -79,6 +80,8 @@ namespace ks
 			{
 				mTime += Time::DeltaTime();
 				mAnimator->Play(L"Death", false);
+				
+				createCoin(mTransform->GetPosition());
 
 				if (mTime >= 1.0f)
 				{
@@ -457,7 +460,7 @@ namespace ks
 
 		mStateInfo.direction = eDirection::Down;
 		mStateInfo.situation = eSituation::Patrol;
-
+		m_bCoin = false;
 		mHp = 10;
 
 		mStatus->SetStateInfo(mStateInfo);

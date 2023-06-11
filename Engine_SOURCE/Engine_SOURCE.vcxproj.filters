@@ -145,6 +145,9 @@
     <Filter Include="GameObject\UI\DungeonUi">
       <UniqueIdentifier>{c2ef499e-041e-4199-bced-5766fe22197f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Coin">
+      <UniqueIdentifier>{8643195e-f6b5-4801-8bc3-33784e665579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -385,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="ksPlayerCreateHp.cpp">
       <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCCoin.cpp">
+      <Filter>GameObject\UI\Coin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -644,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="ksPlayerCreateHp.h">
       <Filter>GameObject\UI\PlayerUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCCoin.h">
+      <Filter>GameObject\UI\Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -83,10 +83,12 @@ namespace ks
 		s_PlayerInfo GetPlayerInfo() { return mPlayer; }
 		eGroundStage GetGroundStage() { return mPlayerStage; }
 		float GetPlayerHp() { return mHp; }
+		float GetPlayerMp() { return mMp; }
+		float GetPlayerFullMp() { return mFullMp; }
 		float GetPlayerStr() { return mStr; }
 		float GetStamina() { return mStamina; }
 		UIBase* GetInventoryTarget() { return mInventory; }
-
+		
 
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
 		bool StaminaFull() { return mStaninaFull; }
@@ -97,6 +99,7 @@ namespace ks
 		void SetPlayerInfo(s_PlayerInfo weapon) { mPlayer = weapon; }
 		void SetGroundStage(eGroundStage stage) { mPlayerStage = stage; }
 		void SetPlayerHp(float value) { mHp = value; }
+		void SetPlayerMp(float value) { mMp = value; }
 		void SetPlayerStr(float value) { mStr = value; }
 		void SetItemWear(bool item) { mItemWear = item; }
 		void SetSlotChange(bool change) { mSlotChange = change; }
@@ -121,6 +124,8 @@ namespace ks
 		PlayerItem*						mItemSlot_2;
 
 		float							mHp;
+		float							mMp;
+		float							mFullMp;
 		float							mStamina;
 		float							mStr;
 

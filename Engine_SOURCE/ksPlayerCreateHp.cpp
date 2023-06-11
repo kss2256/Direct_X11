@@ -30,6 +30,14 @@ namespace ks
 		std::shared_ptr<Texture> texture1 = Resources::Load<Texture>(L"HalfHp", L"Player_UI\\HalfHp.png");
 		mateiral1->SetTexture(texture1);
 
+		std::shared_ptr<Material> mateiral2 = Resources::Find<Material>(L"FullMpMaterial");
+		std::shared_ptr<Texture> texture2 = Resources::Load<Texture>(L"FullMp", L"Player_UI\\FullMp.png");
+		mateiral2->SetTexture(texture2);
+
+		std::shared_ptr<Material> mateiral3 = Resources::Find<Material>(L"HalfMpMaterial");
+		std::shared_ptr<Texture> texture3 = Resources::Load<Texture>(L"HalfMp", L"Player_UI\\HalfMp.png");
+		mateiral3->SetTexture(texture3);
+
 
 		mSprite->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
@@ -57,6 +65,19 @@ namespace ks
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"HalfHpMaterial");
 			mSprite->SetMaterial(mateiral);
 		}
+
+		if (m_bFullMp)
+		{
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"FullMpMaterial");
+			mSprite->SetMaterial(mateiral);
+		}
+
+		if (m_bHalfMp)
+		{
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"HalfMpMaterial");
+			mSprite->SetMaterial(mateiral);
+		}
+
 
 
 		GameObject::Initalize();

@@ -26,6 +26,8 @@ namespace ks
 		void SetTarget(PlayerHP* player) { mTarget = player; }
 		void SetFullHp(bool hp) { m_bFullHp = hp; }
 		void SetHalfHp(bool hp) { m_bHalfHp = hp; }
+		void SetFullMp(bool mp) { m_bFullMp = mp; }
+		void SetHalfMp(bool mp) { m_bHalfMp = mp; }
 		void SetUiPos(Vec3 pos) { mUiPos = pos; }
 
 
@@ -43,7 +45,8 @@ namespace ks
 
 		bool			m_bFullHp;
 		bool			m_bHalfHp;
-
+		bool			m_bFullMp;
+		bool			m_bHalfMp;
 
 	};
 

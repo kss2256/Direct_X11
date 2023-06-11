@@ -30,9 +30,11 @@ namespace ks
 	private:
 
 
-		void creatHpSet();
+		void createHpSet();
 		void hpSetPos();
 
+		void createMpSet();
+		void mpSetPos();
 
 
 
@@ -48,12 +50,23 @@ namespace ks
 		SpriteRenderer* mSprite;
 
 		std::vector<PlayerCreateHp*> m_vCreateHps;
+		std::vector<PlayerCreateHp*> m_vCreateFullMps;
+		std::vector<PlayerCreateHp*> m_vCreateHalfMps;
 
 		float			mPlayerHp;
 		float			mPlayerPrevHp;
+		float			mPlayerFullMp;
+		float			mPlayerFullPrevMp;
+		float			mPlayerMp;
+		float			mPlayerPrevMp;
+
 		int				mFullHp;
+		int				mFullMp;
 		float			mHalfHp;
 		static UINT		mHpCount;
+		static UINT		mFullMpCount;
+		static UINT		mHalfMpCount;
+		
 
 
     };

@@ -16,6 +16,7 @@ namespace ks
 		, mShakeTime(0.f)
 		, mBossHit(false)
 		, mOnceCheak(false)
+		, m_bCoin(false)
 	{
 	}
 	Monster::~Monster()
@@ -125,6 +126,49 @@ namespace ks
 		animaotr->CreateAfter(mSprites, texture);
 		mSvaeSprite.clear();
 		mSprites.clear();
+	}
+	void Monster::createCoin(Vec3 pos)
+	{
+		srand((unsigned int)time(nullptr));
+		int a = rand();
+
+
+
+		if (!m_bCoin)
+		{
+			int a = (rand() % 15) + 1;
+			eCoin ecoin = {};
+
+			if (a < 6)
+			{
+				ecoin = eCoin::Bronze;
+			}
+			else if (a > 5 && a < 11)
+			{
+				ecoin = eCoin::Silver;
+			}
+			else if (a > 10)
+			{
+				ecoin = eCoin::Gold;
+			}
+
+
+			CCoin* coin = object::Instantiate<CCoin>(eLayerType::UI);
+			coin->SetName(L"Coin");
+			coin->SetCoin(ecoin, a);
+			//coin->SetTarget(mPlayer);
+
+			Transform* tr = coin->GetComponent<Transform>();
+			tr->SetPosition(pos);
+			tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
+
+			coin->Initalize();
+			m_bCoin = true;
+		}
+
+
+
+
 	}
 	bool Monster::Range()
 	{

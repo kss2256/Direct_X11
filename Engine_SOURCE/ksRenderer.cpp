@@ -326,6 +326,24 @@ namespace ks::renderer
 			, halfhpShader->GetVSBlobBufferSize()
 			, halfhpShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> fullmpShader = Resources::Find<Shader>(L"FullMpShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, fullmpShader->GetVSBlobBufferPointer()
+			, fullmpShader->GetVSBlobBufferSize()
+			, fullmpShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> halfmpShader = Resources::Find<Shader>(L"HalfMpShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, halfmpShader->GetVSBlobBufferPointer()
+			, halfmpShader->GetVSBlobBufferSize()
+			, halfmpShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> coinShader = Resources::Find<Shader>(L"CoinShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, coinShader->GetVSBlobBufferPointer()
+			, coinShader->GetVSBlobBufferSize()
+			, coinShader->GetInputLayoutAddressOf());
+
 
 
 #pragma endregion
@@ -627,13 +645,37 @@ namespace ks::renderer
 
 		Resources::Insert<Shader>(L"FullHpShader", fullhpShader);
 
-		// HalfHp
+		//// HalfHp
 		std::shared_ptr<Shader> halfhpShader = std::make_shared<Shader>();
 		halfhpShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
 		halfhpShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
 
 		Resources::Insert<Shader>(L"HalfHpShader", halfhpShader);
+
+		// FullMp
+		std::shared_ptr<Shader> fullmpShader = std::make_shared<Shader>();
+		fullmpShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		fullmpShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"FullMpShader", fullmpShader);
+
+		//// HalfMp
+		std::shared_ptr<Shader> halfmpShader = std::make_shared<Shader>();
+		halfmpShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		halfmpShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"HalfMpShader", halfmpShader);
+
+
+		std::shared_ptr<Shader> coinShader = std::make_shared<Shader>();
+		coinShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		coinShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+
+		Resources::Insert<Shader>(L"CoinShader", coinShader);
 
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
 		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
@@ -900,6 +942,26 @@ namespace ks::renderer
 		halfhpMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		halfhpMaterial->SetShader(halfhpShader);
 		Resources::Insert<Material>(L"HalfHpMaterial", halfhpMaterial);
+
+		std::shared_ptr<Shader> fullmpShader = Resources::Find<Shader>(L"FullMpShader");
+		std::shared_ptr<Material> fullmpMaterial = std::make_shared<Material>();
+		fullmpMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		fullmpMaterial->SetShader(fullmpShader);
+		Resources::Insert<Material>(L"FullMpMaterial", fullmpMaterial);
+
+		std::shared_ptr<Shader> halfmpShader = Resources::Find<Shader>(L"HalfMpShader");
+		std::shared_ptr<Material> halfmpMaterial = std::make_shared<Material>();
+		halfmpMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		halfmpMaterial->SetShader(halfmpShader);
+		Resources::Insert<Material>(L"HalfMpMaterial", halfmpMaterial);
+
+
+		std::shared_ptr<Shader> coinShader = Resources::Find<Shader>(L"CoinShader");
+		std::shared_ptr<Material> coinMaterial = std::make_shared<Material>();
+		coinMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		coinMaterial->SetShader(coinShader);
+		Resources::Insert<Material>(L"CoinMaterial", coinMaterial);
+
 
 		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
 		std::shared_ptr<Material> meterMaterial = std::make_shared<Material>();

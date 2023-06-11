@@ -408,6 +408,7 @@ namespace ks
 
 		mStateInfo.direction = eDirection::Down;
 		mStateInfo.situation = eSituation::Patrol;
+		m_bCoin = false;
 
 		mStatus->SetStateInfo(mStateInfo);
 

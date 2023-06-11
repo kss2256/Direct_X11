@@ -8,6 +8,7 @@
 #include "ksTime.h"
 #include "ksCollider2D.h"
 #include "ksObject.h"
+#include "ksCCoin.h"
 
 #include <time.h>
 
@@ -72,6 +73,8 @@ namespace ks
 
 		void CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
 			, Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration);
+		void createCoin(Vec3 pos);
+
 
 		bool Range();
 		void Patrol();
@@ -80,6 +83,7 @@ namespace ks
 		void oneDirectionAnimation(const std::wstring& name, eDirection dir, bool loop);
 		void hit(float time, float distance, float speed);
 		void boss_hit(float time, float distance, float speed);
+		
 
 
 	protected:
@@ -107,6 +111,7 @@ namespace ks
 		float					mTime;
 		float					mShakeTime;
 
+	
 
 		
 		bool					mDirectionCheak;
@@ -115,6 +120,7 @@ namespace ks
 		bool					mDetection;
 		bool					mOnceCheak;
 		bool					mBossHit;
+		bool					m_bCoin;
 		float					mRnadomAttack;
 		float					mPrevRnadom;
 

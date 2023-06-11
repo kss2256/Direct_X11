@@ -44,6 +44,8 @@ namespace ks
 
 	InventoryItem::~InventoryItem()
 	{
+		int a = 0;
+
 	}
 
 	void InventoryItem::Initalize()

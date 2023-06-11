@@ -84,6 +84,8 @@ namespace ks
 				mTime += Time::DeltaTime();
 				mAnimator->Play(L"Death", false);
 
+				createCoin(mTransform->GetPosition());
+
 				if (mTime >= 1.0f)
 				{
 					//this->Death();
@@ -473,7 +475,7 @@ namespace ks
 	{
 		mStateInfo.direction = eDirection::Down;
 		mStateInfo.situation = eSituation::Patrol;
-		
+		m_bCoin = false;
 		mStatus->SetStateInfo(mStateInfo);
 
 		mHp = 15;
