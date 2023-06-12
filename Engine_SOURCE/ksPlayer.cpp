@@ -11,6 +11,9 @@
 
 namespace ks
 {
+	UINT Player::mPlayerCoin = 0;
+
+
 	Player::Player()
 	{
 
@@ -18,7 +21,7 @@ namespace ks
 		mMp = 5;	
 		mFullMp = 5;
 
-		mStamina = 100;
+		mStamina = 188;
 		mItemWear = false;
 		mStaninaFull = true;
 		mPlayer.weapon_Slot = eSlot::Slot_1;
@@ -102,6 +105,19 @@ namespace ks
 			--mFullMp;
 		}
 
+
+		if (Input::GetKeyDown(eKeyCode::NUM_1))
+		{
+			if (mPlayerCoin >= 999)
+				return;
+			++mPlayerCoin;
+		}
+		if (Input::GetKeyDown(eKeyCode::NUM_2))
+		{
+			if(mPlayerCoin <= 1)
+				return;
+			--mPlayerCoin;
+		}
 
 
 		if(mItemWear)
@@ -210,7 +226,12 @@ namespace ks
 
 					mSlotChange = false;
 				}
-				
+		
+				if (mItemSlot_1 != nullptr)
+				mPlayer.item = mItemSlot_1->GetPlayerItem();
+				else
+				mPlayer.item = eItem::None;
+				mItemWear = true;
 			}
 			break;
 			case ks::eSlot::Slot_2:
@@ -227,6 +248,13 @@ namespace ks
 					mSlotChange = false;
 
 				}
+			
+				if(mItemSlot_2 != nullptr)
+				mPlayer.item = mItemSlot_2->GetPlayerItem();
+				else
+				mPlayer.item = eItem::None;
+				mItemWear = true;
+
 			}
 			break;
 			}

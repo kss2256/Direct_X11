@@ -1,5 +1,4 @@
 #include "ksCCoin.h"
-#include "ksPlayer.h"
 #include "ksSpriteRenderer.h"
 #include "ksMaterial.h"
 #include "ksMesh.h"

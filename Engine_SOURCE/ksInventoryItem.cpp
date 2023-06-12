@@ -195,6 +195,7 @@ namespace ks
 				iteminfo.item = mPlayerItem;
 				mTarget->SetItemWear(true);
 				mTarget->SetPlayerInfo(iteminfo);
+				
 			}
 		
 

@@ -44,8 +44,9 @@ namespace ks::enums
 		Ground_Parts,
 		Fog,
 		UI,
+		Gold_Ui,
 		Mouse,
-		End = 17,
+		End,
 	};
 
 	enum class eComponentType

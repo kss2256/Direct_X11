@@ -104,6 +104,9 @@ namespace ks
 		void SetItemWear(bool item) { mItemWear = item; }
 		void SetSlotChange(bool change) { mSlotChange = change; }
 
+		static UINT GetPlayerCoin() { return mPlayerCoin ; }
+		static void SetPlayerCoin(UINT value) { mPlayerCoin = value; }
+
 
 	private:
 
@@ -132,6 +135,8 @@ namespace ks
 		bool							mStaninaFull;
 		bool							mItemWear;
 		bool							mSlotChange;
+
+		static UINT						mPlayerCoin;
 
 		//GameObject* head;
 		//GameObject* body;

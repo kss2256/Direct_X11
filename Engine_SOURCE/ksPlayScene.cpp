@@ -39,7 +39,8 @@
 #include "ksInventory.h"
 #include "ksInventorySlot.h"
 #include "ksCCoin.h"
-
+#include "ksGoldUi.h"
+#include "ksMoneyUi.h"
 
 
 
@@ -273,6 +274,25 @@ namespace ks
 			tr->SetScale(Vector3(0.5f, 0.5f, 1.0f));*/
 		}
 
+		{
+			GoldUi* goldui = object::Instantiate<GoldUi>(eLayerType::Gold_Ui);
+			goldui->SetName(L"GoldUi");
+			goldui->SetTarget(mPlayer);
+
+			Transform* tr = goldui->GetComponent<Transform>();
+			tr->SetPosition(Vector3(9.0f, 4.7f, 0.0f));
+			tr->SetScale(Vector3(0.7f, 0.7f, 1.0f));
+		}
+
+		{
+			MoneyUi* goldui = object::Instantiate<MoneyUi>(eLayerType::Gold_Ui);
+			goldui->SetName(L"MoneyUi");
+			goldui->SetTarget(mPlayer);
+
+			Transform* tr = goldui->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			tr->SetScale(Vector3(0.7f, 0.7f, 1.0f));
+		}
 
 
 

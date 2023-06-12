@@ -392,6 +392,15 @@
     <ClCompile Include="ksCCoin.cpp">
       <Filter>GameObject\UI\Coin</Filter>
     </ClCompile>
+    <ClCompile Include="ksGoldUi.cpp">
+      <Filter>GameObject\UI\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="ksMoneyUi.cpp">
+      <Filter>GameObject\UI\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCreateMoney.cpp">
+      <Filter>GameObject\UI\Coin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -652,6 +661,15 @@
       <Filter>GameObject\UI\PlayerUi</Filter>
     </ClInclude>
     <ClInclude Include="ksCCoin.h">
+      <Filter>GameObject\UI\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="ksGoldUi.h">
+      <Filter>GameObject\UI\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMoneyUi.h">
+      <Filter>GameObject\UI\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCreateMoney.h">
       <Filter>GameObject\UI\Coin</Filter>
     </ClInclude>
   </ItemGroup>

@@ -344,7 +344,17 @@ namespace ks::renderer
 			, coinShader->GetVSBlobBufferSize()
 			, coinShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> golduiShader = Resources::Find<Shader>(L"GoldUiShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, golduiShader->GetVSBlobBufferPointer()
+			, golduiShader->GetVSBlobBufferSize()
+			, golduiShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> moneyuiShader = Resources::Find<Shader>(L"MoneyUiShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, moneyuiShader->GetVSBlobBufferPointer()
+			, moneyuiShader->GetVSBlobBufferSize()
+			, moneyuiShader->GetInputLayoutAddressOf());
 
 #pragma endregion
 		// Sampler State
@@ -677,6 +687,18 @@ namespace ks::renderer
 
 		Resources::Insert<Shader>(L"CoinShader", coinShader);
 
+		std::shared_ptr<Shader> golduiShader = std::make_shared<Shader>();
+		golduiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		golduiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"GoldUiShader", golduiShader);
+
+		std::shared_ptr<Shader> moneyuiShader = std::make_shared<Shader>();
+		moneyuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		moneyuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"MoneyUiShader", moneyuiShader);
+
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
 		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
 		meterShader->Create(eShaderStage::PS, L"MeterPS.hlsl", "main");
@@ -962,6 +984,19 @@ namespace ks::renderer
 		coinMaterial->SetShader(coinShader);
 		Resources::Insert<Material>(L"CoinMaterial", coinMaterial);
 
+
+		std::shared_ptr<Shader> golduiShader = Resources::Find<Shader>(L"GoldUiShader");
+		std::shared_ptr<Material> golduiMaterial = std::make_shared<Material>();
+		golduiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		golduiMaterial->SetShader(golduiShader);
+		Resources::Insert<Material>(L"GoldUiMaterial", golduiMaterial);
+
+
+		std::shared_ptr<Shader> moneyShader = Resources::Find<Shader>(L"MoneyUiShader");
+		std::shared_ptr<Material> moneyMaterial = std::make_shared<Material>();
+		moneyMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		moneyMaterial->SetShader(moneyShader);
+		Resources::Insert<Material>(L"MoneyUiMaterial", moneyMaterial);
 
 		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
 		std::shared_ptr<Material> meterMaterial = std::make_shared<Material>();
