@@ -11,6 +11,9 @@ namespace ks
 		Sword,
 		Staff,
 		Bow,
+		Legend_Sword,
+		Legend_Staff,
+		Legend_Bow,
 		End,
 	};
 
@@ -52,6 +55,9 @@ namespace ks
 		Sword,
 		Staff,
 		Bow,
+		Legend_Sword,
+		Legend_Staff,
+		Legend_Bow,
 		End,
 	};
 
@@ -105,7 +111,7 @@ namespace ks
 		void SetSlotChange(bool change) { mSlotChange = change; }
 
 		static UINT GetPlayerCoin() { return mPlayerCoin ; }
-		static void SetPlayerCoin(UINT value) { mPlayerCoin = value; }
+		static void SetPlayerCoin(UINT value) { mPlayerCoin += value; }
 
 
 	private:

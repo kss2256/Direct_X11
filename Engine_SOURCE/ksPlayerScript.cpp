@@ -25,7 +25,7 @@
 #include "ksStage1_1.h"
 #include "ksInventory.h"
 #include "ksPlayerItem.h"
-
+#include "ksCCoin.h"
 
 
 #include <time.h>
@@ -131,6 +131,9 @@ namespace ks
 			mTransform->GetPosition();
 			mPlayerState = mPlayer->GetPlayerInfo();
 			mPlayerState.item;
+
+			mPlayerState.weapon = eWeapon::Legend_Staff;
+			mPlayer->SetPlayerInfo(mPlayerState);
 
 
 		if(!mPlayerStop)
@@ -347,6 +350,104 @@ namespace ks
 					}
 				}
 				break;
+
+				case ks::eWeapon::Legend_Sword:
+				{
+
+					if (miRef < 5)
+					{
+						if (mCheakTime >= 0.2f && mCheakTime < 0.25f)
+						{
+							if (mState.situation == eSituation::Continue)
+							{
+								mState.situation = eSituation::Connect;
+								mStatus->SetStateInfo(mState);
+								mCheakTime = 0.f;
+							}
+						}
+						else if (mCheakTime >= 0.35f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+							miRef = 0;
+						}
+					}
+
+					else if (miRef == 5)
+					{
+						if (mCheakTime >= 0.3f)
+						{
+							directionAnimation(L"Attack4_Sword", false);
+							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.4f);
+							mState.situation = eSituation::Continue;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+							++miRef;
+						}
+					}
+
+					else if (miRef > 5)
+					{
+						if (mCheakTime >= 0.4f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							miRef = 0;
+							mCheakTime = 0.f;
+						}
+
+					}
+				}
+				break;
+				case ks::eWeapon::Legend_Bow:
+				{
+					if (mState.situation == eSituation::Auto)
+					{
+						if (mCheakTime >= 0.2f)
+						{
+
+							mCheakTime = 0.f;
+						}
+					}
+
+					else
+					{
+						if (mCheakTime >= 0.45f)
+						{
+
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+						}
+					}
+				}
+				break;
+				case ks::eWeapon::Legend_Staff:
+				{
+
+					if (mCargeFinsh)
+					{
+						if (mCheakTime >= 0.8f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+							mCargeFinsh = false;
+						}
+					}
+					else
+					{
+						if (mCheakTime >= 0.45f)
+						{
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							mCheakTime = 0.f;
+						}
+					}
+				}
+				break;
+
 				}
 
 			}
@@ -467,7 +568,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::UpRight || mState.direction == eDirection::DownRight)
 							pos.x += 2.5f * 0.75f * Time::DeltaTime();
@@ -506,7 +607,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::DownLeft)
 							pos.x -= 2.5f * 0.75f * Time::DeltaTime();
@@ -544,7 +645,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::UpRight)
 							pos.y += 2.5f * 0.75f * Time::DeltaTime();
@@ -582,7 +683,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::DownLeft || mState.direction == eDirection::DownRight)
 							pos.y -= 2.5f * 0.75f * Time::DeltaTime();
@@ -1146,6 +1247,25 @@ namespace ks
 						return;
 				}
 				break;
+				case ks::eWeapon::Legend_Sword:
+				{
+					if (!mPlayer->Usestamina(7.f, this))
+						return;
+				}
+				break;
+				case ks::eWeapon::Legend_Bow:
+				{
+					if (!mPlayer->Usestamina(5.f, this))
+						return;
+				}
+
+				break;
+				case ks::eWeapon::Legend_Staff:
+				{
+					if (!mPlayer->Usestamina(10.f, this))
+						return;
+				}
+				break;
 				}
 
 
@@ -1204,24 +1324,66 @@ namespace ks
 					mState.situation = eSituation::Attack;
 					directionAnimation(L"Attack_Stand_Bow", false);
 					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
-
-					//PlayerMissile* mAttack = object::Instantiate<PlayerMissile>(eLayerType::Player_Effect);
-					//mPlayerState.skil = eSkil::Attack;
-					//mPlayerState.progress = eProgress::Step_1;
-					//mPlayer->SetPlayer(mPlayerState);
-					//
-					////mAttack->SetDirection(mState.direction);
-					////mAttack->SetCooldownTime(2.2f);
-					//mAttack->SetTarget(mPlayer);
-					//mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
-					//mAttack->SetDirection(mTransform->GetDirection());								
+					
 				}
 
 				break;
 				case ks::eWeapon::Staff:
+				{
 					mbAttackWalk = true;
 					mStaffAttack = true;
+				}
 					break;
+
+				case ks::eWeapon::Legend_Sword:
+				{
+					angleDirection();
+					mState.situation = eSituation::Attack;
+					if (miRef == 0)
+					{
+						directionAnimation(L"Attack1_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+					}
+					else if (miRef == 1)
+					{
+						directionAnimation(L"Attack2_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+					}
+					else if (miRef == 2)
+					{
+						directionAnimation(L"Attack1_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+					}
+					else if (miRef == 3)
+					{
+						directionAnimation(L"Attack2_Sword", false);
+						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+					}
+					else if (miRef == 4)
+					{
+						directionAnimation(L"Attack3_Sword", false);
+					}
+
+					if (miRef >= 5)
+						return;
+					++miRef;
+				}
+				break;
+				case ks::eWeapon::Legend_Staff:
+				{
+					mbAttackWalk = true;
+					mStaffAttack = true;
+				}
+				break;
+				case ks::eWeapon::Legend_Bow:
+				{
+					angleDirection();
+					mState.situation = eSituation::Attack;
+					directionAnimation(L"Attack_Stand_Bow", false);
+					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+				}
+				break;
+
 				}
 
 				mStatus->SetStateInfo(mState);
@@ -1391,6 +1553,157 @@ namespace ks
 
 				}
 				break;
+				case ks::eWeapon::Legend_Staff:
+				{
+
+					if (mbAttackWalk && mCargeFinsh == false)
+					{
+						mCheakTime += Time::DeltaTime();
+						if (mStaffStnmina)
+						{
+							if (!mPlayer->Usestamina(0.01f, this))
+								return;
+						}
+						if (mCheakTime >= MIN_TIME && mCarge == false)
+						{
+							mStaffStnmina = true;
+							mStaffStnminaRecovery = true;
+							PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
+							mPlayerState.skil = eSkil::Attack;
+							mPlayerState.progress = eProgress::Step_8;
+							mPlayer->SetPlayerInfo(mPlayerState);
+							mAttack->SetTarget(mPlayer);
+							mAttack->SetPlayer(mPlayerState);
+							mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
+							mCarge = true;
+						}
+
+						if (mCheakTime >= MAX_TIME && mCargeEffect == false)
+						{
+							effectDeath(eLayerType::Player_Effect);
+							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Start, 0.6f);
+							mCargeEffect = true;
+							mStaffStnmina = false;
+						}
+					}
+
+				}
+				break;
+				case ks::eWeapon::Legend_Bow:
+				{
+					angleDirection();
+					mCheakTime += Time::DeltaTime();
+
+					if (mState.situation == eSituation::Attack || mState.situation == eSituation::Auto)
+					{
+
+						if (mState.situation == eSituation::Attack)
+						{
+							if (mCheakTime > 0.35 && mCheakTime < 0.4)
+							{
+								if (!mPlayer->Usestamina(5.f, this))
+									return;
+								mState.situation = eSituation::Auto;
+								mStatus->SetStateInfo(mState);
+								mbAttackWalk = true;
+								directionAnimation(L"Attack_Walk_Bow", true);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+								mCheakTime = 0.f;
+
+							}
+						}
+
+						else if (mState.situation == eSituation::Auto)
+						{
+							if (mCheakTime > 0.25 && mCheakTime < 0.3)
+							{
+								if (!mPlayer->Usestamina(5.f, this))
+									return;
+								mState.situation = eSituation::Auto;
+								mStatus->SetStateInfo(mState);
+								mbAttackWalk = true;
+								directionAnimation(L"Attack_Walk_Bow", true);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+								mCheakTime = 0.f;
+							}
+
+						}
+
+					}
+				}
+				break;
+				case ks::eWeapon::Legend_Sword:
+				{
+					mCheakTime += Time::DeltaTime();
+
+					if (mState.situation == eSituation::Attack || mState.situation == eSituation::Auto)
+					{
+						if (mCheakTime > 0.26 && mCheakTime < 0.31)
+						{
+							mState.situation = eSituation::Auto;
+							mStatus->SetStateInfo(mState);
+
+							if (miRef > 6)
+							{
+								mState.situation = eSituation::Auto;
+								mStatus->SetStateInfo(mState);
+								miRef = 0;
+								mCheakTime = 0.f;
+								return;
+							}
+							angleDirection();
+
+							if (miRef == 0)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack1_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+							}
+							else if (miRef == 1)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack2_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+							}
+							else if (miRef == 2)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack1_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+							}
+							else if (miRef == 3)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack2_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
+							}
+							else if (miRef == 4)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack3_Sword", false);
+
+							}
+							else if (miRef == 5)
+							{
+								if (!mPlayer->Usestamina(7.f, this))
+									return;
+								directionAnimation(L"Attack4_Sword", false);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.2f);
+							}
+
+							mCheakTime = 0.f;
+							++miRef;
+						}
+					}
+				}
+				break;
+
+
 				}
 #pragma endregion
 
@@ -1485,7 +1798,85 @@ namespace ks
 
 				}
 				break;
+				case ks::eWeapon::Legend_Sword:
+				{
+					if (mState.situation == eSituation::Attack)
+					{
+						mState.situation = eSituation::Continue;
+						mStatus->SetStateInfo(mState);
 
+					}
+					else if (mState.situation == eSituation::Auto)
+					{
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						miRef = 0;
+						mCheakTime = 0.f;
+					}
+				}
+				break;
+				case ks::eWeapon::Legend_Bow:
+				{
+					if (mState.situation == eSituation::Auto)
+					{
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);
+						mbAttackWalk = false;
+						mCheakTime = 0.f;
+					}
+				}
+				break;
+				case ks::eWeapon::Legend_Staff:
+				{
+					if (mbAttackWalk)
+					{
+						mStaffStnminaRecovery = false;
+						mStaffStnmina = false;
+						if (mCheakTime < MIN_TIME)
+						{
+							angleDirection();
+							mState.situation = eSituation::Attack;
+							mStatus->SetStateInfo(mState);
+							directionAnimation(L"Attack_None", false);
+							attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
+							effectDeath(eLayerType::Player_Effect);
+							mbAttackWalk = false;
+							mCarge = false;
+							mCargeEffect = false;
+							mCheakTime = 0.f;
+						}
+						else if (mCheakTime >= MIN_TIME && mCheakTime < MAX_TIME)
+						{
+							angleDirection();
+							mState.situation = eSituation::Attack;
+							mStatus->SetStateInfo(mState);
+							directionAnimation(L"Attack_None", false);
+							attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.45f, mCheakTime);
+							effectDeath(eLayerType::Player_Effect);
+							mbAttackWalk = false;
+							mCarge = false;
+							mCargeEffect = false;
+							mCheakTime = 0.f;
+						}
+
+						else if (mCheakTime >= MAX_TIME)
+						{
+							angleDirection();
+							mState.situation = eSituation::Attack;
+							mStatus->SetStateInfo(mState);
+							directionAnimation(L"Attack_Staffcharge", false);
+							attackCommandmagic(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.8f, mCheakTime);
+							effectDeath(eLayerType::Player_Effect);
+							mbAttackWalk = false;
+							mCarge = false;
+							mCargeEffect = false;
+							mCargeFinsh = true;
+							mCheakTime = 0.f;
+						}
+					}
+
+				}
+				break;
 				}
 			}
 
@@ -1993,7 +2384,13 @@ namespace ks
 			int a = 0;
 		}
 
-
+		if (dynamic_cast<CCoin*>(collider->GetOwner()))
+		{
+			CCoin* coin = (CCoin*)collider->GetOwner();
+			UINT playercoin = coin->GetCoinValue();
+			mPlayer->SetPlayerCoin(playercoin);
+			coin->ItemLoot(true);
+		}
 
 
 		if (dynamic_cast<Stage1_1Move*>(collider->GetOwner()))

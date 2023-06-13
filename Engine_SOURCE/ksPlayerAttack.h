@@ -3,14 +3,14 @@
 #include "ksPlayer.h"
 #include "ksStatus.h"
 #include "ksPlayerAttackScript.h"
-
+#include "ksAnimation.h"
+#include "ksAnimator.h"
 
 namespace ks
 {
     class Collider2D;
     class SpriteRenderer;
     class Player;
-    class Animator;
     class Transform;
     class PlayerAttack :
         public GameObject
@@ -46,10 +46,13 @@ namespace ks
 
     private:
 
+        void loadAnimation();
         void deathTime(float time);
         void dirAnimation(float value = 0.f);
         void bulletAnipos(Vector3 Scale, float offset);
         void swordAnipos(Vector3 Scale, float offset);
+        void CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
+            , Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration);
 
     private:
 
@@ -70,6 +73,12 @@ namespace ks
         float          mCheakTime;
         float          mCooldownTime;
         static float   mSphereScale;
+
+        std::vector<Sprite>		mSprites;
+        std::vector<Sprite>		mSvaeSprite;
+
+        std::vector<UINT>       mNumbers;
+
 
         friend class PlayerMissile;
     };

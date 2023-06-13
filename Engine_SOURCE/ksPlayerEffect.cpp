@@ -112,6 +112,28 @@ namespace ks
 				
 			}
 			break;
+			case ks::eWeapon::Legend_Staff:
+			{
+
+				if (mState.progress == eProgress::Step_8)
+				{
+					mTransform->SetScale(Vec3(BASIC_SCALE - 0.7f, BASIC_SCALE - 0.7f, 1.0f));
+					mTransform->SetPosition(mPlayer->GetComponent<Transform>()->GetPosition() + Vector3(0.0f, -0.5f, 0.0f));
+
+					mAnimator->Play(L"Effect_Staff_Charge", true);
+					mState.progress = eProgress::Step_9;
+				}
+
+
+				if (mState.progress == eProgress::Step_9)
+				{
+					mTransform->SetScale(Vec3(BASIC_SCALE - 0.7f, BASIC_SCALE - 0.7f, 1.0f));
+					mTransform->SetPosition(mPlayer->GetComponent<Transform>()->GetPosition() + Vector3(0.0f, -0.5f, 0.0f));
+
+				}
+
+			}
+			break;
 			}
 		}
 		break;

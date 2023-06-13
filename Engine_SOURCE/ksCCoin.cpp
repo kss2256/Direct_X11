@@ -17,6 +17,7 @@ namespace ks
 	CCoin::CCoin()
 		: m_bStartCheak(false)
 		, m_bEndCheak(false)
+		, m_bItemLoot(false)
 	{
 
 
@@ -109,6 +110,26 @@ namespace ks
 				m_bEndCheak = false;
 
 		}
+		if (m_bItemLoot)
+		{
+
+			if (mFinalPos.y <= mJumpPos.y)
+			{
+				mFinalPos += mNomarlizeUp * Time::DeltaTime() * 6.0f;
+				mTransform->SetPosition(mFinalPos);
+			}
+			else
+			{
+				m_bItemLoot = false;
+				this->Death();
+			}
+
+
+		}
+		
+
+
+
 
 		GameObject::Update();
 	}

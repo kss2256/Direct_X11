@@ -148,6 +148,9 @@
     <Filter Include="GameObject\UI\Coin">
       <UniqueIdentifier>{8643195e-f6b5-4801-8bc3-33784e665579}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Shop">
+      <UniqueIdentifier>{7395cfb6-db88-452a-8950-14d010bf4830}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -400,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="ksCreateMoney.cpp">
       <Filter>GameObject\UI\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="ksShop_Ui.cpp">
+      <Filter>GameObject\UI\Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -671,6 +677,9 @@
     </ClInclude>
     <ClInclude Include="ksCreateMoney.h">
       <Filter>GameObject\UI\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="ksShop_Ui.h">
+      <Filter>GameObject\UI\Shop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

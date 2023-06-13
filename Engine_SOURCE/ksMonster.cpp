@@ -162,6 +162,11 @@ namespace ks
 			tr->SetPosition(pos);
 			tr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 
+			Collider2D* collider = coin->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			collider->SetSize(Vector2(0.0125f, 0.0175f));
+
+
 			coin->Initalize();
 			m_bCoin = true;
 		}

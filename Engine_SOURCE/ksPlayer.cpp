@@ -308,6 +308,8 @@ namespace ks
 		}
 	}
 
+	
+
 	void Player::createItemSlot_1(eItem item, const std::wstring name)
 	{
 		if(mItemSlot_1 == nullptr)

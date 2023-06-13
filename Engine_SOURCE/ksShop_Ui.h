@@ -3,26 +3,19 @@
 #include "ksPlayer.h"
 #include "ksAnimation.h"
 #include "ksAnimator.h"
+#include "ksCCoin.h"
 
-enum class eCoin
-{
-	None,
-	Bronze,
-	Silver,
-	Gold,
-};
 
 namespace ks
 {
-	class Animator;
-	class Transform;
-	class CCoin :
-		public UIBase
-	{
-	public:
+    class Shop_Ui :
+        public UIBase
+    {
 
-		CCoin();
-		virtual ~CCoin();
+    public:
+		Shop_Ui();
+		~Shop_Ui();
+
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -34,7 +27,7 @@ namespace ks
 		UINT GetCoinValue() { return m_uCoinValue; }
 
 		void SetTarget(Player* player) { mTarget = player; }
-		void SetCoin(eCoin coin, UINT value) { m_eCoin = coin, m_uCoinValue = value; }
+
 		void SetCoinValue(UINT value) { m_uCoinValue = value; }
 		void ItemLoot(bool loot) { m_bItemLoot = loot; }
 
@@ -47,28 +40,28 @@ namespace ks
 
 	private:
 
-		Transform*		mTransform;
-		Animator*		mAnimator;
-		Player*			mTarget;
-		Vec3			mUiPos;
-		Vec3			mJumpPos;
-		Vec3			mNomarlizeUp;
-		Vec3			mNomarlizeDown;
-		//Vec3			mUiScale;
-		Vec3			mFinalPos;
-			
-		eCoin			m_eCoin;
-		UINT			m_uCoinValue;
+		Transform*					mTransform;
+		Animator*					mAnimator;
+		Player*						mTarget;
+		Vec3						mUiPos;
+		//Vec3						mUiScale;
+		Vec3						mFinalPos;
 
-		std::vector<Sprite>		mSprites;
-		std::vector<Sprite>		mSvaeSprite;
+
+		UINT						m_uCoinValue;
+
+		std::vector<Sprite>			mSprites;
+		std::vector<Sprite>			mSvaeSprite;
 
 		std::vector<UINT>			mNumbers;
-		static std::wstring			mItemName;
 
-		bool		m_bStartCheak;
-		bool		m_bEndCheak;
-		bool		m_bItemLoot;
 
-	};
+		bool						m_bStartCheak;
+		bool						m_bEndCheak;
+		bool						m_bItemLoot;
+
+
+
+
+    };
 }

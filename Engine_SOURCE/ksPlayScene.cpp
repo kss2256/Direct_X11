@@ -41,7 +41,7 @@
 #include "ksCCoin.h"
 #include "ksGoldUi.h"
 #include "ksMoneyUi.h"
-
+#include "ksShop_Ui.h"
 
 
 #include "ksMonsterMissile.h"
@@ -184,38 +184,6 @@ namespace ks
 
 
 		}
-			
-		
-
-
-		
-
-		
-		//{
-		//	InventorySlot* inventoryslot = new InventorySlot();
-
-		//	inventoryslot->SetName(L"inventoryslot");
-		//	inventoryslot->SetTarget(mPlayer);
-
-		//	Transform* inventorytr = inventoryslot->GetComponent<Transform>();
-		//	inventorytr->SetPosition(Vector3(-1.0f, 1.5f, 0.0f));
-		//	inventorytr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-
-		//	
-
-
-		//	mInventory = object::Instantiate<Inventory>(eLayerType::UI);
-		//	mInventory->SetName(L"Inventroy");
-		//	mInventory->SetTarget(mPlayer);
-		//	mInventory->AddChild(inventoryslot);
-
-		//	Transform* tr = mInventory->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(5.0f, 0.0f, 0.0f));
-		//	tr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
-		//}
-
-
-
 
 		{
 			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);
@@ -292,6 +260,17 @@ namespace ks
 			Transform* tr = goldui->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			tr->SetScale(Vector3(0.7f, 0.7f, 1.0f));
+		}
+
+
+		{
+			Shop_Ui* shop = object::Instantiate<Shop_Ui>(eLayerType::Shop_UI);
+			shop->SetName(L"MoneyUi");
+			shop->SetTarget(mPlayer);
+
+			Transform* tr = shop->GetComponent<Transform>();
+			tr->SetPosition(Vector3(105.0f, 1.5f, 0.0f));			
+			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 		}
 
 
@@ -532,7 +511,8 @@ namespace ks
 		LayerObjectClear(eLayerType::Ground_Shadows);
 		LayerObjectClear(eLayerType::Object);
 		LayerObjectClear(eLayerType::UI);
-
+		LayerObjectClear(eLayerType::Gold_Ui);
+		LayerObjectClear(eLayerType::Shop_UI);
 
 
 		Destroy();
