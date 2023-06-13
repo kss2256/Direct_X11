@@ -181,6 +181,57 @@ namespace ks
 
 			}
 			break;
+			case ks::eItem::Legend_Sword:
+			{
+				if (mPlayer.weapon_Slot == eSlot::Slot_1)
+				{
+					mPlayer.weapon = eWeapon::Legend_Sword;
+					createItemSlot_1(eItem::Legend_Sword, L"Legend_Sword_Slot1");
+					mItemWear = false;
+
+				}
+				else if (mPlayer.weapon_Slot == eSlot::Slot_2)
+				{
+					mPlayer.weapon = eWeapon::Legend_Sword;
+					createItemSlot_2(eItem::Legend_Sword, L"Legend_Sword_Slot2");
+					mItemWear = false;
+				}
+			}
+			break;
+			case ks::eItem::Legend_Staff:
+			{
+				if (mPlayer.weapon_Slot == eSlot::Slot_1)
+				{
+					mPlayer.weapon = eWeapon::Legend_Staff;
+					createItemSlot_1(eItem::Legend_Staff, L"Legend_Staff_Slot1");
+					mItemWear = false;
+				}
+				else if (mPlayer.weapon_Slot == eSlot::Slot_2)
+				{
+					mPlayer.weapon = eWeapon::Legend_Staff;
+					createItemSlot_2(eItem::Legend_Staff, L"Legend_Staff_Slot2");
+					mItemWear = false;
+				}
+
+			}
+			break;
+			case ks::eItem::Legend_Bow:
+			{
+				if (mPlayer.weapon_Slot == eSlot::Slot_1)
+				{
+					mPlayer.weapon = eWeapon::Legend_Bow;
+					createItemSlot_1(eItem::Legend_Bow, L"Legend_Bow_Slot1");
+					mItemWear = false;
+				}
+				else if (mPlayer.weapon_Slot == eSlot::Slot_2)
+				{
+					mPlayer.weapon = eWeapon::Legend_Bow;
+					createItemSlot_2(eItem::Legend_Bow, L"Legend_Bow_Slot2");
+					mItemWear = false;
+				}
+
+			}
+			break;
 			}
 		}
 
@@ -204,10 +255,26 @@ namespace ks
 			break;
 		case ks::eWeapon::Staff:
 		{
-			mStr = 5.f;
+			mStr = 5.0f;
 		}
 			break;	
+		case ks::eWeapon::Legend_Sword:
+		{
+			mStr = 4.0f;
 		}
+		break;
+		case ks::eWeapon::Legend_Bow:
+		{
+			mStr = 2.5f;
+		}
+		break;
+		case ks::eWeapon::Legend_Staff:
+		{
+			mStr = 8.0f;
+		}
+		break;
+		}
+
 		if(mSlotChange)
 		{
 			switch (mPlayer.weapon_Slot)

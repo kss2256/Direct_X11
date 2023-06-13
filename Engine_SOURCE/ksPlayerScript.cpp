@@ -132,8 +132,7 @@ namespace ks
 			mPlayerState = mPlayer->GetPlayerInfo();
 			mPlayerState.item;
 
-			mPlayerState.weapon = eWeapon::Legend_Staff;
-			mPlayer->SetPlayerInfo(mPlayerState);
+
 
 
 		if(!mPlayerStop)
@@ -1380,7 +1379,7 @@ namespace ks
 					angleDirection();
 					mState.situation = eSituation::Attack;
 					directionAnimation(L"Attack_Stand_Bow", false);
-					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+					attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.3f);
 				}
 				break;
 
@@ -1607,7 +1606,7 @@ namespace ks
 								mStatus->SetStateInfo(mState);
 								mbAttackWalk = true;
 								directionAnimation(L"Attack_Walk_Bow", true);
-								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.3f);
 								mCheakTime = 0.f;
 
 							}
@@ -1623,7 +1622,7 @@ namespace ks
 								mStatus->SetStateInfo(mState);
 								mbAttackWalk = true;
 								directionAnimation(L"Attack_Walk_Bow", true);
-								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
+								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.3f);
 								mCheakTime = 0.f;
 							}
 

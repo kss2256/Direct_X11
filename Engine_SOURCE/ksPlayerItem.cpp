@@ -70,6 +70,22 @@ namespace ks
 			mAnimator->Play(L"Bow", true);
 		}
 			break;
+		case ks::eItem::Legend_Bow:
+		{
+			mAnimator->Play(L"Legend_Bow", true);
+		}
+		break;
+		case ks::eItem::Legend_Staff:
+		{
+			mAnimator->Play(L"Legend_Staff", true);
+		}
+		break;
+		case ks::eItem::Legend_Sword:
+		{
+			mAnimator->Play(L"Legend_Sword", true);
+		}
+		break;
+
 		}
 
 
@@ -216,6 +232,21 @@ namespace ks
 				mAnimator->Play(L"Bow", true);
 			}
 			break;
+			case ks::eItem::Legend_Sword:
+			{
+				mAnimator->Play(L"Legend_Sword", true);
+			}
+			break;
+			case ks::eItem::Legend_Staff:
+			{
+				mAnimator->Play(L"Legend_Staff", true);
+			}
+			break;
+			case ks::eItem::Legend_Bow:
+			{
+				mAnimator->Play(L"Legend_Bow", true);
+			}
+			break;
 			}
 			mItemChangeCheak = true;
 		}
@@ -242,6 +273,18 @@ namespace ks
 		CreateAnimation(L"Sword", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
 		mNumbers.clear();
 
+
+		mNumbers.push_back(61);
+		CreateAnimation(L"Legend_Staff", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
+
+		mNumbers.push_back(28);
+		CreateAnimation(L"Legend_Bow", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
+
+		mNumbers.push_back(44);
+		CreateAnimation(L"Legend_Sword", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
 
 	}
 

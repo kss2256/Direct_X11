@@ -349,19 +349,19 @@ namespace ks
 				{
 					if (mSphereScale <= MIN_TIME)
 					{
-						mCollider->SetSize(Vec2(0.06f, 0.06f));
+						mCollider->SetSize(Vec2(0.2f, 0.2f));
 						bulletAnipos(Vector3(BASIC_SCALE * 1.3, BASIC_SCALE * 1.3, 1.0f), 1);
 					}
 					else if (mSphereScale >= MIN_TIME && mSphereScale < MAX_TIME)
 					{
-						mCollider->SetSize(Vec2(0.06f + (0.006f * mSphereScale), 0.06f + (0.006f * mSphereScale)));
+						mCollider->SetSize(Vec2(0.2f + (0.006f * mSphereScale), 0.2f + (0.006f * mSphereScale)));
 						float sacle = BASIC_SCALE * 1.3 + (TIME_SCALE * mSphereScale);
 						bulletAnipos(Vector3(sacle, sacle, 1.0f), 1);
 					}
 
 					else if (mSphereScale >= MAX_TIME)
 					{
-						mCollider->SetSize(Vec2(0.06f + 0.018f, 0.06f + 0.018f));
+						mCollider->SetSize(Vec2(0.2f + 0.018f, 0.2f + 0.018f));
 						bulletAnipos(Vector3(MAX_SCALE * 1.3, MAX_SCALE * 1.3, 1.0f), 1);
 					}
 
@@ -398,7 +398,7 @@ namespace ks
 			{
 				if (mState.progress == eProgress::Step_1)
 				{
-					mCollider->SetSize(Vec2(0.03f, 0.03f));
+					mCollider->SetSize(Vec2(0.25f, 0.2f));
 					bulletAnipos(Vector3(BASIC_SCALE, BASIC_SCALE, 1.0f), 1);
 					dirAnimation(1.56f);
 					mAnimator->Play(L"Legend_Bow", false);

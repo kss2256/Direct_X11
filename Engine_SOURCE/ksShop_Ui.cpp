@@ -6,7 +6,7 @@
 #include "ksTransform.h"
 #include "ksObject.h"
 #include "ksTime.h"
-
+#include "ksPlayerItem.h"
 
 #include "ksInput.h"
 
@@ -31,6 +31,59 @@ namespace ks
 		sr->SetMesh(mesh);
 
 		mAnimator->Play(L"Shop", true);
+
+
+
+		
+		PlayerItem* LegendSword = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		LegendSword->SetName(L"Shop_Item_Sword");
+		LegendSword->SetTarget(mTarget);
+		LegendSword->SetPlayerItem(eItem::Legend_Sword);
+
+		Collider2D* swordcollider = LegendSword->AddComponent<Collider2D>();
+		swordcollider->SetType(eColliderType::Rect);
+		swordcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* Swordtr = LegendSword->GetComponent<Transform>();
+		Swordtr->SetPosition(Vector3(103.0f, 0.0f, 2.0f));
+		Swordtr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		
+		LegendSword->Initalize();
+
+
+		PlayerItem* LegendBow = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		LegendBow->SetName(L"Shop_Item_Bow");
+		LegendBow->SetTarget(mTarget);
+		LegendBow->SetPlayerItem(eItem::Legend_Bow);
+
+		Collider2D* bowcollider = LegendBow->AddComponent<Collider2D>();
+		bowcollider->SetType(eColliderType::Rect);
+		bowcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* Bowtr = LegendBow->GetComponent<Transform>();
+		Bowtr->SetPosition(Vector3(105.0f, 0.0f, 2.0f));
+		Bowtr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		LegendBow->Initalize();
+
+
+		PlayerItem* LegendStaff = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		LegendStaff->SetName(L"Shop_Item_Staff");
+		LegendStaff->SetTarget(mTarget);
+		LegendStaff->SetPlayerItem(eItem::Legend_Staff);
+
+		Collider2D* staffcollider = LegendStaff->AddComponent<Collider2D>();
+		staffcollider->SetType(eColliderType::Rect);
+		staffcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* Stafftr = LegendStaff->GetComponent<Transform>();
+		Stafftr->SetPosition(Vector3(107.0f, 0.0f, 2.0f));
+		Stafftr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		LegendStaff->Initalize();
+
+
+
 
 	}
 

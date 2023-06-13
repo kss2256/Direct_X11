@@ -324,6 +324,64 @@ namespace ks
 			AddChild(inventoryitem);
 		}
 			break;		
+		case ks::eItem::Legend_Sword:
+		{
+			InventoryItem* inventoryitem = new InventoryItem;
+
+			inventoryitem->SetName(L"Legend_Sword_Item");
+			inventoryitem->SetTarget(mTarget);
+			inventoryitem->SetPlayerItem(item);
+			Transform* inventorytr = inventoryitem->GetComponent<Transform>();
+			inventorytr->SetPosition(mInventoryPos);
+			inventorytr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+
+
+			inventoryitem->SetInventoryTarget(this);
+			inventoryitem->SetInventorySlot(mInventorysSlot);
+			inventoryitem->Initalize();
+
+			this->AddChild(inventoryitem);
+
+		}
+		break;
+		case ks::eItem::Legend_Staff:
+		{
+			InventoryItem* inventoryitem = new InventoryItem;
+
+			inventoryitem->SetName(L"Legend_Staff_Item");
+			inventoryitem->SetTarget(mTarget);
+			inventoryitem->SetPlayerItem(item);
+			Transform* inventorytr = inventoryitem->GetComponent<Transform>();
+			inventorytr->SetPosition(mInventoryPos);
+			inventorytr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+
+			inventoryitem->SetInventoryTarget(this);
+			inventoryitem->SetInventorySlot(mInventorysSlot);
+			inventoryitem->Initalize();
+
+			AddChild(inventoryitem);
+		}
+		break;
+		case ks::eItem::Legend_Bow:
+		{
+			InventoryItem* inventoryitem = new InventoryItem;
+
+			inventoryitem->SetName(L"Legend_Bow_Item");
+			inventoryitem->SetTarget(mTarget);
+			inventoryitem->SetPlayerItem(item);
+			Transform* inventorytr = inventoryitem->GetComponent<Transform>();
+			inventorytr->SetPosition(mInventoryPos);
+			inventorytr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+
+			inventoryitem->SetInventoryTarget(this);
+			inventoryitem->SetInventorySlot(mInventorysSlot);
+			inventoryitem->Initalize();
+
+			AddChild(inventoryitem);
+		}
+		break;
+
+
 		}
 
 

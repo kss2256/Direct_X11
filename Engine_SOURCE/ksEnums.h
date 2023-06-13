@@ -38,6 +38,7 @@ namespace ks::enums
 		Monster_Attack,
 		Monster,
 		Shop_UI,
+		Shop_Item,
 		Player,
 		Player_Attack,
 		Object,

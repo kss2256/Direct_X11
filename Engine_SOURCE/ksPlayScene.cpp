@@ -274,7 +274,6 @@ namespace ks
 		}
 
 
-
 		{
 
 			mMouse = object::Instantiate<Mouse>(eLayerType::Mouse);
@@ -455,6 +454,7 @@ namespace ks
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster_Attack, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::UI, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Shop_Item, true);
 
 
 		Scene::Initalize();
