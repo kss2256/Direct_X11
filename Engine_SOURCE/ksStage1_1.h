@@ -55,6 +55,7 @@ namespace ks
         static void SetTarget(GameObject* target) { mTarget = target; }
         static void SetKey(bool key) { mKey = key; }
         static void SetKeyCheak(bool key) { mKeyCheak = key; }
+        static void SetSoundCheak(bool sound) { m_bSoundCheak = sound; }
         static void KeyCount_Up() 
         {
             ++mKeyCount;
@@ -97,11 +98,14 @@ namespace ks
         static UINT         mKeyCount;
         static bool         mKey;
         static bool         mKeyCheak;
+        static bool         m_bSoundCheak;
         static GameObject*  mTarget;
         std::wstring        mName;
         eGroundStage        mGroundStage;
         Collider2D*         mCollider;
-        float               mTime;
+        float               mFlimeTime;
+        float               mEntTime;
+        
 
         static Stage_Step                mStep;
 

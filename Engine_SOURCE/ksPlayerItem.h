@@ -26,14 +26,17 @@ namespace ks
 		UIBase* GetInventoryTarget() { return mInventory; }
 		eItem GetPlayerItem() { return mPlayerItem; }
 		bool IsItemUnlock() { return mItemUnlock; }
+		bool IsShopItem() { return m_bShopItem; }
 
 		void SetTarget(Player* player) { mTarget = player; }
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
 		void SetPlayerItem(eItem item) { mPlayerItem = item; }		
+		void SetShopItem(bool shop) { m_bShopItem = shop; }
 		void SetWeaponSlot(bool slot) { mWeaponSlot = slot; }
 		void SetItemChange(bool change) { mItemChangeCheak = change; }
 		void SetItemUnlock(bool unlock) { mItemUnlock = unlock; }
 		void ItemChange(eItem item);
+		
 
 	private:
 
@@ -64,6 +67,8 @@ namespace ks
 		bool					mWeaponSlot;
 		bool					mItemChangeCheak;
 		bool					mItemUnlock;
+		bool					m_bShopItem;
+
 
 
     };

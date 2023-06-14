@@ -62,6 +62,8 @@ namespace ks::enums
 		MeshRenerer,
 		SpriteRenderer,
 		Animator,
+		AudioListener,
+		AudioSource,
 		Light,
 		Line,		///TEST
 		UI,
@@ -84,6 +86,7 @@ namespace ks::enums
 		MeshData,
 		GraphicShader,
 		ComputeShader,
+		AudioClip,
 		Script,
 		End,
 	};

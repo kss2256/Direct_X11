@@ -22,11 +22,22 @@ namespace ks
     private:
 
         void loadAnimation();
+        void loadSound();
         void tripleAttack();
         void multipleAttack();
 
+        void soundDeath();
+        void soundtripleAttack();
+        void soundMultipleJump();
+        void soundMultipleAttack();
+
+
+
     private:
 
+        bool        m_bSoundCheak;
+        bool        m_bSoundOneCheak;
+        bool        m_bSoundDeathCheak;
      
 
 

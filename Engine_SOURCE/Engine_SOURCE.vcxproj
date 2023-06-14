@@ -132,6 +132,12 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Debug\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -153,8 +159,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmod.dll" "$(SolutionDir)\x64\Release\"
+
+copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"
+
+copy "$(SolutionDir)FW1FontWrapper.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ksAudioClip.h" />
+    <ClInclude Include="ksAudioListener.h" />
     <ClInclude Include="ksBossTpMeter.h" />
     <ClInclude Include="ksCCoin.h" />
     <ClInclude Include="ksCreateMoney.h" />
@@ -183,6 +198,8 @@
     <ClInclude Include="ksFadeEffect.h" />
     <ClInclude Include="ksCloud.h" />
     <ClInclude Include="ksFlime_Missile.h" />
+    <ClInclude Include="ksFmod.h" />
+    <ClInclude Include="ksFontWrapper.h" />
     <ClInclude Include="ksForest_Fairy.h" />
     <ClInclude Include="ksGoldUi.h" />
     <ClInclude Include="ksInventory.h" />
@@ -252,6 +269,8 @@
     <ClCompile Include="ksAfterimage.cpp" />
     <ClCompile Include="ksAnimation.cpp" />
     <ClCompile Include="ksAnimator.cpp" />
+    <ClCompile Include="ksAudioClip.cpp" />
+    <ClCompile Include="ksAudioListener.cpp" />
     <ClCompile Include="ksBossLayout.cpp" />
     <ClCompile Include="ksBossTpMeter.cpp" />
     <ClCompile Include="ksBoss_Ent.cpp" />
@@ -275,6 +294,8 @@
     <ClCompile Include="ksFadeEffect.cpp" />
     <ClCompile Include="ksCloud.cpp" />
     <ClCompile Include="ksFlime_Missile.cpp" />
+    <ClCompile Include="ksFmod.cpp" />
+    <ClCompile Include="ksFontWrapper.cpp" />
     <ClCompile Include="ksForest_Fairy.cpp" />
     <ClCompile Include="ksGoldUi.cpp" />
     <ClCompile Include="ksInventory.cpp" />

@@ -55,6 +55,11 @@ namespace ks
 		void attackCommandmagic(eLayerType type, eDirection dir, eSkil skil, eProgress progress, float colldowntime, float scale);
 		void effectDeath(eLayerType layer);
 		void playerShake(float time, float distance, float speed);
+		void playerRunSound();
+		void playerRunSoundStop();
+		void PlayerAttackSound();
+		
+		
 
 
 	private:

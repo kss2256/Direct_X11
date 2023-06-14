@@ -18,5 +18,8 @@ namespace ks
 		virtual void OnExit() override;
 
 	private:
+
+		bool			m_BgmSound;
+
 	};
 }

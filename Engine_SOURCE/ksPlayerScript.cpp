@@ -26,6 +26,8 @@
 #include "ksInventory.h"
 #include "ksPlayerItem.h"
 #include "ksCCoin.h"
+#include "ksAudioClip.h"
+#include "ksAudioListener.h"
 
 
 #include <time.h>
@@ -106,7 +108,11 @@ namespace ks
 
 			Collider2D* collider = mPlayer->GetComponent<Collider2D>();
 	
+			std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+				(L"Wood_run_01", L"D:\\50\\Resources\\Sound\\Wood_run_01.ogg");
 
+			std::shared_ptr<AudioClip> sound = Resources::Load<AudioClip>
+				(L"Attack_Sound", L"D:\\50\\Resources\\Sound\\Attack_Sound.ogg");
 
 
 		}
@@ -132,7 +138,10 @@ namespace ks
 			mPlayerState = mPlayer->GetPlayerInfo();
 			mPlayerState.item;
 
-
+			if (!(mState.situation == eSituation::Run))
+			{
+				playerRunSoundStop();
+			}
 
 
 		if(!mPlayerStop)
@@ -567,7 +576,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mbAttackWalk && mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::UpRight || mState.direction == eDirection::DownRight)
 							pos.x += 2.5f * 0.75f * Time::DeltaTime();
@@ -606,7 +615,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mbAttackWalk && mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::DownLeft)
 							pos.x -= 2.5f * 0.75f * Time::DeltaTime();
@@ -644,7 +653,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mbAttackWalk && mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::UpLeft || mState.direction == eDirection::UpRight)
 							pos.y += 2.5f * 0.75f * Time::DeltaTime();
@@ -682,7 +691,7 @@ namespace ks
 					|| mState.situation == eSituation::Sit || mbAttackWalk == true)
 				{
 					Vector3 pos = mTransform->GetPosition();
-					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mPlayerState.weapon == eWeapon::Legend_Bow)
+					if (mbAttackWalk && mPlayerState.weapon == eWeapon::Bow || mbAttackWalk && mPlayerState.weapon == eWeapon::Legend_Bow)
 					{
 						if (mState.direction == eDirection::DownLeft || mState.direction == eDirection::DownRight)
 							pos.y -= 2.5f * 0.75f * Time::DeltaTime();
@@ -722,13 +731,20 @@ namespace ks
 			{
 				if (mState.situation == eSituation::None || mState.situation == eSituation::Idle
 					|| mState.situation == eSituation::Sit)
-				{
+				{					
+
 					mState.direction = eDirection::Right;
 					mState.situation = eSituation::Run;
 					if (mbRunning)
+					{
+						playerRunSound();
 						directionAnimation(L"Run", true);
+					}
 					else
+					{
+						playerRunSound();
 						directionAnimation(L"Move", true);
+					}
 
 				}
 				else if (mState.situation == eSituation::Run)
@@ -740,15 +756,20 @@ namespace ks
 					{
 						mState.direction = eDirection::BothX;
 						mAnimator->Play(L"Idle_Left");
+						playerRunSoundStop();
 					}
 					break;
 					case ks::eDirection::Up:
 					{
 						mState.direction = eDirection::UpRight;
 						if (mbRunning)
+						{
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
 							directionAnimation(L"Move", true);
+						}
 
 					}
 					break;
@@ -756,9 +777,13 @@ namespace ks
 					{
 						mState.direction = eDirection::DownRight;
 						if (mbRunning)
+						{
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 
@@ -768,9 +793,15 @@ namespace ks
 						mState.situation = eSituation::Run;
 
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					}
@@ -789,9 +820,15 @@ namespace ks
 					mState.situation = eSituation::Run;
 
 					if (mbRunning)
+					{
+						playerRunSound();
 						directionAnimation(L"Run", true);
+					}
 					else
+					{
+						playerRunSound();
 						directionAnimation(L"Move", true);
+					}
 				}
 				else if (mState.situation == eSituation::Run)
 				{
@@ -799,6 +836,7 @@ namespace ks
 					{
 					case ks::eDirection::Right:
 					{
+						playerRunSoundStop();
 						mState.direction = eDirection::BothX;
 						mAnimator->Play(L"Idle_Right");
 					}
@@ -828,9 +866,15 @@ namespace ks
 						mState.direction = eDirection::Left;
 						mState.situation = eSituation::Run;
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					}
@@ -848,9 +892,15 @@ namespace ks
 					mState.situation = eSituation::Run;
 
 					if (mbRunning)
+					{
+						playerRunSound();
 						directionAnimation(L"Run", true);
+					}
 					else
+					{
+						playerRunSound();
 						directionAnimation(L"Move", true);
+					}
 				}
 				else if (mState.situation == eSituation::Run)
 				{
@@ -877,6 +927,7 @@ namespace ks
 					break;
 					case ks::eDirection::Up:
 					{
+						playerRunSoundStop();
 						mState.direction = eDirection::BothY;
 						mAnimator->Play(L"Idle_Up");
 					}
@@ -887,9 +938,15 @@ namespace ks
 						mState.situation = eSituation::Run;
 
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					}
@@ -909,9 +966,15 @@ namespace ks
 
 
 					if (mbRunning)
+					{
+						playerRunSound();
 						directionAnimation(L"Run", true);
+					}
 					else
+					{
+						playerRunSound();
 						directionAnimation(L"Move", true);
+					}
 				}
 				else if (mState.situation == eSituation::Run)
 				{
@@ -939,6 +1002,7 @@ namespace ks
 					break;
 					case ks::eDirection::Down:
 					{
+						playerRunSoundStop();
 						mState.direction = eDirection::BothY;
 						mAnimator->Play(L"Idle_Down");
 					}
@@ -951,9 +1015,15 @@ namespace ks
 
 
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					}
@@ -975,15 +1045,22 @@ namespace ks
 					case ks::eDirection::Right:
 						mState.situation = eSituation::None;
 						mStatus->SetStateInfo(mState);
+						playerRunSoundStop();
 						break;
 					case ks::eDirection::UpRight:
 					{
 						mState.direction = eDirection::Up;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::DownRight:
@@ -991,9 +1068,15 @@ namespace ks
 						mState.direction = eDirection::Down;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothX:
@@ -1001,16 +1084,22 @@ namespace ks
 						mState.direction = eDirection::Left;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothY:
 					{
 						mState.direction = eDirection::Right;
 						mStatus->SetStateInfo(mState);
-
+						playerRunSoundStop();
 						mAnimator->Play(L"Idle_Right");
 					}
 					break;
@@ -1029,15 +1118,22 @@ namespace ks
 					case ks::eDirection::Left:
 						mState.situation = eSituation::None;
 						mStatus->SetStateInfo(mState);
+						playerRunSoundStop();
 						break;
 					case ks::eDirection::UpLeft:
 					{
 						mState.direction = eDirection::Up;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+						
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::DownLeft:
@@ -1045,9 +1141,15 @@ namespace ks
 						mState.direction = eDirection::Down;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+						
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothX:
@@ -1055,16 +1157,22 @@ namespace ks
 						mState.direction = eDirection::Right;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothY:
 					{
 						mState.direction = eDirection::Left;
 						mStatus->SetStateInfo(mState);
-
+						playerRunSoundStop();
 						mAnimator->Play(L"Idle_Left");
 					}
 					break;
@@ -1087,15 +1195,22 @@ namespace ks
 					case ks::eDirection::Down:
 						mState.situation = eSituation::None;
 						mStatus->SetStateInfo(mState);
+						playerRunSoundStop();
 						break;
 					case ks::eDirection::DownLeft:
 					{
 						mState.direction = eDirection::Left;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::DownRight:
@@ -1103,9 +1218,15 @@ namespace ks
 						mState.direction = eDirection::Right;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothY:
@@ -1113,16 +1234,22 @@ namespace ks
 						mState.direction = eDirection::Up;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothX:
 					{
 						mState.direction = eDirection::Down;
 						mStatus->SetStateInfo(mState);
-
+						playerRunSoundStop();
 						mAnimator->Play(L"Idle_Down");
 					}
 					break;
@@ -1143,15 +1270,22 @@ namespace ks
 					case ks::eDirection::Up:
 						mState.situation = eSituation::None;
 						mStatus->SetStateInfo(mState);
+						playerRunSoundStop();
 						break;
 					case ks::eDirection::UpLeft:
 					{
 						mState.direction = eDirection::Left;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::UpRight:
@@ -1159,9 +1293,15 @@ namespace ks
 						mState.direction = eDirection::Right;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothY:
@@ -1169,16 +1309,22 @@ namespace ks
 						mState.direction = eDirection::Down;
 						mStatus->SetStateInfo(mState);
 						if (mbRunning)
+						{
+							playerRunSound();
 							directionAnimation(L"Run", true);
+						}
 						else
+						{
+							playerRunSound();
 							directionAnimation(L"Move", true);
+						}
 					}
 					break;
 					case ks::eDirection::BothX:
 					{
 						mState.direction = eDirection::Up;
 						mStatus->SetStateInfo(mState);
-
+						playerRunSoundStop();
 						mAnimator->Play(L"Idle_Up");
 					}
 					break;
@@ -1277,6 +1423,7 @@ namespace ks
 				{
 				case ks::eWeapon::None:
 				{
+					PlayerAttackSound();
 					angleDirection();
 					mState.situation = eSituation::Attack;
 					directionAnimation(L"Attack_None", false);
@@ -1289,26 +1436,31 @@ namespace ks
 					mState.situation = eSituation::Attack;
 					if (miRef == 0)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack1_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 					}
 					else if (miRef == 1)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack2_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 					}
 					else if (miRef == 2)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack1_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 					}
 					else if (miRef == 3)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack2_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 					}
 					else if (miRef == 4)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack3_Sword", false);
 					}
 
@@ -1319,6 +1471,7 @@ namespace ks
 				break;
 				case ks::eWeapon::Bow:
 				{
+					PlayerAttackSound();
 					angleDirection();
 					mState.situation = eSituation::Attack;
 					directionAnimation(L"Attack_Stand_Bow", false);
@@ -1329,6 +1482,7 @@ namespace ks
 				break;
 				case ks::eWeapon::Staff:
 				{
+
 					mbAttackWalk = true;
 					mStaffAttack = true;
 				}
@@ -1340,26 +1494,31 @@ namespace ks
 					mState.situation = eSituation::Attack;
 					if (miRef == 0)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack1_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 					}
 					else if (miRef == 1)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack2_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 					}
 					else if (miRef == 2)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack1_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 					}
 					else if (miRef == 3)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack2_Sword", false);
 						attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 					}
 					else if (miRef == 4)
 					{
+						PlayerAttackSound();
 						directionAnimation(L"Attack3_Sword", false);
 					}
 
@@ -1376,6 +1535,7 @@ namespace ks
 				break;
 				case ks::eWeapon::Legend_Bow:
 				{
+					PlayerAttackSound();
 					angleDirection();
 					mState.situation = eSituation::Attack;
 					directionAnimation(L"Attack_Stand_Bow", false);
@@ -1427,6 +1587,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack1_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 							}
@@ -1434,6 +1595,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack2_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 							}
@@ -1441,6 +1603,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack1_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 							}
@@ -1448,6 +1611,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack2_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 							}
@@ -1455,6 +1619,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack3_Sword", false);
 
 							}
@@ -1462,6 +1627,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack4_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.2f);
 							}
@@ -1487,6 +1653,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(5.f, this))
 									return;
+								PlayerAttackSound();
 								mState.situation = eSituation::Auto;
 								mStatus->SetStateInfo(mState);
 								mbAttackWalk = true;
@@ -1503,6 +1670,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(5.f, this))
 									return;
+								PlayerAttackSound();
 								mState.situation = eSituation::Auto;
 								mStatus->SetStateInfo(mState);
 								mbAttackWalk = true;
@@ -1602,6 +1770,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(5.f, this))
 									return;
+								PlayerAttackSound();
 								mState.situation = eSituation::Auto;
 								mStatus->SetStateInfo(mState);
 								mbAttackWalk = true;
@@ -1618,6 +1787,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(5.f, this))
 									return;
+								PlayerAttackSound();
 								mState.situation = eSituation::Auto;
 								mStatus->SetStateInfo(mState);
 								mbAttackWalk = true;
@@ -1656,6 +1826,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack1_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 							}
@@ -1663,6 +1834,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack2_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 							}
@@ -1670,6 +1842,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack1_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_1, 0.2f);
 							}
@@ -1677,6 +1850,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack2_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_2, 0.2f);
 							}
@@ -1684,6 +1858,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack3_Sword", false);
 
 							}
@@ -1691,6 +1866,7 @@ namespace ks
 							{
 								if (!mPlayer->Usestamina(7.f, this))
 									return;
+								PlayerAttackSound();
 								directionAnimation(L"Attack4_Sword", false);
 								attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Step_3, 0.2f);
 							}
@@ -1754,6 +1930,7 @@ namespace ks
 						mStaffStnmina = false;
 						if (mCheakTime < MIN_TIME)
 						{
+							PlayerAttackSound();
 							angleDirection();
 							mState.situation = eSituation::Attack;
 							mStatus->SetStateInfo(mState);
@@ -1767,6 +1944,7 @@ namespace ks
 						}
 						else if (mCheakTime >= MIN_TIME && mCheakTime < MAX_TIME)
 						{
+							PlayerAttackSound();
 							angleDirection();
 							mState.situation = eSituation::Attack;
 							mStatus->SetStateInfo(mState);
@@ -1781,6 +1959,7 @@ namespace ks
 
 						else if (mCheakTime >= MAX_TIME)
 						{
+							PlayerAttackSound();
 							angleDirection();
 							mState.situation = eSituation::Attack;
 							mStatus->SetStateInfo(mState);
@@ -1833,6 +2012,7 @@ namespace ks
 						mStaffStnmina = false;
 						if (mCheakTime < MIN_TIME)
 						{
+							PlayerAttackSound();
 							angleDirection();
 							mState.situation = eSituation::Attack;
 							mStatus->SetStateInfo(mState);
@@ -1846,6 +2026,7 @@ namespace ks
 						}
 						else if (mCheakTime >= MIN_TIME && mCheakTime < MAX_TIME)
 						{
+							PlayerAttackSound();
 							angleDirection();
 							mState.situation = eSituation::Attack;
 							mStatus->SetStateInfo(mState);
@@ -1860,6 +2041,7 @@ namespace ks
 
 						else if (mCheakTime >= MAX_TIME)
 						{
+							PlayerAttackSound();
 							angleDirection();
 							mState.situation = eSituation::Attack;
 							mStatus->SetStateInfo(mState);
@@ -2365,6 +2547,30 @@ namespace ks
 
 
 	}
+
+	void PlayerScript::playerRunSound()
+	{
+
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Wood_run_01");
+		booksound->SetLoop(true);
+		booksound->Play();
+
+
+	}
+
+	void PlayerScript::playerRunSoundStop()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Wood_run_01");
+		booksound->Stop();
+	}
+
+	void PlayerScript::PlayerAttackSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Attack_Sound");
+		booksound->SetLoop(false);
+		booksound->Play(3.0f);
+
+	}
 	
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
@@ -2419,12 +2625,14 @@ namespace ks
 			{
 				Stage1_1Move* stge = (Stage1_1Move*)collider->GetOwner();
 				stge->SetFedeEffect(true);
+				Stage1_1::SetSoundCheak(false);
 			}
 				break;
 			case ks::enums::eGroundStage::Ground5:
 			{
 				Stage1_1Move* stge = (Stage1_1Move*)collider->GetOwner();
 				stge->SetFedeEffect(true);
+				Stage1_1::SetSoundCheak(false);
 			}
 				break;
 			case ks::enums::eGroundStage::Ground6:
@@ -2443,6 +2651,7 @@ namespace ks
 			{
 				Stage1_1Move* stge = (Stage1_1Move*)collider->GetOwner();
 				stge->SetFedeEffect(true);
+				Stage1_1::SetSoundCheak(false);
 			}
 				break;
 			case ks::enums::eGroundStage::Ground9:
@@ -2470,6 +2679,12 @@ namespace ks
 				Diary* diary = (Diary*)collider->GetOwner();
 				diary->SetCheak(true);
 				diary->SetTarget(mPlayer);
+
+				std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+					(L"Book", L"D:\\50\\Resources\\Sound\\Book.ogg");
+				booksound->SetLoop(false);
+				booksound->Play();
+
 			}
 		}
 
@@ -2478,10 +2693,23 @@ namespace ks
 			if (Input::GetKeyDown(eKeyCode::F))
 			{
 				PlayerItem* item = (PlayerItem*)collider->GetOwner();
+			
+
+				if (item->IsShopItem())
+				{
+					int a = 0;
+				}
+				else
+				{
+					Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+					inventory->AddItem(item->GetPlayerItem());
+					item->Death();
+					Stage1_1::KeyCount_Up();
+				}
 				
-				Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
-				inventory->AddItem(item->GetPlayerItem());				
-				item->Death();
+
+
+
 			}
 		}
 

@@ -39,13 +39,14 @@ namespace ks
 		LegendSword->SetName(L"Shop_Item_Sword");
 		LegendSword->SetTarget(mTarget);
 		LegendSword->SetPlayerItem(eItem::Legend_Sword);
+		LegendSword->SetShopItem(true);
 
 		Collider2D* swordcollider = LegendSword->AddComponent<Collider2D>();
 		swordcollider->SetType(eColliderType::Rect);
 		swordcollider->SetSize(Vector2(0.07f, 0.09f));
 
 		Transform* Swordtr = LegendSword->GetComponent<Transform>();
-		Swordtr->SetPosition(Vector3(103.0f, 0.0f, 2.0f));
+		Swordtr->SetPosition(Vector3(103.0f, 0.3f, 2.0f));
 		Swordtr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 		
 		LegendSword->Initalize();
@@ -55,13 +56,14 @@ namespace ks
 		LegendBow->SetName(L"Shop_Item_Bow");
 		LegendBow->SetTarget(mTarget);
 		LegendBow->SetPlayerItem(eItem::Legend_Bow);
+		LegendBow->SetShopItem(true);
 
 		Collider2D* bowcollider = LegendBow->AddComponent<Collider2D>();
 		bowcollider->SetType(eColliderType::Rect);
 		bowcollider->SetSize(Vector2(0.07f, 0.09f));
 
 		Transform* Bowtr = LegendBow->GetComponent<Transform>();
-		Bowtr->SetPosition(Vector3(105.0f, 0.0f, 2.0f));
+		Bowtr->SetPosition(Vector3(105.0f, 0.3f, 2.0f));
 		Bowtr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
 		LegendBow->Initalize();
@@ -71,13 +73,14 @@ namespace ks
 		LegendStaff->SetName(L"Shop_Item_Staff");
 		LegendStaff->SetTarget(mTarget);
 		LegendStaff->SetPlayerItem(eItem::Legend_Staff);
+		LegendStaff->SetShopItem(true);
 
 		Collider2D* staffcollider = LegendStaff->AddComponent<Collider2D>();
 		staffcollider->SetType(eColliderType::Rect);
 		staffcollider->SetSize(Vector2(0.07f, 0.09f));
 
 		Transform* Stafftr = LegendStaff->GetComponent<Transform>();
-		Stafftr->SetPosition(Vector3(107.0f, 0.0f, 2.0f));
+		Stafftr->SetPosition(Vector3(107.0f, 0.3f, 2.0f));
 		Stafftr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
 		LegendStaff->Initalize();

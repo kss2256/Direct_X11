@@ -6,7 +6,8 @@
 #include "ksResources.h"
 #include "ksCollisionManager.h"
 #include "ksUiMgr.h"
-
+#include "ksFmod.h"
+#include "ksFontWrapper.h"
 
 
 namespace ks
@@ -30,6 +31,9 @@ namespace ks
 		CollisionManager::Initialize();
 		renderer::Initialize();
 		SceneManager::Initalize();
+		Fmod::Initialize();
+		FontWrapper::Initialize();
+
 	}
 
 	// 게임 로직 캐릭터 이동 등등 
@@ -88,6 +92,8 @@ namespace ks
 	void Application::Release()
 	{
 		Resources::deleteTest();
+		Fmod::Release();
+		FontWrapper::Release();
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)

@@ -18,6 +18,9 @@
 #include "ksMonster.h"
 #include "ksCollisionManager.h"
 #include "ksAnimator.h"
+#include "ksAudioClip.h"
+#include "ksAudioListener.h"
+#include "ksFontWrapper.h"
 
 
 #include "ksApplication.h"
@@ -28,6 +31,7 @@ namespace ks
 {
 	TitleScene::TitleScene()
 		: Scene(eSceneType::Tilte)
+		, m_BgmSound(false)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -45,6 +49,10 @@ namespace ks
 
 		//object::DontDestroyOnLoad(layer2obj);
 		//monobj->AddComponent<PlayerScript>();
+
+
+		std::shared_ptr<AudioClip> titlesound = Resources::Load<AudioClip>
+			(L"TiTle", L"D:\\50\\Resources\\Sound\\TiTle.ogg");
 
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
@@ -151,6 +159,10 @@ namespace ks
 		}
 
 
+	
+
+
+
 		Scene::Initalize();
 
 	}
@@ -166,6 +178,16 @@ namespace ks
 	}
 	void TitleScene::FixedUpdate()
 	{
+		if(!m_BgmSound)
+		{
+			std::shared_ptr<AudioClip> titlesound = Resources::Find<AudioClip>(L"TiTle");
+			titlesound->SetLoop(false);
+			titlesound->Play();
+			m_BgmSound = true;	
+			
+
+		}
+
 		Scene::FixedUpdate();
 	}
 	void TitleScene::Render()
@@ -176,11 +198,14 @@ namespace ks
 	{
 		Destroy();
 		Initalize();
-
+		m_BgmSound = false;
 
 	}
 	void TitleScene::OnExit()
 	{
+		std::shared_ptr<AudioClip> titlesound = Resources::Find<AudioClip>(L"TiTle");
+		titlesound->Stop();
+
 		//LayerObjectClear(eLayerType::Camera);
 		LayerObjectClear(eLayerType::Player);
 		LayerObjectClear(eLayerType::Mouse);

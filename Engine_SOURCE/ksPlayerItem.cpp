@@ -13,10 +13,11 @@ namespace ks
 {
 
 
-	PlayerItem::PlayerItem()	
+	PlayerItem::PlayerItem()
 		: mItemChangeCheak(false)
 		, mItemUnlock(false)
 		, mPlayerItem(eItem::None)
+		, m_bShopItem(false)
 	{
 
 		mTransform = GetComponent<Transform>();

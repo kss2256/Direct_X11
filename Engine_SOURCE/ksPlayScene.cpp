@@ -42,7 +42,10 @@
 #include "ksGoldUi.h"
 #include "ksMoneyUi.h"
 #include "ksShop_Ui.h"
-
+#include "ksFontWrapper.h"
+#include "ksFmod.h"
+#include "ksAudioClip.h"
+#include "ksAudioListener.h"
 
 #include "ksMonsterMissile.h"
 
@@ -67,6 +70,8 @@ namespace ks
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		cameraComp->TurnLayerMask(eLayerType::UI, true);
+
+
 		
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
@@ -85,6 +90,9 @@ namespace ks
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 
 			loadAnimation();
+		
+
+			
 
 			SpriteRenderer* mr = mPlayer->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"PlayerMaterial");
@@ -144,6 +152,8 @@ namespace ks
 			tr->SetPosition(Vector3(8.3f, -4.1f, 0.0f));
 			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		}
+
+
 
 
 

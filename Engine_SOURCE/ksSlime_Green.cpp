@@ -10,6 +10,7 @@
 #include "ksSpriteRenderer.h"
 #include "ksMonsterMissile.h"
 #include "ksStage1_1.h"
+#include "ksAudioClip.h"
 
 #include "ksInput.h"
 
@@ -19,6 +20,8 @@ namespace ks
 {
 
 	Slime_Green::Slime_Green()
+		: m_bSoundOneCheak(false)
+		, m_bSoundCheak(false)
 	{
 		mTransform = GetComponent<Transform>();
 		mAnimator = AddComponent<Animator>();
@@ -34,7 +37,7 @@ namespace ks
 		mHp = 15;
 
 		loadAnimation();
-
+		loadSound();
 
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -83,16 +86,21 @@ namespace ks
 			{
 				mTime += Time::DeltaTime();
 				mAnimator->Play(L"Death", false);
+				if(!m_bSoundDeathCheak)
+				{
+					soundDeath();
+					m_bSoundDeathCheak = true;
+				}
 
 				createCoin(mTransform->GetPosition());
 
 				if (mTime >= 1.0f)
 				{
 					//this->Death();
-
+					
 					mTransform->SetPosition(Vec3(0.0f, 0.0f, 1.0f));
 					mDetection = false;
-
+					m_bSoundDeathCheak = false;
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
 					mTime = 0.f;
@@ -159,8 +167,10 @@ namespace ks
 					}
 					if (mRnadomAttack == 0)
 					{
+
 						if (mStep == eStep::Step_1)
 						{
+
 							mFixPos = mPlayer->GetComponent<Transform>()->GetPosition();
 							mStep = eStep::Step_2;
 							mOneDirection = mStateInfo.direction;
@@ -179,6 +189,7 @@ namespace ks
 							{
 								if (mTime >= 0.6f)
 								{
+									soundtripleAttack();
 									tripleAttack();
 									mCheak = true;
 								}
@@ -205,7 +216,6 @@ namespace ks
 						if (mStep == eStep::Step_2)
 						{
 							oneDirectionAnimation(L"Attack_Multiple", mOneDirection, false);
-
 							mStep = eStep::Step_3;
 						}
 
@@ -214,8 +224,22 @@ namespace ks
 							mTime += Time::DeltaTime();
 							if (!mCheak)
 							{
+								if (mTime >= 0.3f && m_bSoundCheak == false)
+								{
+									soundMultipleJump();
+									m_bSoundCheak = true;
+								}
+
+								if (mTime >= 0.6f && m_bSoundOneCheak == false)
+								{
+									soundMultipleJump();
+									m_bSoundOneCheak = true;
+								}
+
+
 								if (mTime >= 1.2f)
 								{
+									soundMultipleAttack();
 									multipleAttack();
 									mCheak = true;
 								}
@@ -225,6 +249,8 @@ namespace ks
 								directionAnimation(L"Idle", true);
 								mAttackCool = true;
 								mCheak = false;
+								m_bSoundOneCheak = false;
+								m_bSoundCheak = false;
 								mStep = eStep::None;
 								mStateInfo.situation = eSituation::None;
 								mTime = 0.f;
@@ -400,6 +426,23 @@ namespace ks
 		mNumbers.clear();
 	}
 
+	void Slime_Green::loadSound()
+	{
+
+		std::shared_ptr<AudioClip> slime_death = Resources::Load<AudioClip>
+			(L"slime_death", L"D:\\50\\Resources\\Sound\\slime_death.ogg");
+
+		std::shared_ptr<AudioClip> slime_Triple_Attack = Resources::Load<AudioClip>
+			(L"slime_Triple_Attack", L"D:\\50\\Resources\\Sound\\slime_Triple_Attack.ogg");
+
+		std::shared_ptr<AudioClip> slime_jump = Resources::Load<AudioClip>
+			(L"slime_jump", L"D:\\50\\Resources\\Sound\\slime_jump.ogg");
+
+		std::shared_ptr<AudioClip> slime_jump_Attack = Resources::Load<AudioClip>
+			(L"slime_jump_Attack", L"D:\\50\\Resources\\Sound\\slime_jump_Attack.ogg");
+
+	}
+
 	void Slime_Green::tripleAttack()
 	{
 
@@ -469,6 +512,35 @@ namespace ks
 			missile->Initalize();
 		}
 
+	}
+
+	void Slime_Green::soundDeath()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_death");
+		sound->SetLoop(false);
+		sound->Play(3.0f);
+
+	}
+
+	void Slime_Green::soundtripleAttack()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_Triple_Attack");
+		sound->SetLoop(false);
+		sound->Play(3.0f);
+	}
+
+	void Slime_Green::soundMultipleJump()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_jump");
+		sound->SetLoop(false);
+		sound->Play(3.0f);
+	}
+
+	void Slime_Green::soundMultipleAttack()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_jump_Attack");
+		sound->SetLoop(false);
+		sound->Play(3.0f);
 	}
 
 	void Slime_Green::resurrection()

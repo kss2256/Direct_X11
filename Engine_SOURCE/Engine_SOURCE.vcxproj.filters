@@ -151,6 +151,12 @@
     <Filter Include="GameObject\UI\Shop">
       <UniqueIdentifier>{7395cfb6-db88-452a-8950-14d010bf4830}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Audio">
+      <UniqueIdentifier>{1deb9877-4796-42ae-a67a-9cc16513f586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FontWrapper">
+      <UniqueIdentifier>{c055a982-51a0-4ad9-a003-5b617ea5b857}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -406,6 +412,18 @@
     </ClCompile>
     <ClCompile Include="ksShop_Ui.cpp">
       <Filter>GameObject\UI\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ksAudioClip.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="ksAudioListener.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="ksFmod.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="ksFontWrapper.cpp">
+      <Filter>FontWrapper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -680,6 +698,18 @@
     </ClInclude>
     <ClInclude Include="ksShop_Ui.h">
       <Filter>GameObject\UI\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ksAudioClip.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ksAudioListener.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFmod.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFontWrapper.h">
+      <Filter>FontWrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

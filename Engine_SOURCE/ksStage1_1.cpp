@@ -18,6 +18,8 @@
 #include "ksSlime_Green.h"
 #include "ksBossLayout.h"
 #include "ksBossTpMeter.h"
+#include "ksAudioClip.h"
+
 
 using namespace ks::graphics;
 
@@ -27,13 +29,14 @@ namespace ks
 	GameObject* Stage1_1::mTarget = nullptr;
 	bool Stage1_1::mKey = false;
 	bool Stage1_1::mKeyCheak = false;
+	bool Stage1_1::m_bSoundCheak = false;
 	UINT Stage1_1::mKeyCount = 0;
 	Stage_Step Stage1_1::mStep = Stage_Step::None;
 	Vec3 Stage1_1::mMoveCam = Vec3::Zero;
 	Vec3 Stage1_1::mEndCam = Vec3::Zero;
 
 	Stage1_1::Stage1_1()
-		: mTime(0.f)
+		: mFlimeTime(0.f)
 		
 	{
 
@@ -143,12 +146,31 @@ namespace ks
 		{
 			//시작 지점, 아이템 3개 구비 해두고 먹으면 Key 는 트루로 변경.
 			//아이템 먹으면 트루!
+			if(!m_bSoundCheak)
+			{
+				std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+					(L"Stage_1", L"D:\\50\\Resources\\Sound\\Stage_1.ogg");
+				booksound->SetLoop(true);
+				booksound->Play(0.3f);
+				m_bSoundCheak = true;
+			}
+
 			if (Input::GetKeyDown(eKeyCode::ESC))
 				mKey = true;
 			if (!mKey)
 			{							
 				range_In(Vec4(26.2f, 42.2f, 6.0f, -6.7f));
 			}
+
+			if (mKeyCount == 3)
+			{
+				mKey = true;
+				//mainCamera->SetShock(true);
+				//mainCamera->SetShockDuration(0.7f);
+				mKeyCount = 0;
+			}
+
+
 		}
 			break;
 		case ks::enums::eGroundStage::Ground2:
@@ -250,7 +272,6 @@ namespace ks
 			break;
 		case ks::enums::eGroundStage::Ground5:
 		{
-			
 			//꽃 괴물	175  -0.5
 			if (!mKeyCheak)
 			{
@@ -258,6 +279,19 @@ namespace ks
 				Vec3 pos = mTarget->GetComponent<Transform>()->GetPosition();
 				if (pos.y >= -8.2f)
 				{	
+					if (!m_bSoundCheak)
+					{
+
+						std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
+						sound->Stop();
+
+						std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+							(L"Boss_Flime_Battle", L"D:\\50\\Resources\\Sound\\Boss_Flime_Battle.ogg");
+						booksound->SetLoop(true);
+						booksound->Play();
+						m_bSoundCheak = true;
+					}
+
 					flime_Start();
 				}
 			}
@@ -284,6 +318,18 @@ namespace ks
 			break;
 		case ks::enums::eGroundStage::Ground6:
 		{
+
+			if (!m_bSoundCheak)
+			{
+				std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
+				sound->SetLoop(true);
+				sound->Play(0.5);
+
+				std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Flime_Battle");				
+				booksound->Stop();
+				m_bSoundCheak = true;
+			}
+
 			//아이템 먹으면 트루!
 			if (!mKeyCheak)
 			{
@@ -366,12 +412,24 @@ namespace ks
 			break;
 		case ks::enums::eGroundStage::Ground9:
 		{
+
 			if (!mKeyCheak)
 			{
 				//1Stage_Boss
 				Vec3 pos = mTarget->GetComponent<Transform>()->GetPosition();
 				if (pos.y >= -6.9f)
 				{
+					if (!m_bSoundCheak)
+					{
+						std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
+						sound->Stop();
+
+						std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+							(L"Boss_Ent_Battle", L"D:\\50\\Resources\\Sound\\Boss_Ent_Battle.ogg");
+						booksound->SetLoop(true);
+						booksound->Play();
+						m_bSoundCheak = true;
+					}
 
 					ent_Start();					
 				}
@@ -560,8 +618,8 @@ namespace ks
 		}
 		if (mStep == Stage_Step::Stet_2)
 		{
-			mTime += Time::DeltaTime();
-			if (mTime >= 1.5f)
+			mFlimeTime += Time::DeltaTime();
+			if (mFlimeTime >= 1.5f)
 			{
 				Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 				Vec3 pos = tr->GetPosition();
@@ -571,7 +629,7 @@ namespace ks
 				mMoveCam = playerpos - pos;
 				mMoveCam.Normalize();
 				mStep = Stage_Step::Stet_3;
-				mTime = 0.f;
+				mFlimeTime = 0.f;
 			}
 
 		}
@@ -649,14 +707,15 @@ namespace ks
 			if (mEndCam.y < pos.y)
 			{
 				mStep = Stage_Step::Stet_2;
-				mTime = 0.f;
+				mFlimeTime = 0.f;
+				mEntTime = 0.f;
 			}
 
 		}
 		if (mStep == Stage_Step::Stet_2)
 		{
-			mTime += Time::DeltaTime();
-			if (mTime >= 1.5f)
+			mEntTime += Time::DeltaTime();
+			if (mEntTime >= 2.0f)
 			{
 				Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 				Vec3 pos = tr->GetPosition();
@@ -666,7 +725,7 @@ namespace ks
 				mMoveCam = playerpos - pos;
 				mMoveCam.Normalize();
 				mStep = Stage_Step::Stet_3;
-				mTime = 0.f;
+				mEntTime = 0.f;
 			}
 
 		}
