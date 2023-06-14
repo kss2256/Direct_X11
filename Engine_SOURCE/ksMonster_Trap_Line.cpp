@@ -11,7 +11,7 @@
 
 #include "ksScene.h"
 #include "ksSceneManager.h"
-
+#include "ksAudioClip.h"
 #include "ksInput.h"
 
 
@@ -72,6 +72,7 @@ namespace ks
 			{
 				if (mStep == eStep::None)
 				{
+					soundTrapAttack();
 					mCollider = AddComponent<Collider2D>();
 
 					mCollider->SetType(eColliderType::Rect);
@@ -105,6 +106,7 @@ namespace ks
 			{
 				if (mStep == eStep::None)
 				{
+					soundTrapAttack();
 					mCollider = AddComponent<Collider2D>();
 
 					mCollider->SetType(eColliderType::Rect);
@@ -321,6 +323,21 @@ namespace ks
 		CreateAnimation(L"Attack_Ent_Trap", enttexture, mAnimator, Vector2(192.0f, 192.0f), Vec2::Zero, mNumbers, 0.05f);
 		mNumbers.clear();
 
+
+	}
+
+	void Monster_Trap_Line::loadSound()
+	{
+		std::shared_ptr<AudioClip> Flime_TrapAttack = Resources::Load<AudioClip>
+			(L"Flime_Attack_Trap", L"D:\\50\\Resources\\Sound\\Flime_Attack_Trap.ogg");
+
+	}
+
+	void Monster_Trap_Line::soundTrapAttack()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Flime_Attack_Trap");
+		sound->SetLoop(false);
+		sound->Play();
 
 	}
 

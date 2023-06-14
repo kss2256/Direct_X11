@@ -21,7 +21,7 @@ namespace ks
 		mMp = 5;	
 		mFullMp = 5;
 
-		mStamina = 188;
+		mStamina = 100;
 		mItemWear = false;
 		mStaninaFull = true;
 		mPlayer.weapon_Slot = eSlot::Slot_1;

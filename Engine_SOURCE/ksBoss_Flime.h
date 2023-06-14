@@ -27,7 +27,11 @@ namespace ks
         void multipleAttack(float dir, UINT count);
         void directionTrap(UINT count, float interval, bool missil);
         void TrapAttack(UINT count, float interval, bool missil);
-
+        void loadSound();
+        void soundDeath();
+        void soundmultipleAttack();
+        void soundTrapAttack();
+        void soundDirectionTrap();
 
 
     private:
@@ -38,6 +42,8 @@ namespace ks
         int         mMaxTrapCount;
 
         static bool mflimeCheak;
+
+        bool        m_bSoundDeathCheak;
 
 
     };

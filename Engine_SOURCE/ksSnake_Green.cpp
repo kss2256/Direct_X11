@@ -12,13 +12,14 @@
 #include "ksStage1_1.h"
 #include "ksInput.h"
 
-
+#include "ksAudioClip.h"
 
 
 namespace ks
 {
 
 	Snake_Green::Snake_Green()
+		: m_bSoundDeathCheak(false)
 	{
 		mTransform = GetComponent<Transform>();
 		mAnimator = AddComponent<Animator>();
@@ -36,7 +37,7 @@ namespace ks
 
 
 		loadAnimation();
-
+		loadSound();
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 
@@ -80,7 +81,11 @@ namespace ks
 			{
 				mTime += Time::DeltaTime();
 				mAnimator->Play(L"Death", false);
-				
+				if (!m_bSoundDeathCheak)
+				{
+					soundDeath();
+					m_bSoundDeathCheak = true;
+				}
 				createCoin(mTransform->GetPosition());
 
 				if (mTime >= 1.0f)
@@ -89,7 +94,7 @@ namespace ks
 
 					mTransform->SetPosition(Vec3(0.0f, 0.0f, 1.0f));
 					mDetection = false;
-
+					m_bSoundDeathCheak = false;
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
 					mTime = 0.f;
@@ -151,6 +156,7 @@ namespace ks
 
 					if (mStep == eStep::None)
 					{
+						soundAttack1();
 						mFixPos = mPlayer->GetComponent<Transform>()->GetPosition();
 						mMovePos = mFixPos - mMonsterPos;
 					
@@ -163,7 +169,7 @@ namespace ks
 					{
 
 						oneDirectionAnimation(L"Attack", mOneDirection, false);
-
+						soundAttack2();
 						tripleAttack();
 						mStep = eStep::Step_2;
 					}
@@ -205,7 +211,7 @@ namespace ks
 						if (mTime >= 1.5f)
 						{
 							oneDirectionAnimation(L"Attack", mOneDirection, false);
-
+							soundAttack2();
 							tripleAttack();
 							mStep = eStep::Step_4;
 							mCheak = false;
@@ -453,6 +459,45 @@ namespace ks
 
 
 
+	}
+
+	void Snake_Green::loadSound()
+	{
+
+		std::shared_ptr<AudioClip> Snake_death = Resources::Load<AudioClip>
+			(L"Snake_death", L"D:\\50\\Resources\\Sound\\Snake_death.ogg");
+
+		std::shared_ptr<AudioClip> Snake_Attack1 = Resources::Load<AudioClip>
+			(L"Snake_Attack1", L"D:\\50\\Resources\\Sound\\Snake_Attack1.ogg");
+
+		std::shared_ptr<AudioClip> Snake_Attack2 = Resources::Load<AudioClip>
+			(L"Snake_Attack2", L"D:\\50\\Resources\\Sound\\Snake_Attack2.ogg");
+
+		
+
+
+	}
+
+	void Snake_Green::soundDeath()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Snake_death");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Snake_Green::soundAttack1()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Snake_Attack1");
+		sound->SetLoop(false);
+		sound->Play();
+
+	}
+
+	void Snake_Green::soundAttack2()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Snake_Attack2");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 	void Snake_Green::resurrection()

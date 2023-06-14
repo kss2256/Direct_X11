@@ -12,6 +12,7 @@
 #include "ksMonster_Trap_Line.h"
 #include "ksFlime_Missile.h"
 #include "ksStage1_1.h"
+#include "ksAudioClip.h"
 
 
 
@@ -50,7 +51,7 @@ namespace ks
 
 		loadAnimation();
 
-
+		loadSound();
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 
@@ -175,6 +176,7 @@ namespace ks
 
 						if (mStep == eStep::Step_1)
 						{
+							soundmultipleAttack();
 							directionAnimation(L"Attack_Direction", false);
 							multipleAttack(18.f, 20);
 							mStep = eStep::Step_2;
@@ -184,6 +186,7 @@ namespace ks
 						{
 							if (mTime >= 0.7f)
 							{
+								soundmultipleAttack();
 								//directionAnimation(L"Idle", true);
 								multipleAttack(14.4f, 25);
 								mStep = eStep::Step_3;
@@ -194,6 +197,7 @@ namespace ks
 						{
 							if (mTime >= 0.7f)
 							{
+								soundmultipleAttack();
 								multipleAttack(18.f, 20);
 								mStep = eStep::Step_4;
 								mTime = 0.f;
@@ -219,6 +223,7 @@ namespace ks
 
 						if (mStep == eStep::Step_1)
 						{
+							soundDirectionTrap();
 							directionAnimation(L"Attack_Thorn", false);
 							mStep = eStep::Step_2;
 							mTime = 0.f;
@@ -240,7 +245,10 @@ namespace ks
 								for (size_t i = 1; i < mMaxTrapCount; i++)
 								{
 									if (mTrapCount == i)
+									{
+										
 										directionTrap(8, i * mInterval, true);
+									}
 								}
 								mTime = 0.f;
 								++mTrapCount;
@@ -293,6 +301,7 @@ namespace ks
 						//3. 1가운데 20개 20개 
 						if (mStep == eStep::Step_3)
 						{
+							
 							TrapAttack(1, 0.f, false);
 							TrapAttack(20, 2.5f, false);
 
@@ -304,6 +313,7 @@ namespace ks
 						{
 							if (mTime >= 3.0f)
 							{
+							
 								TrapAttack(10, 1.5f, false);
 								TrapAttack(20, 3.7f, false);
 
@@ -315,6 +325,7 @@ namespace ks
 						{
 							if (mTime >= 3.0f)
 							{
+								
 								TrapAttack(1, 0.f, false);
 								TrapAttack(20, 2.5f, false);
 								TrapAttack(20, 4.5f, false);
@@ -529,6 +540,51 @@ namespace ks
 			missile->Lineinterval(interval);
 		}
 
+	}
+
+	void Boss_Flime::loadSound()
+	{
+		//std::shared_ptr<AudioClip> Flime_death = Resources::Load<AudioClip>
+		//	(L"Snake_death", L"D:\\50\\Resources\\Sound\\Snake_death.ogg");
+
+		std::shared_ptr<AudioClip> Flime_TrapAttack = Resources::Load<AudioClip>
+			(L"Flime_Attack_Trap", L"D:\\50\\Resources\\Sound\\Flime_Attack_Trap.ogg");
+
+		std::shared_ptr<AudioClip> Flime_multipleAttack = Resources::Load<AudioClip>
+			(L"Flime_Attack_multiple", L"D:\\50\\Resources\\Sound\\Flime_Attack_multiple.ogg");
+
+		std::shared_ptr<AudioClip> Flime_Direction_Trap = Resources::Load<AudioClip>
+			(L"Flime_Direction_Trap", L"D:\\50\\Resources\\Sound\\Flime_Direction_Trap.ogg");
+
+	}
+
+	void Boss_Flime::soundDeath()
+	{
+
+
+
+	}
+
+	void Boss_Flime::soundmultipleAttack()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Flime_Attack_multiple");
+		sound->SetLoop(false);
+		sound->Play();
+
+	}
+
+	void Boss_Flime::soundTrapAttack()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Flime_Attack_Trap");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Boss_Flime::soundDirectionTrap()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Flime_Direction_Trap");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 

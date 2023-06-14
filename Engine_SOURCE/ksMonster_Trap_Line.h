@@ -54,6 +54,8 @@ namespace ks
     private:
 
         void loadAnimation();
+        void loadSound();
+        void soundTrapAttack();
 
 
     private:

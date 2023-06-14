@@ -58,6 +58,8 @@ namespace ks
 		void playerRunSound();
 		void playerRunSoundStop();
 		void PlayerAttackSound();
+		void playerCoinSound();
+		void loadSound();
 		
 		
 

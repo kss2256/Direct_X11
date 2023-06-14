@@ -298,7 +298,7 @@ namespace ks
 
 			if (mKeyCount == 1)
 			{
-				
+				m_bSoundCheak = false;
 				mBossMeter->Death();
 				mBossLayout->Death();
 				
@@ -306,6 +306,17 @@ namespace ks
 				mainCamera->SetShock(true);
 				mainCamera->SetShockDuration(0.7f);
 				mKeyCount = 0;
+
+				if (!m_bSoundCheak)
+				{
+					std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
+					sound->SetLoop(true);
+					sound->Play(0.5);
+
+					std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Flime_Battle");
+					booksound->Stop();
+					m_bSoundCheak = true;
+				}
 			}
 
 			if (!mKey)
@@ -319,16 +330,7 @@ namespace ks
 		case ks::enums::eGroundStage::Ground6:
 		{
 
-			if (!m_bSoundCheak)
-			{
-				std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
-				sound->SetLoop(true);
-				sound->Play(0.5);
 
-				std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Flime_Battle");				
-				booksound->Stop();
-				m_bSoundCheak = true;
-			}
 
 			//아이템 먹으면 트루!
 			if (!mKeyCheak)

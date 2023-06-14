@@ -24,12 +24,16 @@ namespace ks
 		void loadAnimation();
 		void doubleAttack();
 		void tripleAttack();
+		void loadSound();
+		void soundDeath();
+		void soundAttack1();
+		void soundAttack2();
 
 
 
 	private:
 
-
+		bool        m_bSoundDeathCheak;
 
 
 	};

@@ -518,7 +518,7 @@ namespace ks
 	{
 		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_death");
 		sound->SetLoop(false);
-		sound->Play(3.0f);
+		sound->Play();
 
 	}
 
@@ -526,14 +526,14 @@ namespace ks
 	{
 		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_Triple_Attack");
 		sound->SetLoop(false);
-		sound->Play(3.0f);
+		sound->Play();
 	}
 
 	void Slime_Green::soundMultipleJump()
 	{
 		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_jump");
 		sound->SetLoop(false);
-		sound->Play(3.0f);
+		sound->Play();
 	}
 
 	void Slime_Green::soundMultipleAttack()

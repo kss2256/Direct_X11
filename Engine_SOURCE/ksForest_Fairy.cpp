@@ -10,12 +10,14 @@
 #include "ksSpriteRenderer.h"
 #include "ksMonsterMissile.h"
 #include "ksStage1_1.h"
+#include "ksAudioClip.h"
 
 #include "ksInput.h"
 
 namespace ks
 {
 	Forest_Fairy::Forest_Fairy()
+		: m_bSoundDeathCheak(false)
 	{
 
 		mTransform = GetComponent<Transform>();
@@ -32,7 +34,7 @@ namespace ks
 		mHp = 20;
 
 		loadAnimation();
-
+		loadSound();
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 
@@ -73,13 +75,21 @@ namespace ks
 				mTime += Time::DeltaTime();
 				mAnimator->Play(L"Death", false);
 
+				if (!m_bSoundDeathCheak)
+				{
+					soundDeath();
+					m_bSoundDeathCheak = true;
+				}
+				createCoin(mTransform->GetPosition());
+
+
 				if (mTime >= 1.0f)
 				{
 					//this->Death();
 
 					mTransform->SetPosition(Vec3(0.0f, 0.0f, 1.0f));
 					mDetection = false;
-
+					m_bSoundDeathCheak = false;
 
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
@@ -156,6 +166,8 @@ namespace ks
 						{
 							if (mTime >= 0.6f)
 							{
+								soundAttack();
+
 								std::vector<UINT> count;
 								count.push_back(11);
 								count.push_back(5);
@@ -401,6 +413,34 @@ namespace ks
 		//}
 
 
+	}
+
+	void Forest_Fairy::loadSound()
+	{
+
+		std::shared_ptr<AudioClip> Snake_death = Resources::Load<AudioClip>
+			(L"Fairy_death", L"D:\\50\\Resources\\Sound\\Fairy_death.ogg");
+
+		std::shared_ptr<AudioClip> Snake_Attack1 = Resources::Load<AudioClip>
+			(L"Fairy_Attack", L"D:\\50\\Resources\\Sound\\Fairy_Attack.ogg");
+
+
+
+	}
+
+	void Forest_Fairy::soundDeath()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Fairy_death");
+		sound->SetLoop(false);
+		sound->Play();
+
+	}
+
+	void Forest_Fairy::soundAttack()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Fairy_Attack");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 	
 	void Forest_Fairy::resurrection()

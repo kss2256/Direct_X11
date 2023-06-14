@@ -108,12 +108,10 @@ namespace ks
 
 			Collider2D* collider = mPlayer->GetComponent<Collider2D>();
 	
-			std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-				(L"Wood_run_01", L"D:\\50\\Resources\\Sound\\Wood_run_01.ogg");
 
-			std::shared_ptr<AudioClip> sound = Resources::Load<AudioClip>
-				(L"Attack_Sound", L"D:\\50\\Resources\\Sound\\Attack_Sound.ogg");
+			loadSound();
 
+		
 
 		}
 		//mAnimator* animator = GetOwner()->GetComponent<Animator>();
@@ -2571,6 +2569,26 @@ namespace ks
 		booksound->Play(3.0f);
 
 	}
+
+	void PlayerScript::playerCoinSound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Coin");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
+	void PlayerScript::loadSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+			(L"Wood_run_01", L"D:\\50\\Resources\\Sound\\Wood_run_01.ogg");
+
+		std::shared_ptr<AudioClip> sound = Resources::Load<AudioClip>
+			(L"Attack_Sound", L"D:\\50\\Resources\\Sound\\Attack_Sound.ogg");		
+
+		std::shared_ptr<AudioClip> coinsound = Resources::Load<AudioClip>
+			(L"Coin", L"D:\\50\\Resources\\Sound\\Coin.ogg");
+
+	}
 	
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
@@ -2595,6 +2613,8 @@ namespace ks
 			UINT playercoin = coin->GetCoinValue();
 			mPlayer->SetPlayerCoin(playercoin);
 			coin->ItemLoot(true);
+			playerCoinSound();
+
 		}
 
 

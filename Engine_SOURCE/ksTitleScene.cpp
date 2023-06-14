@@ -51,8 +51,8 @@ namespace ks
 		//monobj->AddComponent<PlayerScript>();
 
 
-		std::shared_ptr<AudioClip> titlesound = Resources::Load<AudioClip>
-			(L"TiTle", L"D:\\50\\Resources\\Sound\\TiTle.ogg");
+		//std::shared_ptr<AudioClip> titlesound = Resources::Load<AudioClip>
+		//	(L"TiTle", L"D:\\50\\Resources\\Sound\\TiTle.ogg");
 
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
@@ -180,7 +180,8 @@ namespace ks
 	{
 		if(!m_BgmSound)
 		{
-			std::shared_ptr<AudioClip> titlesound = Resources::Find<AudioClip>(L"TiTle");
+			std::shared_ptr<AudioClip> titlesound = Resources::Load<AudioClip>
+				(L"TiTle", L"D:\\50\\Resources\\Sound\\TiTle.ogg");
 			titlesound->SetLoop(false);
 			titlesound->Play();
 			m_BgmSound = true;	

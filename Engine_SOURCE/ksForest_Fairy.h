@@ -24,12 +24,16 @@ namespace ks
 
         void loadAnimation();
         void multipleAttack(std::vector<UINT> missileCounts, std::vector<float> missileAngle);
+        void loadSound();
+        void soundDeath();
+        void soundAttack();
+
 
 
     private:
 
 
- 
+        bool        m_bSoundDeathCheak;
 
     };
 }
