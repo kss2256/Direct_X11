@@ -40,6 +40,9 @@ namespace ks
 			mPlayerHp = mTarget->GetPlayerHp();
 			mPlayerPrevHp = mTarget->GetPlayerHp();
 
+			mPlayerFullHp = mTarget->GetPlayerFullHp();
+			mPlayerFullPrevHp = mTarget->GetPlayerFullHp();
+
 			mPlayerFullMp = mTarget->GetPlayerFullMp();
 			mPlayerFullPrevMp = mTarget->GetPlayerFullMp();
 

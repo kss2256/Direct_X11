@@ -303,8 +303,8 @@ namespace ks
 		}
 
 
-		{
 
+		{
 			Cloud* fogobj = object::Instantiate<Cloud>(eLayerType::Fog);
 			fogobj->SetName(L"FOG_1");
 			fogobj->SetTarget(mPlayer);
@@ -326,7 +326,7 @@ namespace ks
 
 
 			Transform* montr = mForest_Fairy->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+			montr->SetPosition(Vector3(0.0f, 20.0f, 2.0f));
 			montr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		}
 
@@ -340,7 +340,7 @@ namespace ks
 			collider->SetSize(Vector2(0.15f, 0.12f));
 			collider->SetCenter(Vec2(0.05f, -0.6f));
 			Transform* montr = mSlime_Green->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.f, 0.f, 2.0f));
+			montr->SetPosition(Vector3(0.f, 20.f, 2.0f));
 			montr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		}
 
@@ -354,7 +354,7 @@ namespace ks
 			collider->SetSize(Vector2(0.15f, 0.12f));
 			collider->SetCenter(Vec2(0.05f, -0.6f));
 			Transform* montr = mSlime_Green_Two->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.f, 0.f, 2.0f));
+			montr->SetPosition(Vector3(0.f, 20.f, 2.0f));
 			montr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		}
 
@@ -367,7 +367,7 @@ namespace ks
 			collider->SetType(eColliderType::Rect);
 			collider->SetSize(Vector2(0.1f, 0.12f));
 			Transform* montr = mSnake_Green->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.f, 0.f, 2.0f));
+			montr->SetPosition(Vector3(0.f, 20.f, 2.0f));
 			montr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		}
 
@@ -379,7 +379,7 @@ namespace ks
 			collider->SetType(eColliderType::Rect);
 			collider->SetSize(Vector2(0.1f, 0.12f));
 			Transform* montr = mSnake_Green_Two->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.f, 0.f, 2.0f));
+			montr->SetPosition(Vector3(0.f, 20.f, 2.0f));
 			montr->SetScale(Vector3(10.0f, 10.0f, 1.0f));
 		}
 
@@ -395,7 +395,7 @@ namespace ks
 
 
 			Transform* montr = mBoss_Flime->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+			montr->SetPosition(Vector3(0.0f, 20.0f, 2.0f));
 			montr->SetScale(Vector3(14.0f, 14.0f, 1.0f));
 		}
 
@@ -411,7 +411,7 @@ namespace ks
 
 
 			Transform* montr = mBoss_Ent->GetComponent<Transform>();
-			montr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+			montr->SetPosition(Vector3(0.0f, 20.0f, 2.0f));
 			montr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
 		}
 

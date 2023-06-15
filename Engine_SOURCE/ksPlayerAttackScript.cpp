@@ -33,10 +33,14 @@ namespace ks
 	void PlayerAttackScript::Update()
 	{
 		
+
+
 	}
 
 	void PlayerAttackScript::FixedUpdate()
 	{
+
+
 
 	}
 
@@ -55,6 +59,7 @@ namespace ks
 
 			if(slime->GetSituation() != eSituation::Hit)
 			{
+				Vec3 test = mPlayerAttack->GetComponent<Transform>()->GetPosition();
 				slime->SetStep(eStep::None);
 				slime->SetSituation(eSituation::Hit);
 				slime->SetMonsterHp(mPlayer->GetPlayerStr());
@@ -74,6 +79,7 @@ namespace ks
 
 			if (snake->GetSituation() != eSituation::Hit)
 			{	
+				Vec3 test = mPlayerAttack->GetComponent<Transform>()->GetPosition();
 				snake->SetStep(eStep::None);
 				snake->SetSituation(eSituation::Hit);
 				snake->SetMonsterHp(mPlayer->GetPlayerStr());
@@ -90,7 +96,8 @@ namespace ks
 				return;
 
 			if (!flime->GetBossHit())
-			{				
+			{			
+				Vec3 test = mPlayerAttack->GetComponent<Transform>()->GetPosition();
 				flime->SetBossHit(true);
 				flime->SetMonsterHp(mPlayer->GetPlayerStr());
 				attackHitSound();
@@ -105,7 +112,8 @@ namespace ks
 				return;
 
 			if (!ent->GetBossHit())
-			{							
+			{			
+				Vec3 test = mPlayerAttack->GetComponent<Transform>()->GetPosition();
 				ent->SetBossHit(true);
 				ent->SetMonsterHp(mPlayer->GetPlayerStr());
 				attackHitSound();
@@ -122,6 +130,7 @@ namespace ks
 
 			if (fairy->GetSituation() != eSituation::Hit)
 			{			
+				Vec3 test = mPlayerAttack->GetComponent<Transform>()->GetPosition();
 				fairy->SetStep(eStep::None);
 				fairy->SetSituation(eSituation::Hit);
 				fairy->SetMonsterHp(mPlayer->GetPlayerStr());
@@ -143,6 +152,7 @@ namespace ks
 
 	void PlayerAttackScript::attackDeath()
 	{
+
 		switch (mPlayer->GetPlayerInfo().weapon)
 		{
 		case ks::eWeapon::None:

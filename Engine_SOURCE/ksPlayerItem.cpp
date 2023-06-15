@@ -86,6 +86,16 @@ namespace ks
 			mAnimator->Play(L"Legend_Sword", true);
 		}
 		break;
+		case ks::eItem::Hp:
+		{
+			mAnimator->Play(L"hp_Recovery", true);
+		}
+		break;
+		case ks::eItem::MP:
+		{
+			mAnimator->Play(L"Mp_Recovery", true);
+		}
+		break;
 
 		}
 
@@ -105,17 +115,19 @@ namespace ks
 			Vec3 pos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 			pos += mUiPos;
 			mTransform->SetPosition(pos);
-			
-			
+
+
 			if (IsMouseOn())
 			{
-				
+
 				if (Input::GetKeyDown(eKeyCode::RBTN))
-				{					
+				{
+
+
 					mWeaponSlot = false;
 					Transform* tr = GetComponent<Transform>();
 					tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-					tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));					
+					tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
 					mItemUnlock = true;
 					mPlayerItem = eItem::None;
 					s_PlayerInfo iteminfo = mTarget->GetPlayerInfo();
@@ -285,6 +297,18 @@ namespace ks
 
 		mNumbers.push_back(44);
 		CreateAnimation(L"Legend_Sword", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
+
+		std::shared_ptr<Texture> hp = Resources::Load<Texture>(L"hp", L"Player_UI\\FullHp.png");
+
+		mNumbers.push_back(0);
+		CreateAnimation(L"hp_Recovery", hp, mAnimator, Vector2(23.0f, 22.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
+
+		std::shared_ptr<Texture> mp = Resources::Load<Texture>(L"mp", L"Player_UI\\FullMp.png");
+
+		mNumbers.push_back(0);
+		CreateAnimation(L"Mp_Recovery", mp, mAnimator, Vector2(24.0f, 24.0f), Vec2::Zero, mNumbers, 0.35f);
 		mNumbers.clear();
 
 	}

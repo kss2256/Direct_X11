@@ -47,6 +47,8 @@ namespace ks
 		void swordSound();
 		void staffSound();
 		void bowSound();
+		void hpPotionSound();
+		void hpRecoverySound();
 
 
 
@@ -79,6 +81,9 @@ namespace ks
 		static bool				mDragCheak;
 		static Vec3				mUiWalkPos;
 		bool					m_bSoundDeathCheak;
+
+
+		float					m_fTime;
 
 
     };

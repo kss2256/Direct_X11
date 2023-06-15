@@ -55,6 +55,8 @@ namespace ks
 
 		float			mPlayerHp;
 		float			mPlayerPrevHp;
+		float			mPlayerFullHp;
+		float			mPlayerFullPrevHp;
 		float			mPlayerFullMp;
 		float			mPlayerFullPrevMp;
 		float			mPlayerMp;

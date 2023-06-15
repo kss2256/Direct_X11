@@ -223,7 +223,7 @@ namespace ks
 		if (mInventoryFull)
 			return;
 		
-		//mInventorysSlot.push_back(item);
+		
 		//mItemSlot = mInventorySlot.size();
 		mItemSlot = 0;
 		mSlotCheak = 0;
@@ -235,7 +235,7 @@ namespace ks
 				++mItemSlot;
 				InventorySlot* slot = (InventorySlot*)chide[i];
 				if (!slot->GetItenOnOff())
-				{
+				{					
 					slot->SetItemOnOff(true);					
 					break;
 				}
@@ -380,7 +380,42 @@ namespace ks
 			AddChild(inventoryitem);
 		}
 		break;
+		case ks::eItem::Hp:
+		{
+			InventoryItem* inventoryitem = new InventoryItem;
 
+			inventoryitem->SetName(L"Hp_Item");
+			inventoryitem->SetTarget(mTarget);
+			inventoryitem->SetPlayerItem(item);
+			Transform* inventorytr = inventoryitem->GetComponent<Transform>();
+			inventorytr->SetPosition(mInventoryPos);
+			inventorytr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+
+			inventoryitem->SetInventoryTarget(this);
+			inventoryitem->SetInventorySlot(mInventorysSlot);
+			inventoryitem->Initalize();
+
+			AddChild(inventoryitem);
+		}
+		break;
+		case ks::eItem::MP:
+		{
+			InventoryItem* inventoryitem = new InventoryItem;
+
+			inventoryitem->SetName(L"Mp_Item");
+			inventoryitem->SetTarget(mTarget);
+			inventoryitem->SetPlayerItem(item);
+			Transform* inventorytr = inventoryitem->GetComponent<Transform>();
+			inventorytr->SetPosition(mInventoryPos);
+			inventorytr->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+
+			inventoryitem->SetInventoryTarget(this);
+			inventoryitem->SetInventorySlot(mInventorysSlot);
+			inventoryitem->Initalize();
+
+			AddChild(inventoryitem);
+		}
+		break;
 
 		}
 

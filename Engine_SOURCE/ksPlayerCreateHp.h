@@ -42,7 +42,6 @@ namespace ks
 
 		SpriteRenderer* mSprite;
 
-
 		bool			m_bFullHp;
 		bool			m_bHalfHp;
 		bool			m_bFullMp;

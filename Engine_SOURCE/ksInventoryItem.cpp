@@ -8,7 +8,7 @@
 #include "ksInventory.h"
 #include "ksInventorySlot.h"
 #include "ksAudioClip.h"
-
+#include "ksTime.h"
 
 #include "ksInput.h"
 
@@ -24,7 +24,7 @@ namespace ks
 	InventoryItem::InventoryItem()
 		: mDragWalk(false)
 		, m_bSoundDeathCheak(false)
-		
+		, m_fTime(0.f)
 	{
 
 		mTransform = GetComponent<Transform>();
@@ -96,6 +96,16 @@ namespace ks
 			mAnimator->Play(L"Legend_Bow", true);
 		}
 		break;
+		case ks::eItem::Hp:
+		{
+			mAnimator->Play(L"hp_Recovery", true);
+		}
+		break;
+		case ks::eItem::MP:
+		{
+			mAnimator->Play(L"Mp_Recovery", true);
+		}
+		break;
 		}
 
 		GameObject::Initalize();
@@ -104,7 +114,7 @@ namespace ks
 	void InventoryItem::Update()
 	{
 		SetOneCheak(true);
-		SetPos(mUiPrevItemPos);		
+		SetPos(mUiPrevItemPos);
 
 		if (mParent)
 		{
@@ -126,7 +136,7 @@ namespace ks
 				mFinalPos = mPlayerPos + mUiPos;
 
 				mTransform->SetPosition(mFinalPos);
-			}			
+			}
 		}
 
 
@@ -149,11 +159,11 @@ namespace ks
 		{
 			if (mHandItem)
 				return;
-			
+
 			Vec3 mousepos = Input::GetMousWorldPosition();
 
 			Vec3 movepos = mousepos - mUiPrevMousePos;
-			
+
 
 			Vec3 pos = mTransform->GetPosition();
 			Vec3 Campos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
@@ -161,7 +171,7 @@ namespace ks
 			pos += movepos;
 
 			mTransform->SetPosition(pos);
-			
+
 
 			mUiPrevMousePos = Input::GetMousWorldPosition();
 
@@ -180,8 +190,8 @@ namespace ks
 			else
 			{
 				if (Lbtndown)
-				{					
-					mDragWalk = true;			
+				{
+					mDragWalk = true;
 					InventorySlot::SetItemDragCheak(true);
 				}
 			}
@@ -189,60 +199,60 @@ namespace ks
 
 
 		if (IsMouseOn())
-		{		
+		{
 			bool Lbtnup = Input::GetKeyUp(eKeyCode::LBTN);
 			bool Lbtndown = Input::GetKeyDown(eKeyCode::LBTN);
-			
+
 			if (Lbtndown)
 			{
 				//SetTwoCheak(true);
 				mItemName = GetName();
 				mUiPrevItemPos = mTransform->GetPosition();
-				mDragCheak = true;				
+				mDragCheak = true;
 				mUiPrevMousePos = Input::GetMousWorldPosition();
 
 			}
 
-			
-		
+
+
 
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
-				s_PlayerInfo iteminfo = mTarget->GetPlayerInfo();
-				iteminfo.item = mPlayerItem;
-				mTarget->SetItemWear(true);
-				mTarget->SetPlayerInfo(iteminfo);
-				switch (iteminfo.item)
-				{
-				case ks::eItem::None:
-					break;
-				case ks::eItem::Sword:
-					swordSound();
-					break;
-				case ks::eItem::Staff:
-					staffSound();
-					break;
-				case ks::eItem::Bow:
-					bowSound();
-					break;
-				case ks::eItem::Legend_Sword:
-					swordSound();
-					break;
-				case ks::eItem::Legend_Staff:
-					staffSound();
-					break;
-				case ks::eItem::Legend_Bow:
-					bowSound();
-					break;				
-				}
 
+					s_PlayerInfo iteminfo = mTarget->GetPlayerInfo();
+					iteminfo.item = mPlayerItem;
+					mTarget->SetItemWear(true);
+					mTarget->SetPlayerInfo(iteminfo);
+					switch (iteminfo.item)
+					{
+					case ks::eItem::None:
+						break;
+					case ks::eItem::Sword:
+						swordSound();
+						break;
+					case ks::eItem::Staff:
+						staffSound();
+						break;
+					case ks::eItem::Bow:
+						bowSound();
+						break;
+					case ks::eItem::Legend_Sword:
+						swordSound();
+						break;
+					case ks::eItem::Legend_Staff:
+						staffSound();
+						break;
+					case ks::eItem::Legend_Bow:
+						bowSound();
+						break;
+					}
 			}
-		
+
 
 
 		}
 
-		
+
 
 		UIBase::Update();
 	}
@@ -292,7 +302,17 @@ namespace ks
 		CreateAnimation(L"Legend_Sword", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
 		mNumbers.clear();
 
+		std::shared_ptr<Texture> hp = Resources::Load<Texture>(L"hp", L"Player_UI\\FullHp.png");
 
+		mNumbers.push_back(0);
+		CreateAnimation(L"hp_Recovery", hp, mAnimator, Vector2(23.0f, 22.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
+
+		std::shared_ptr<Texture> mp = Resources::Load<Texture>(L"mp", L"Player_UI\\FullMp.png");
+
+		mNumbers.push_back(0);
+		CreateAnimation(L"Mp_Recovery", mp, mAnimator, Vector2(24.0f, 24.0f), Vec2::Zero, mNumbers, 0.35f);
+		mNumbers.clear();
 
 
 	}
@@ -364,6 +384,14 @@ namespace ks
 
 		std::shared_ptr<AudioClip> Sword_Item_Slot = Resources::Load<AudioClip>
 			(L"Sword_Item_Slot", L"D:\\50\\Resources\\Sound\\Sword_Item_Slot.ogg");
+
+		std::shared_ptr<AudioClip> Potion_Item_Slot = Resources::Load<AudioClip>
+			(L"Hp_Potion", L"D:\\50\\Resources\\Sound\\Hp_Potion.ogg");
+
+		std::shared_ptr<AudioClip> Recovery_Item_Slot = Resources::Load<AudioClip>
+			(L"Hp_Recovery", L"D:\\50\\Resources\\Sound\\Hp_Recovery.ogg");
+
+
 	}
 
 	void InventoryItem::swordSound()
@@ -386,5 +414,21 @@ namespace ks
 		sound->SetLoop(false);
 		sound->Play();
 	}
+
+	void InventoryItem::hpPotionSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Hp_Potion");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void InventoryItem::hpRecoverySound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Hp_Recovery");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+
 
 }

@@ -4,9 +4,11 @@
 #include "ksPlayerScript.h"
 #include "ksObject.h"
 #include "ksPlayerItem.h"
-
+#include "ksAudioClip.h"
+#include "ksResources.h"
 
 #include "ksInput.h"
+#include "ksTime.h"
 
 
 namespace ks
@@ -18,6 +20,7 @@ namespace ks
 	{
 
 		mHp = 5;	
+		mFullHp = 5;
 		mMp = 5;	
 		mFullMp = 5;
 
@@ -110,7 +113,7 @@ namespace ks
 		{
 			if (mPlayerCoin >= 999)
 				return;
-			++mPlayerCoin;
+			mPlayerCoin += 10;
 		}
 		if (Input::GetKeyDown(eKeyCode::NUM_2))
 		{
@@ -119,6 +122,49 @@ namespace ks
 			--mPlayerCoin;
 		}
 
+		if (m_bHpRecoveryCheak)
+		{
+			m_fTime += Time::DeltaTime();
+			m_fTime1 += Time::DeltaTime();
+			if (m_fTime1 >= 0.2f && m_bRecoveryCheak == false)
+			{
+				hpPotionSound();
+				m_bRecoveryCheak = true;
+			}
+
+
+			if (m_fTime >= 0.4f)
+			{				
+				m_bHpRecoveryCheak = false;
+				m_fTime = 0.f;
+				if (mHp > 9)
+					return;
+				recoverySound();
+				mHp += 1;
+			}
+		}
+
+		if (m_bMpRecoveryCheak)
+		{
+			m_fTime += Time::DeltaTime();
+			m_fTime1 += Time::DeltaTime();
+			if (m_fTime1 >= 0.2f && m_bRecoveryCheak == false)
+			{
+				hpPotionSound();
+				m_bRecoveryCheak = true;
+			}
+
+			if (m_fTime >= 0.4f)
+			{
+				m_bMpRecoveryCheak = false;
+				m_fTime = 0.f;
+				if (mFullMp <= mMp)
+					return;
+				mMp += 1;
+				recoverySound();
+			}
+
+		}
 
 		if(mItemWear)
 		{
@@ -375,6 +421,15 @@ namespace ks
 		}
 	}
 
+	bool Player::IsShopPurchase(UINT money)
+	{
+		if (mPlayerCoin < money)
+			return false;
+		
+
+		mPlayerCoin -= money;
+		return true;
+	}
 	
 
 	void Player::createItemSlot_1(eItem item, const std::wstring name)
@@ -434,6 +489,30 @@ namespace ks
 		}
 
 
+	}
+
+	void Player::loadSound()
+	{
+		std::shared_ptr<AudioClip> Recovery_Item_Slot = Resources::Load<AudioClip>
+			(L"Hp_Recovery", L"D:\\50\\Resources\\Sound\\Hp_Recovery.ogg");
+
+		std::shared_ptr<AudioClip> Potion_Item_Slot = Resources::Load<AudioClip>
+			(L"Hp_Potion", L"D:\\50\\Resources\\Sound\\Hp_Potion.ogg");
+
+	}
+
+	void Player::recoverySound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Hp_Recovery");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Player::hpPotionSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Hp_Potion");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 	

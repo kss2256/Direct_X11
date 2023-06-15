@@ -92,7 +92,7 @@ namespace ks
 				{
 					//this->Death();
 
-					mTransform->SetPosition(Vec3(0.0f, 0.0f, 1.0f));
+					mTransform->SetPosition(Vec3(0.0f, 20.0f, 1.0f));
 					mDetection = false;
 					m_bSoundDeathCheak = false;
 					Stage1_1* stage = nullptr;

@@ -50,11 +50,7 @@ namespace ks
 	{	
 		mAnimator = AddComponent<Animator>();
 		mPlayerScript = AddComponent<PlayerAttackScript>();
-		if(mPlayer != nullptr)
-		{
-			mPlayerScript->SetPlayer(mPlayer);
-			mPlayerScript->SetPlayerAttack(this);
-		}
+
 				
 		loadAnimation();
 		
@@ -83,6 +79,12 @@ namespace ks
 
 	void PlayerAttack::Initalize()
 	{
+
+		if (mPlayer != nullptr)
+		{
+			mPlayerScript->SetPlayer(mPlayer);
+			mPlayerScript->SetPlayerAttack(this);
+		}
 
 		mCollider = GetComponent<Collider2D>();
 		mCollider->SetType(eColliderType::Rect);
@@ -390,7 +392,6 @@ namespace ks
 					mTransform->SetPosition(mPos);
 					mState.progress = eProgress::End;
 				}
-
 
 				if (mState.progress == eProgress::End)
 				{

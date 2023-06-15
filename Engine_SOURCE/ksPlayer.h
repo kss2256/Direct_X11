@@ -58,6 +58,8 @@ namespace ks
 		Legend_Sword,
 		Legend_Staff,
 		Legend_Bow,
+		Hp,
+		MP,
 		End,
 	};
 
@@ -91,6 +93,7 @@ namespace ks
 		float GetPlayerHp() { return mHp; }
 		float GetPlayerMp() { return mMp; }
 		float GetPlayerFullMp() { return mFullMp; }
+		float GetPlayerFullHp() { return mFullHp; }
 		float GetPlayerStr() { return mStr; }
 		float GetStamina() { return mStamina; }
 		UIBase* GetInventoryTarget() { return mInventory; }
@@ -101,11 +104,16 @@ namespace ks
 		bool Usestamina(float value, PlayerScript* script);
 		void RestoreStamina(float value) { mStamina = value; }
 		bool GetItemWear() { return mItemWear; }
+		bool IsShopPurchase(UINT money);
 
 		void SetPlayerInfo(s_PlayerInfo weapon) { mPlayer = weapon; }
 		void SetGroundStage(eGroundStage stage) { mPlayerStage = stage; }
-		void SetPlayerHp(float value) { mHp = value; }
-		void SetPlayerMp(float value) { mMp = value; }
+		void SetPlayerHp(float value) { mHp += value; }
+		void SetPlayerMp(float value) { mMp += value; }
+
+		void HpRecovery(bool value) { m_bHpRecoveryCheak = value; }
+		void MpRecovery(bool value) { m_bMpRecoveryCheak = value; }
+
 		void SetPlayerStr(float value) { mStr = value; }
 		void SetItemWear(bool item) { mItemWear = item; }
 		void SetSlotChange(bool change) { mSlotChange = change; }
@@ -118,7 +126,9 @@ namespace ks
 
 		void createItemSlot_1(eItem item, const std::wstring name);
 		void createItemSlot_2(eItem item, const std::wstring name);
-
+		void loadSound();
+		void recoverySound();
+		void hpPotionSound();
 
 
 	private:
@@ -133,14 +143,21 @@ namespace ks
 		PlayerItem*						mItemSlot_2;
 
 		float							mHp;
+		float							mFullHp;
 		float							mMp;
 		float							mFullMp;
 		float							mStamina;
 		float							mStr;
+		float							m_fTime;
+		float							m_fTime1;
 
 		bool							mStaninaFull;
 		bool							mItemWear;
 		bool							mSlotChange;
+		bool							m_bShopMoney;
+		bool							m_bRecoveryCheak;
+		bool							m_bHpRecoveryCheak;
+		bool							m_bMpRecoveryCheak;
 
 		static UINT						mPlayerCoin;
 

@@ -61,7 +61,11 @@ namespace ks
 		void playerCoinSound();
 		void playerInventorySound();
 		void loadSound();
-		
+		void itemLootSound();
+		void shopbuySound();
+		void failedSound();
+		void staffChargeSound();
+		void staffChargeFinishSound();
 		
 
 
@@ -87,6 +91,7 @@ namespace ks
 		static bool			mbRunning;
 		static bool			mbAttackWalk;
 		static bool			mCarge;
+		static bool			mCargeSound;
 		static bool			mCargeEffect;
 		static bool			mCargeFinsh;
 		static bool			mAttackStop;

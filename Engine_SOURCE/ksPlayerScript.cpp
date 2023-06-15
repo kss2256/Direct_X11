@@ -49,6 +49,7 @@ namespace ks
 	bool PlayerScript::mbRunning = false;
 	bool PlayerScript::mbAttackWalk = false;
 	bool PlayerScript::mCarge = false;
+	bool PlayerScript::mCargeSound = false;
 	bool PlayerScript::mCargeFinsh = false;
 	bool PlayerScript::mCargeEffect = false;
 	bool PlayerScript::mPlayerStop = false;
@@ -1342,6 +1343,7 @@ namespace ks
 					return;
 				if (!mPlayer->Usestamina(10.f, this))
 					return;
+				PlayerAttackSound();
 				mPlayerState.skil = eSkil::Evade;
 				mPlayer->SetPlayerInfo(mPlayerState);
 				mState.situation = eSituation::Skil;
@@ -1695,6 +1697,7 @@ namespace ks
 						}
 						if (mCheakTime >= MIN_TIME && mCarge == false)
 						{
+							staffChargeSound();
 							mStaffStnmina = true;
 							mStaffStnminaRecovery = true;
 							PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
@@ -1704,11 +1707,17 @@ namespace ks
 							mAttack->SetTarget(mPlayer);
 							mAttack->SetPlayer(mPlayerState);
 							mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
-							mCarge = true;
+							mCarge = true;							
+						}
+						if (mCheakTime >= MIN_TIME * 3.5f && mCargeSound == false)
+						{
+							staffChargeSound();
+							mCargeSound = true;
 						}
 
 						if (mCheakTime >= MAX_TIME && mCargeEffect == false)
 						{
+							staffChargeFinishSound();
 							effectDeath(eLayerType::Player_Effect);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Start, 0.6f);
 							mCargeEffect = true;
@@ -1731,6 +1740,7 @@ namespace ks
 						}
 						if (mCheakTime >= MIN_TIME && mCarge == false)
 						{
+							staffChargeSound();
 							mStaffStnmina = true;
 							mStaffStnminaRecovery = true;
 							PlayerEffect* mAttack = object::Instantiate<PlayerEffect>(eLayerType::Player_Effect);
@@ -1743,8 +1753,15 @@ namespace ks
 							mCarge = true;
 						}
 
+						if (mCheakTime >= MIN_TIME * 3.5f && mCargeSound == false)
+						{
+							staffChargeSound();
+							mCargeSound = true;
+						}
+
 						if (mCheakTime >= MAX_TIME && mCargeEffect == false)
 						{
+							staffChargeFinishSound();
 							effectDeath(eLayerType::Player_Effect);
 							attackCommand(eLayerType::Player_Attack, mState.direction, eSkil::Attack, eProgress::Start, 0.6f);
 							mCargeEffect = true;
@@ -1937,6 +1954,7 @@ namespace ks
 							effectDeath(eLayerType::Player_Effect);
 							mbAttackWalk = false;
 							mCarge = false;
+							mCargeSound = false;
 							mCargeEffect = false;
 							mCheakTime = 0.f;
 						}
@@ -1951,6 +1969,7 @@ namespace ks
 							effectDeath(eLayerType::Player_Effect);
 							mbAttackWalk = false;
 							mCarge = false;
+							mCargeSound = false;
 							mCargeEffect = false;
 							mCheakTime = 0.f;
 						}
@@ -1966,6 +1985,7 @@ namespace ks
 							effectDeath(eLayerType::Player_Effect);
 							mbAttackWalk = false;
 							mCarge = false;
+							mCargeSound = false;
 							mCargeEffect = false;
 							mCargeFinsh = true;
 							mCheakTime = 0.f;
@@ -2019,6 +2039,7 @@ namespace ks
 							effectDeath(eLayerType::Player_Effect);
 							mbAttackWalk = false;
 							mCarge = false;
+							mCargeSound = false;
 							mCargeEffect = false;
 							mCheakTime = 0.f;
 						}
@@ -2033,6 +2054,7 @@ namespace ks
 							effectDeath(eLayerType::Player_Effect);
 							mbAttackWalk = false;
 							mCarge = false;
+							mCargeSound = false;
 							mCargeEffect = false;
 							mCheakTime = 0.f;
 						}
@@ -2048,6 +2070,7 @@ namespace ks
 							effectDeath(eLayerType::Player_Effect);
 							mbAttackWalk = false;
 							mCarge = false;
+							mCargeSound = false;
 							mCargeEffect = false;
 							mCargeFinsh = true;
 							mCheakTime = 0.f;
@@ -2077,6 +2100,7 @@ namespace ks
 					effectDeath(eLayerType::Player_Effect);
 					mbAttackWalk = false;
 					mCarge = false;
+					mCargeSound = false;
 					mCargeEffect = false;
 					mCheakTime = 0.f;
 					mStaffAttack = false;
@@ -2520,6 +2544,7 @@ namespace ks
 		{
 			if (mTransform != nullptr)
 			{
+				failedSound();
 				mShakePos = mTransform->GetPosition();
 				mFixPos = Vec3::Zero;
 				mOnceCheak = true;
@@ -2599,8 +2624,63 @@ namespace ks
 		std::shared_ptr<AudioClip> inventorysound = Resources::Load<AudioClip>
 			(L"Inventory", L"D:\\50\\Resources\\Sound\\Inventory.ogg");
 
+		std::shared_ptr<AudioClip> Itemsound = Resources::Load<AudioClip>
+			(L"Item", L"D:\\50\\Resources\\Sound\\Item.ogg");
+
+		std::shared_ptr<AudioClip> Shopbuysound = Resources::Load<AudioClip>
+			(L"Shop_buy", L"D:\\50\\Resources\\Sound\\Shop_buy.ogg");
+
+		std::shared_ptr<AudioClip> Failed = Resources::Load<AudioClip>
+			(L"Failed", L"D:\\50\\Resources\\Sound\\Failed.ogg");
+
+		std::shared_ptr<AudioClip> Staff_Charge_Finish = Resources::Load<AudioClip>
+			(L"Staff_Charge_Finish", L"D:\\50\\Resources\\Sound\\Staff_Charge_Finish.ogg");
+
+		std::shared_ptr<AudioClip> Staff_Chrage = Resources::Load<AudioClip>
+			(L"Staff_Chrage", L"D:\\50\\Resources\\Sound\\Staff_Chrage.ogg");
+
 
 	}
+
+	void PlayerScript::itemLootSound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Item");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+
+	}
+
+	void PlayerScript::shopbuySound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Shop_buy");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
+	void PlayerScript::failedSound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Failed");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
+	void PlayerScript::staffChargeSound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Staff_Chrage");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+
+	}
+
+	void PlayerScript::staffChargeFinishSound()
+	{
+
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Staff_Charge_Finish");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
+
 	
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
@@ -2729,10 +2809,97 @@ namespace ks
 
 				if (item->IsShopItem())
 				{
-					int a = 0;
+					switch (item->GetPlayerItem())
+					{					
+					case ks::eItem::Legend_Sword:
+					{
+						if (mPlayer->IsShopPurchase(100))
+						{
+							shopbuySound();
+							Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+							inventory->AddItem(item->GetPlayerItem());
+							item->Death();
+						}
+						else
+						{
+							failedSound();
+						}
+					}
+						break;
+					case ks::eItem::Legend_Staff:
+					{
+						if (mPlayer->IsShopPurchase(100))
+						{
+							shopbuySound();
+							Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+							inventory->AddItem(item->GetPlayerItem());
+							item->Death();
+						}
+						else
+						{
+							failedSound();
+						}
+					}
+						break;
+					case ks::eItem::Legend_Bow:
+					{
+						if (mPlayer->IsShopPurchase(100))
+						{
+							shopbuySound();
+							Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+							inventory->AddItem(item->GetPlayerItem());
+							item->Death();
+						}
+						else
+						{
+							failedSound();
+						}
+					}
+						break;
+					case ks::eItem::Hp:
+					{
+						if (mPlayer->IsShopPurchase(100))
+						{
+							shopbuySound();
+							mPlayer->HpRecovery(true);
+
+							//Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+							//inventory->AddItem(item->GetPlayerItem());
+							item->Death();
+						}
+						else
+						{
+							failedSound();
+						}
+					}
+					break;
+					case ks::eItem::MP:
+					{
+						if (mPlayer->IsShopPurchase(100))
+						{
+							shopbuySound();
+							mPlayer->MpRecovery(true);
+
+							/*Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+							inventory->AddItem(item->GetPlayerItem());*/
+							item->Death();
+						}
+						else
+						{
+							failedSound();
+						}
+					}
+					break;
+			
+					}
+
+
+
+	
 				}
 				else
 				{
+					itemLootSound();
 					Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
 					inventory->AddItem(item->GetPlayerItem());
 					item->Death();

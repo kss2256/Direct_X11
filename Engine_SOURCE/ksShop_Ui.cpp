@@ -35,21 +35,21 @@ namespace ks
 
 
 		
-		PlayerItem* LegendSword = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
-		LegendSword->SetName(L"Shop_Item_Sword");
-		LegendSword->SetTarget(mTarget);
-		LegendSword->SetPlayerItem(eItem::Legend_Sword);
-		LegendSword->SetShopItem(true);
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		Legendmp->SetName(L"Shop_Item_Mp");
+		Legendmp->SetTarget(mTarget);
+		Legendmp->SetPlayerItem(eItem::MP);
+		Legendmp->SetShopItem(true);
 
-		Collider2D* swordcollider = LegendSword->AddComponent<Collider2D>();
-		swordcollider->SetType(eColliderType::Rect);
-		swordcollider->SetSize(Vector2(0.07f, 0.09f));
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
 
-		Transform* Swordtr = LegendSword->GetComponent<Transform>();
-		Swordtr->SetPosition(Vector3(103.0f, 0.3f, 2.0f));
-		Swordtr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(Vector3(103.0f, 0.3f, 2.0f));
+		mptr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 		
-		LegendSword->Initalize();
+		Legendmp->Initalize();
 
 
 		PlayerItem* LegendBow = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
@@ -69,22 +69,57 @@ namespace ks
 		LegendBow->Initalize();
 
 
-		PlayerItem* LegendStaff = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
-		LegendStaff->SetName(L"Shop_Item_Staff");
-		LegendStaff->SetTarget(mTarget);
-		LegendStaff->SetPlayerItem(eItem::Legend_Staff);
-		LegendStaff->SetShopItem(true);
 
-		Collider2D* staffcollider = LegendStaff->AddComponent<Collider2D>();
-		staffcollider->SetType(eColliderType::Rect);
-		staffcollider->SetSize(Vector2(0.07f, 0.09f));
+		PlayerItem* Legendhp = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		Legendhp->SetName(L"Shop_Item_Hp");
+		Legendhp->SetTarget(mTarget);
+		Legendhp->SetPlayerItem(eItem::Hp);
+		Legendhp->SetShopItem(true);
 
-		Transform* Stafftr = LegendStaff->GetComponent<Transform>();
-		Stafftr->SetPosition(Vector3(107.0f, 0.3f, 2.0f));
-		Stafftr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		Collider2D* hpcollider = Legendhp->AddComponent<Collider2D>();
+		hpcollider->SetType(eColliderType::Rect);
+		hpcollider->SetSize(Vector2(0.07f, 0.09f));
 
-		LegendStaff->Initalize();
+		Transform* hptr = Legendhp->GetComponent<Transform>();
+		hptr->SetPosition(Vector3(107.0f, 0.3f, 2.0f));
+		hptr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
 
+		Legendhp->Initalize();
+
+
+
+		//PlayerItem* LegendStaff = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		//LegendStaff->SetName(L"Shop_Item_Staff");
+		//LegendStaff->SetTarget(mTarget);
+		//LegendStaff->SetPlayerItem(eItem::Legend_Staff);
+		//LegendStaff->SetShopItem(true);
+
+		//Collider2D* staffcollider = LegendStaff->AddComponent<Collider2D>();
+		//staffcollider->SetType(eColliderType::Rect);
+		//staffcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		//Transform* Stafftr = LegendStaff->GetComponent<Transform>();
+		//Stafftr->SetPosition(Vector3(107.0f, 0.3f, 2.0f));
+		//Stafftr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		//LegendStaff->Initalize();
+
+
+		//PlayerItem* LegendSword = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		//LegendSword->SetName(L"Shop_Item_Sword");
+		//LegendSword->SetTarget(mTarget);
+		//LegendSword->SetPlayerItem(eItem::Legend_Sword);
+		//LegendSword->SetShopItem(true);
+
+		//Collider2D* swordcollider = LegendSword->AddComponent<Collider2D>();
+		//swordcollider->SetType(eColliderType::Rect);
+		//swordcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		//Transform* Swordtr = LegendSword->GetComponent<Transform>();
+		//Swordtr->SetPosition(Vector3(103.0f, 0.3f, 2.0f));
+		//Swordtr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		//LegendSword->Initalize();
 
 
 
