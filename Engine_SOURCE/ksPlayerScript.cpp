@@ -2174,6 +2174,7 @@ namespace ks
 
 			if (Input::GetKeyDown(eKeyCode::I))
 			{
+				playerInventorySound();
 				if (mInventory->GetInventoryOnOff())
 				{
 					mInventory->SetInventoryOnOff(false);
@@ -2577,6 +2578,13 @@ namespace ks
 		coinsound->Play(3.0f);
 	}
 
+	void PlayerScript::playerInventorySound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Inventory");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
 	void PlayerScript::loadSound()
 	{
 		std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
@@ -2587,6 +2595,10 @@ namespace ks
 
 		std::shared_ptr<AudioClip> coinsound = Resources::Load<AudioClip>
 			(L"Coin", L"D:\\50\\Resources\\Sound\\Coin.ogg");
+
+		std::shared_ptr<AudioClip> inventorysound = Resources::Load<AudioClip>
+			(L"Inventory", L"D:\\50\\Resources\\Sound\\Inventory.ogg");
+
 
 	}
 	

@@ -7,6 +7,7 @@
 #include "ksShader.h"
 #include "ksInventory.h"
 #include "ksInventorySlot.h"
+#include "ksAudioClip.h"
 
 
 #include "ksInput.h"
@@ -22,6 +23,7 @@ namespace ks
 
 	InventoryItem::InventoryItem()
 		: mDragWalk(false)
+		, m_bSoundDeathCheak(false)
 		
 	{
 
@@ -29,7 +31,7 @@ namespace ks
 		mAnimator = AddComponent<Animator>();
 
 		loadAnimation();
-
+		loadSound();
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 
@@ -210,7 +212,30 @@ namespace ks
 				iteminfo.item = mPlayerItem;
 				mTarget->SetItemWear(true);
 				mTarget->SetPlayerInfo(iteminfo);
-				
+				switch (iteminfo.item)
+				{
+				case ks::eItem::None:
+					break;
+				case ks::eItem::Sword:
+					swordSound();
+					break;
+				case ks::eItem::Staff:
+					staffSound();
+					break;
+				case ks::eItem::Bow:
+					bowSound();
+					break;
+				case ks::eItem::Legend_Sword:
+					swordSound();
+					break;
+				case ks::eItem::Legend_Staff:
+					staffSound();
+					break;
+				case ks::eItem::Legend_Bow:
+					bowSound();
+					break;				
+				}
+
 			}
 		
 
@@ -327,6 +352,39 @@ namespace ks
 		mSprites.clear();
 
 
+	}
+
+	void InventoryItem::loadSound()
+	{
+		std::shared_ptr<AudioClip> Bow_Item_Slot = Resources::Load<AudioClip>
+			(L"Bow_Item_Slot", L"D:\\50\\Resources\\Sound\\Bow_Item_Slot.ogg");
+
+		std::shared_ptr<AudioClip> Staff_Item_Slot = Resources::Load<AudioClip>
+			(L"Staff_Item_Slot", L"D:\\50\\Resources\\Sound\\Staff_Item_Slot.ogg");
+
+		std::shared_ptr<AudioClip> Sword_Item_Slot = Resources::Load<AudioClip>
+			(L"Sword_Item_Slot", L"D:\\50\\Resources\\Sound\\Sword_Item_Slot.ogg");
+	}
+
+	void InventoryItem::swordSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Sword_Item_Slot");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void InventoryItem::staffSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Staff_Item_Slot");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void InventoryItem::bowSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Bow_Item_Slot");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 }

@@ -4,6 +4,7 @@
 
 namespace ks
 {
+	class PlayerAttack;
 	class Player;
 	class PlayerAttackScript :
 		public Script
@@ -26,15 +27,30 @@ namespace ks
 
 		float GetPlayerStr() { return mStr; }
 		Player* GetPlayer() { return mPlayer; }
+		PlayerAttack* GetPlayerAttack() { return mPlayerAttack; }
+		
 
        
         void SetPlayerStr(float value) { mStr = value; }
 		void SetPlayer(Player* player) { mPlayer = player; }
+		void SetPlayerAttack(PlayerAttack* player) { mPlayerAttack = player; }
+		
+
+	private:
+
+		void attackDeath();
+
+		void loadSound();
+		void attackHitSound();
+		void attackHitSoundStaff();
+		void attackHitSoundBow();
+
 
     private:
 
         float					mStr;
         Player*                 mPlayer;
+		PlayerAttack*			mPlayerAttack;
 
 
     };

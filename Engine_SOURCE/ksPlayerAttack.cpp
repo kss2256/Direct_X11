@@ -50,6 +50,11 @@ namespace ks
 	{	
 		mAnimator = AddComponent<Animator>();
 		mPlayerScript = AddComponent<PlayerAttackScript>();
+		if(mPlayer != nullptr)
+		{
+			mPlayerScript->SetPlayer(mPlayer);
+			mPlayerScript->SetPlayerAttack(this);
+		}
 				
 		loadAnimation();
 		
@@ -727,6 +732,22 @@ namespace ks
 
 	}
 
+
+	void PlayerAttack::AttackDeath()
+	{
+		Scene* scene = SceneManager::GetActiveScene();
+
+		const std::vector<GameObject*>& obj = scene->GetGameObjects(eLayerType::Player_Attack);
+
+		for (size_t i = 0; i < obj.size(); i++)
+		{
+			if (obj[i] != nullptr)
+			{
+				obj[i]->Death();
+			}
+			//scene->Destroy();
+		}
+	}
 
 	void PlayerAttack::loadAnimation()
 	{

@@ -43,6 +43,7 @@ namespace ks
         void SetDirection(eDirection dir) { mDirection = dir; }
         static void SetSphereScale(float scale) { mSphereScale = scale; }
 
+        void AttackDeath();
 
     private:
 
@@ -56,17 +57,17 @@ namespace ks
 
     private:
 
-        Player*         mPlayer;
-        Transform*      mTransform;
-        Animator*       mAnimator;
-        Collider2D*     mCollider;
-        s_PlayerInfo         mState;
-        eDirection      mDirection;
+        Player*             mPlayer;
+        Transform*          mTransform;
+        Animator*           mAnimator;
+        Collider2D*         mCollider;
+        s_PlayerInfo        mState;
+        eDirection          mDirection;
         PlayerAttackScript* mPlayerScript;
        
 
-        Vec3            mPos;
-        Vec3            mDir;
+        Vec3                mPos;
+        Vec3                mDir;
 
 
 

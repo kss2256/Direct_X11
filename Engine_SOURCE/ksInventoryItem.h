@@ -43,6 +43,11 @@ namespace ks
 		void loadAnimation();
 		void CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
 			, Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration);
+		void loadSound();
+		void swordSound();
+		void staffSound();
+		void bowSound();
+
 
 
 	private:
@@ -73,7 +78,7 @@ namespace ks
 		static bool				mHandItem;
 		static bool				mDragCheak;
 		static Vec3				mUiWalkPos;
-		
+		bool					m_bSoundDeathCheak;
 
 
     };

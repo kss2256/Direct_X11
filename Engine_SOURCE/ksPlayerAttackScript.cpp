@@ -6,7 +6,8 @@
 #include "ksBoss_Flime.h"
 #include "ksBoss_Ent.h"
 #include "ksForest_Fairy.h"
-
+#include "ksAudioClip.h"
+#include "ksResources.h"
 
 
 namespace ks
@@ -15,6 +16,9 @@ namespace ks
 
 	PlayerAttackScript::PlayerAttackScript()		
 	{
+
+		loadSound();
+
 	}
 
 	PlayerAttackScript::~PlayerAttackScript()
@@ -54,8 +58,11 @@ namespace ks
 				slime->SetStep(eStep::None);
 				slime->SetSituation(eSituation::Hit);
 				slime->SetMonsterHp(mPlayer->GetPlayerStr());
+				attackHitSound();
+				attackDeath();
 
 			}
+
 		}
 
 
@@ -66,10 +73,12 @@ namespace ks
 				return;
 
 			if (snake->GetSituation() != eSituation::Hit)
-			{
+			{	
 				snake->SetStep(eStep::None);
 				snake->SetSituation(eSituation::Hit);
 				snake->SetMonsterHp(mPlayer->GetPlayerStr());
+				attackHitSound();
+				attackDeath();
 			}
 		}
 
@@ -81,9 +90,11 @@ namespace ks
 				return;
 
 			if (!flime->GetBossHit())
-			{
+			{				
 				flime->SetBossHit(true);
 				flime->SetMonsterHp(mPlayer->GetPlayerStr());
+				attackHitSound();
+				attackDeath();
 			}
 		}
 
@@ -94,10 +105,11 @@ namespace ks
 				return;
 
 			if (!ent->GetBossHit())
-			{			
-
+			{							
 				ent->SetBossHit(true);
 				ent->SetMonsterHp(mPlayer->GetPlayerStr());
+				attackHitSound();
+				attackDeath();
 			}
 		}
 
@@ -109,10 +121,12 @@ namespace ks
 				return;
 
 			if (fairy->GetSituation() != eSituation::Hit)
-			{
+			{			
 				fairy->SetStep(eStep::None);
 				fairy->SetSituation(eSituation::Hit);
 				fairy->SetMonsterHp(mPlayer->GetPlayerStr());
+				attackHitSound();
+				attackDeath();
 			}
 		}
 
@@ -125,6 +139,96 @@ namespace ks
 
 	void PlayerAttackScript::OnCollisionExit(Collider2D* collider)
 	{
+	}
+
+	void PlayerAttackScript::attackDeath()
+	{
+		switch (mPlayer->GetPlayerInfo().weapon)
+		{
+		case ks::eWeapon::None:
+			mPlayerAttack->AttackDeath();
+			break;
+		case ks::eWeapon::Sword:
+			break;
+		case ks::eWeapon::Staff:
+			mPlayerAttack->AttackDeath();
+			break;
+		case ks::eWeapon::Bow:
+			mPlayerAttack->AttackDeath();
+			break;
+		case ks::eWeapon::Legend_Sword:
+			break;
+		case ks::eWeapon::Legend_Staff:
+			mPlayerAttack->AttackDeath();
+			break;
+		case ks::eWeapon::Legend_Bow:
+			mPlayerAttack->AttackDeath();
+			break;
+		}
+
+
+
+	}
+
+	void PlayerAttackScript::loadSound()
+	{
+
+		std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
+			(L"None_Attack_Hit", L"D:\\50\\Resources\\Sound\\None_Attack_Hit.ogg");
+
+		std::shared_ptr<AudioClip> coinsound = Resources::Load<AudioClip>
+			(L"Bow_Attack_Hit", L"D:\\50\\Resources\\Sound\\Bow_Attack_Hit.ogg");	
+
+
+	}
+
+	void PlayerAttackScript::attackHitSound()
+	{
+
+		switch (mPlayer->GetPlayerInfo().weapon)
+		{
+		case ks::eWeapon::None:
+			attackHitSoundStaff();
+			break;
+		case ks::eWeapon::Sword:
+			attackHitSoundBow();
+			break;
+		case ks::eWeapon::Staff:
+			attackHitSoundStaff();
+			break;
+		case ks::eWeapon::Bow:
+			attackHitSoundBow();
+			break;
+		case ks::eWeapon::Legend_Sword:
+			attackHitSoundBow();
+			break;
+		case ks::eWeapon::Legend_Staff:
+			attackHitSoundStaff();
+			break;
+		case ks::eWeapon::Legend_Bow:
+			attackHitSoundBow();
+			break;
+		}
+
+
+
+	}
+
+	void PlayerAttackScript::attackHitSoundStaff()
+	{
+
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"None_Attack_Hit");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+
+	}
+
+	void PlayerAttackScript::attackHitSoundBow()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Bow_Attack_Hit");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+
 	}
 
 }
