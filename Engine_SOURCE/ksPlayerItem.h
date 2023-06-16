@@ -35,6 +35,7 @@ namespace ks
 		void SetWeaponSlot(bool slot) { mWeaponSlot = slot; }
 		void SetItemChange(bool change) { mItemChangeCheak = change; }
 		void SetItemUnlock(bool unlock) { mItemUnlock = unlock; }
+		void IsBoxItem(bool box) { m_BoxItem = box; }
 		void ItemChange(eItem item);
 		
 
@@ -57,6 +58,10 @@ namespace ks
 
 		eItem			mPlayerItem;
 
+		Vec3			mJumpPos;
+		Vec3			mNomarlizeUp;
+		Vec3			mNomarlizeDown;
+
 
 		std::vector<Sprite>		mSprites;
 		std::vector<Sprite>		mSvaeSprite;
@@ -68,6 +73,10 @@ namespace ks
 		bool					mItemChangeCheak;
 		bool					mItemUnlock;
 		bool					m_bShopItem;
+		bool					m_BoxItem;
+
+		bool		m_bStartCheak;
+		bool		m_bEndCheak;
 
 
 

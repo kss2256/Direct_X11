@@ -13,7 +13,7 @@
 #include "ksFlime_Missile.h"
 #include "ksStage1_1.h"
 #include "ksAudioClip.h"
-
+#include "ksGoldBox.h"
 
 
 #define PI 3.1415926535f
@@ -24,7 +24,7 @@ namespace ks
 {
 
 
-	bool Boss_Flime::mflimeCheak = false;
+	
 
 	Boss_Flime::Boss_Flime()
 		: mTrapCount(1)
@@ -82,12 +82,7 @@ namespace ks
 	void Boss_Flime::Update()
 	{
 
-		if (mflimeCheak)
-		{
 
-
-			mflimeCheak = false;
-		}
 
 
 		if (mDetection)
@@ -101,12 +96,25 @@ namespace ks
 
 			if (mStateInfo.situation == eSituation::Death)
 			{
-				mTime += Time::DeltaTime();
-				mAnimator->Play(L"Death", false);
-
-				if (mTime >= 1.0f)
+				m_fTime += Time::DeltaTime();
+				if(!m_bSoundDeathCheak)
+				{					
+					soundClear();
+					m_bSoundDeathCheak = true;
+				}
+				if (m_fTime >= 1.5f && !mflimeSoundCheak)
 				{
-
+					soundDeath();
+					mAnimator->Play(L"Death", false);
+					mflimeSoundCheak = true;					
+				}
+				if (m_fTime >= 3.0f)
+				{
+					if (!mflimeCheak)
+					{
+						createBox();
+						mflimeCheak = true;
+					}
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
 
@@ -114,6 +122,7 @@ namespace ks
 					mDetection = false;
 					//this->Death();
 					mTime = 0.f;
+					m_fTime = 0.f;
 				}
 
 			}
@@ -556,12 +565,26 @@ namespace ks
 		std::shared_ptr<AudioClip> Flime_Direction_Trap = Resources::Load<AudioClip>
 			(L"Flime_Direction_Trap", L"D:\\50\\Resources\\Sound\\Flime_Direction_Trap.ogg");
 
+		std::shared_ptr<AudioClip> Flime_Death = Resources::Load<AudioClip>
+			(L"Boss_Death", L"D:\\50\\Resources\\Sound\\Boss_Death.ogg");
+
+		std::shared_ptr<AudioClip> Flime_Clear = Resources::Load<AudioClip>
+			(L"Boss_Clear", L"D:\\50\\Resources\\Sound\\Boss_Clear.ogg");
+
+	}
+
+	void Boss_Flime::soundClear()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Boss_Clear");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 	void Boss_Flime::soundDeath()
 	{
-
-
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Boss_Death");
+		sound->SetLoop(false);
+		sound->Play();
 
 	}
 
@@ -585,6 +608,31 @@ namespace ks
 		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Flime_Direction_Trap");
 		sound->SetLoop(false);
 		sound->Play();
+	}
+
+	void Boss_Flime::createBox()
+	{
+
+		{
+			GoldBox* goldbox = object::Instantiate<GoldBox>(eLayerType::Shop_Item);
+			goldbox->SetName(L"Gold_Box");
+			goldbox->SetTarget(mPlayer);
+			goldbox->SetBoxType(e_BoxType::Gold);
+
+
+
+			Collider2D* collider = goldbox->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			collider->SetSize(Vector2(0.14f, 0.09f));
+
+
+			Transform* tr = goldbox->GetComponent<Transform>();
+			tr->SetPosition(mTransform->GetPosition());
+			tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+			goldbox->Initalize();
+
+		}
+
 	}
 
 

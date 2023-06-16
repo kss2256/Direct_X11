@@ -154,9 +154,6 @@ namespace ks
 				booksound->Play(0.3f);
 				m_bSoundCheak = true;
 			}
-
-			if (Input::GetKeyDown(eKeyCode::ESC))
-				mKey = true;
 			if (!mKey)
 			{							
 				range_In(Vec4(26.2f, 42.2f, 6.0f, -6.7f));
@@ -223,6 +220,14 @@ namespace ks
 					mSnake->resurrection();
 					mSnake_Two->resurrection();
 				}
+			}
+
+			if (mKeyCount == 3)
+			{
+				mKey = true;
+				//mainCamera->SetShock(true);
+				//mainCamera->SetShockDuration(0.7f);
+				mKeyCount = 0;
 			}
 
 			if (Input::GetKeyDown(eKeyCode::ESC))
@@ -293,6 +298,7 @@ namespace ks
 					}
 
 					flime_Start();
+					
 				}
 			}
 
@@ -545,29 +551,6 @@ namespace ks
 	void Stage1_1::flime_Start()
 	{
 
-		/*switch (mStep)
-		{
-		case Step::None:
-			break;
-		case Step::Stet_1:
-			break;
-		case Step::Stet_2:
-			break;
-		case Step::Stet_3:
-			break;
-		case Step::Stet_4:
-			break;
-		case Step::Stet_5:
-			break;
-		case Step::Stet_6:
-			break;
-		case Step::End:
-			break;
-		default:
-			break;
-		}*/
-
-
 		if(mStep == Stage_Step::None)
 		{
 			mainCamera->SetFixCam(false);
@@ -575,8 +558,6 @@ namespace ks
 			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
 			Vec3 flimepos = mFlime->GetComponent<Transform>()->GetPosition();
 			mEndCam = flimepos;
-
-
 
 			mBossMeter = object::Instantiate<BossTpMeter>(eLayerType::UI);
 			mBossMeter->SetName(L"FlimeMeter");
@@ -600,6 +581,7 @@ namespace ks
 			mMoveCam = flimepos  - playerpos;
 			mMoveCam.Normalize();
 			mStep = Stage_Step::Stet_1;
+
 		}
 
 		if (mStep == Stage_Step::Stet_1)
@@ -641,8 +623,8 @@ namespace ks
 			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 			Vec3 pos = tr->GetPosition();
 			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
-			mMoveCam = playerpos - pos;
-			mMoveCam.Normalize();
+			//mMoveCam = playerpos - pos;
+			//mMoveCam.Normalize();
 			pos += mMoveCam * 0.5f * Time::DeltaTime();
 
 			tr->SetPosition(pos);

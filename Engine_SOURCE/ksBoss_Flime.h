@@ -20,7 +20,7 @@ namespace ks
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-        static void FlimeCheak(bool cheak) { mflimeCheak = cheak; }
+        void FlimeCheak(bool cheak) { mflimeCheak = cheak; }
 
     private:
         void loadAnimation();
@@ -28,10 +28,12 @@ namespace ks
         void directionTrap(UINT count, float interval, bool missil);
         void TrapAttack(UINT count, float interval, bool missil);
         void loadSound();
+        void soundClear();
         void soundDeath();
         void soundmultipleAttack();
         void soundTrapAttack();
         void soundDirectionTrap();
+        void createBox();
 
 
     private:
@@ -39,11 +41,13 @@ namespace ks
 
         UINT        mTrapCount;
         float       mInterval;
+        float       m_fTime;
         int         mMaxTrapCount;
 
-        static bool mflimeCheak;
+        bool         mflimeCheak;
+        bool         mflimeSoundCheak;
 
-        bool        m_bSoundDeathCheak;
+        bool         m_bSoundDeathCheak;
 
 
     };

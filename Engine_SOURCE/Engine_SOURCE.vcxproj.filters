@@ -157,6 +157,9 @@
     <Filter Include="FontWrapper">
       <UniqueIdentifier>{c055a982-51a0-4ad9-a003-5b617ea5b857}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\UI\Box">
+      <UniqueIdentifier>{5659f4db-b0e7-4348-abbb-d6ea35fe7b19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -424,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="ksFontWrapper.cpp">
       <Filter>FontWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="ksGoldBox.cpp">
+      <Filter>GameObject\UI\Box</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -710,6 +716,9 @@
     </ClInclude>
     <ClInclude Include="ksFontWrapper.h">
       <Filter>FontWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="ksGoldBox.h">
+      <Filter>GameObject\UI\Box</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

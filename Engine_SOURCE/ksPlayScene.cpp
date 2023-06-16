@@ -46,8 +46,11 @@
 #include "ksFmod.h"
 #include "ksAudioClip.h"
 #include "ksAudioListener.h"
+#include "ksGoldBox.h"
 
 #include "ksMonsterMissile.h"
+
+
 
 namespace ks
 {
@@ -84,7 +87,7 @@ namespace ks
 			Transform* tr = mPlayer->GetComponent<Transform>();
 			tr->SetPosition(Vector3(350.0f, -2.0f, 2.0f));
 			//tr->SetPosition(Vector3(35.0f, 0.0f, 2.0f));
-			//tr->SetPosition(Vector3(280.0f, 0.0f, 2.0f));
+			//tr->SetPosition(Vector3(140.0f, 0.0f, 2.0f));
 
 			//tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 			tr->SetScale(Vector3(12.0f, 12.0f, 1.0f));
@@ -112,6 +115,7 @@ namespace ks
 
 		}
 
+
 		{
 			PlayerTpMeter* meter = object::Instantiate<PlayerTpMeter>(eLayerType::UI);
 			meter->SetName(L"TpMeter");
@@ -119,11 +123,7 @@ namespace ks
 
 			Transform* tr = meter->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-0.12f, -4.29f, 0.0f));
-			tr->SetScale(Vector3(3.2f, 0.3f, 1.0f));			
-
-			//tr->SetPosition(Vector3(0.0f, -2.0f, 0.0f));
-			//tr->SetScale(Vector3(5.f, 5.f, 1.0f));
-
+			tr->SetScale(Vector3(3.2f, 0.3f, 1.0f));		
 		}
 
 		{
@@ -135,14 +135,9 @@ namespace ks
 
 			Transform* tr = layout->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, -3.75f, 0.0f));			
-			tr->SetScale(Vector3(4.5f, 1.8f, 1.0f));
-
-			//tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			//tr->SetScale(Vector3(9.5f, 5.0f, 1.0f));
-
-
-			
+			tr->SetScale(Vector3(4.5f, 1.8f, 1.0f));			
 		}
+
 		{
 			PlayerSlot* sloat = object::Instantiate<PlayerSlot>(eLayerType::UI);
 			sloat->SetName(L"Sloat");
@@ -152,7 +147,6 @@ namespace ks
 			tr->SetPosition(Vector3(8.3f, -4.1f, 0.0f));
 			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		}
-
 
 
 

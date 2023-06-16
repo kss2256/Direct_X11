@@ -28,6 +28,7 @@
 #include "ksCCoin.h"
 #include "ksAudioClip.h"
 #include "ksAudioListener.h"
+#include "ksGoldBox.h"
 
 
 #include <time.h>
@@ -2800,6 +2801,17 @@ namespace ks
 			}
 		}
 
+		if (dynamic_cast<GoldBox*>(collider->GetOwner()))
+		{
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				GoldBox* box = (GoldBox*)collider->GetOwner();				
+				if (!(box->IsOpenFinsh()))
+				box->IsBoxOpen(true);
+			}
+		}
+
+
 		if (dynamic_cast<PlayerItem*>(collider->GetOwner()))
 		{
 			if (Input::GetKeyDown(eKeyCode::F))
@@ -2813,17 +2825,10 @@ namespace ks
 					{					
 					case ks::eItem::Legend_Sword:
 					{
-						if (mPlayer->IsShopPurchase(100))
-						{
-							shopbuySound();
-							Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
-							inventory->AddItem(item->GetPlayerItem());
-							item->Death();
-						}
-						else
-						{
-							failedSound();
-						}
+						itemLootSound();
+						Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+						inventory->AddItem(item->GetPlayerItem());
+						item->Death();
 					}
 						break;
 					case ks::eItem::Legend_Staff:
@@ -2848,6 +2853,7 @@ namespace ks
 							shopbuySound();
 							Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
 							inventory->AddItem(item->GetPlayerItem());
+							Stage1_1::KeyCount_Up();
 							item->Death();
 						}
 						else
@@ -2862,7 +2868,7 @@ namespace ks
 						{
 							shopbuySound();
 							mPlayer->HpRecovery(true);
-
+							Stage1_1::KeyCount_Up();
 							//Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
 							//inventory->AddItem(item->GetPlayerItem());
 							item->Death();
@@ -2879,7 +2885,7 @@ namespace ks
 						{
 							shopbuySound();
 							mPlayer->MpRecovery(true);
-
+							Stage1_1::KeyCount_Up();
 							/*Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
 							inventory->AddItem(item->GetPlayerItem());*/
 							item->Death();

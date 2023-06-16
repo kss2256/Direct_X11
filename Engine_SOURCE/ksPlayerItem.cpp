@@ -8,6 +8,7 @@
 #include "ksInventory.h"
 
 #include "ksInput.h"
+#include "ksTime.h"
 
 namespace ks
 {
@@ -33,10 +34,9 @@ namespace ks
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		sr->SetMesh(mesh);
-
-
-
 	}
+
+
 
 	PlayerItem::~PlayerItem()
 	{
@@ -99,7 +99,23 @@ namespace ks
 
 		}
 
+		if (m_BoxItem)
+		{			
 
+			mUiPos = mTransform->GetPosition();
+			mFinalPos = mUiPos;
+			mJumpPos = mUiPos;
+			mJumpPos.y += 1.0f;
+
+			mNomarlizeUp = mJumpPos - mFinalPos;
+			mNomarlizeUp.Normalize();
+
+
+			mJumpPos.x += 0.5f;
+
+			mNomarlizeDown = mFinalPos - mJumpPos;
+			mNomarlizeDown.Normalize();
+		}
 
 
 		GameObject::Initalize();
@@ -136,13 +152,40 @@ namespace ks
 					mTarget->SetPlayerInfo(iteminfo);
 
 				}
-
-
 			}
-
-
-
 		}
+
+		if (m_BoxItem)
+		{
+			if (!m_bStartCheak)
+			{
+				if (mFinalPos.y <= mJumpPos.y)
+				{
+					mFinalPos += mNomarlizeUp * Time::DeltaTime() * 6.0f;
+					mTransform->SetPosition(mFinalPos);
+				}
+				else
+				{
+					m_bStartCheak = true;
+					m_bEndCheak = true;
+				}
+			}
+			if (m_bEndCheak)
+			{
+				if (mFinalPos.y >= mUiPos.y)
+				{
+					mFinalPos += mNomarlizeDown * Time::DeltaTime() * 6.0f;
+					mTransform->SetPosition(mFinalPos);
+				}
+				else
+				{
+					m_bEndCheak = false;
+					m_BoxItem = false;
+				}
+			}
+		}
+
+
 
 
 
