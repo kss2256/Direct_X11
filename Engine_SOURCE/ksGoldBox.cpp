@@ -99,7 +99,9 @@ namespace ks
 			m_fTime += Time::DeltaTime();
 			if (m_fTime >= 0.8f)
 			{
-				createItem();
+				createMpItem();
+				createHpItem();
+				createSword();
 				m_bBoxItemCteate = false;
 				m_fTime = 0.f;
 				m_bOpenFinsh = true;
@@ -292,7 +294,7 @@ namespace ks
 
 	}
 
-	void GoldBox::createItem()
+	void GoldBox::createSword()
 	{
 
 		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
@@ -300,6 +302,7 @@ namespace ks
 		Legendmp->SetTarget(mTarget);
 		Legendmp->SetShopItem(true);
 		Legendmp->IsBoxItem(true);
+		Legendmp->ItemUnBoxing(true);
 		Legendmp->SetPlayerItem(eItem::Legend_Sword);
 
 
@@ -313,6 +316,58 @@ namespace ks
 
 		Legendmp->Initalize();
 	
+
+	}
+
+	void GoldBox::createHpItem()
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		Legendmp->SetName(L"Box_Item_Hp");
+		Legendmp->SetTarget(mTarget);
+		Legendmp->SetShopItem(true);
+		Legendmp->IsBoxItem(true);
+		Legendmp->ItemUnBoxing(true);
+		Legendmp->SetFreeItem(true);
+
+		Legendmp->SetPlayerItem(eItem::Hp);
+
+
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(mUiPos);
+		mptr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		Legendmp->Initalize();
+
+
+	}
+
+	void GoldBox::createMpItem()
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		Legendmp->SetName(L"Box_Item_Mp");
+		Legendmp->SetTarget(mTarget);
+		Legendmp->SetShopItem(true);
+		Legendmp->IsBoxItem(true);
+		Legendmp->ItemUnBoxing(true);
+		Legendmp->SetFreeItem(true);
+
+		Legendmp->SetPlayerItem(eItem::MP);
+
+
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(mUiPos);
+		mptr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		Legendmp->Initalize();
+
 
 	}
 

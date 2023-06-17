@@ -19,6 +19,7 @@ namespace ks
 		, mItemUnlock(false)
 		, mPlayerItem(eItem::None)
 		, m_bShopItem(false)
+		, m_BoxItemFixPos(false)
 	{
 
 		mTransform = GetComponent<Transform>();
@@ -101,20 +102,65 @@ namespace ks
 
 		if (m_BoxItem)
 		{			
+			if(m_BoxItemFixPos)
+			{
 
-			mUiPos = mTransform->GetPosition();
-			mFinalPos = mUiPos;
-			mJumpPos = mUiPos;
-			mJumpPos.y += 1.0f;
+				if(GetName() == L"Box_Item_Sword")					
+				{
+					mUiPos = mTransform->GetPosition();
+					mFinalPos = mUiPos;
+					mJumpPos = mUiPos;
+					mJumpPos.y += 1.0f;
+					mJumpPos.x -= 0.8f;
 
-			mNomarlizeUp = mJumpPos - mFinalPos;
-			mNomarlizeUp.Normalize();
+					mNomarlizeUp = mJumpPos - mFinalPos;
+					mNomarlizeUp.Normalize();
 
 
-			mJumpPos.x += 0.5f;
+					mJumpPos.x += 1.5f;
 
-			mNomarlizeDown = mFinalPos - mJumpPos;
-			mNomarlizeDown.Normalize();
+					mNomarlizeDown = mFinalPos - mJumpPos;
+					mNomarlizeDown.Normalize();
+					m_BoxItemFixPos = false;
+				}
+				
+				if (GetName() == L"Box_Item_Hp")
+				{
+					mUiPos = mTransform->GetPosition();
+					mFinalPos = mUiPos;
+					mJumpPos = mUiPos;
+					mJumpPos.y += 1.3f;					
+
+					mNomarlizeUp = mJumpPos - mFinalPos;
+					mNomarlizeUp.Normalize();					
+
+					mNomarlizeDown = mFinalPos - mJumpPos;
+					mNomarlizeDown.Normalize();
+					m_BoxItemFixPos = false;
+				}
+				if (GetName() == L"Box_Item_Mp")
+				{
+					mUiPos = mTransform->GetPosition();
+					mFinalPos = mUiPos;
+					mJumpPos = mUiPos;
+					mJumpPos.y += 1.0f;
+					mJumpPos.x += 0.8f;
+
+
+					mNomarlizeUp = mJumpPos - mFinalPos;
+					mNomarlizeUp.Normalize();
+
+
+
+					mJumpPos.x -= 1.5f;
+
+					mNomarlizeDown = mFinalPos - mJumpPos;
+					mNomarlizeDown.Normalize();
+					m_BoxItemFixPos = false;
+				}
+
+
+			}
 		}
 
 

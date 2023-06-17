@@ -25,6 +25,7 @@ namespace ks
 		Player* GetTarget() { return mTarget; }
 		UIBase* GetInventoryTarget() { return mInventory; }
 		eItem GetPlayerItem() { return mPlayerItem; }
+		bool IsFreeItem() { return m_bFreeItem; }
 		bool IsItemUnlock() { return mItemUnlock; }
 		bool IsShopItem() { return m_bShopItem; }
 
@@ -35,7 +36,9 @@ namespace ks
 		void SetWeaponSlot(bool slot) { mWeaponSlot = slot; }
 		void SetItemChange(bool change) { mItemChangeCheak = change; }
 		void SetItemUnlock(bool unlock) { mItemUnlock = unlock; }
+		void ItemUnBoxing(bool unlock) { m_BoxItemFixPos = unlock; }
 		void IsBoxItem(bool box) { m_BoxItem = box; }
+		void SetFreeItem(bool box) { m_bFreeItem = box; }
 		void ItemChange(eItem item);
 		
 
@@ -73,7 +76,11 @@ namespace ks
 		bool					mItemChangeCheak;
 		bool					mItemUnlock;
 		bool					m_bShopItem;
+		bool					m_bFreeItem;
 		bool					m_BoxItem;
+		bool					m_BoxItemFixPos;
+
+
 
 		bool		m_bStartCheak;
 		bool		m_bEndCheak;

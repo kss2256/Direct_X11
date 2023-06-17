@@ -49,7 +49,9 @@ namespace ks
 		void PlatinumSound();
 		void goldSound();
 		void boxStartShake();
-		void createItem();
+		void createSword();
+		void createHpItem();
+		void createMpItem();
 
 
 	private:

@@ -539,7 +539,7 @@ namespace ks
 
 		if (playerpos.x >= pos.x && playerpos.x <= pos.y && playerpos.y >= pos.w && playerpos.y <= pos.z)
 		{
-			fixedpos = mPrevPos; // 직전 위치로 돌아갑니다.
+			fixedpos = mPrevPos; 
 		}
 
 

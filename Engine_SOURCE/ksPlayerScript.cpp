@@ -2807,7 +2807,9 @@ namespace ks
 			{
 				GoldBox* box = (GoldBox*)collider->GetOwner();				
 				if (!(box->IsOpenFinsh()))
-				box->IsBoxOpen(true);
+				{
+					box->IsBoxOpen(true);
+				}
 			}
 		}
 
@@ -2864,7 +2866,14 @@ namespace ks
 						break;
 					case ks::eItem::Hp:
 					{
-						if (mPlayer->IsShopPurchase(100))
+
+						if (item->IsFreeItem())
+						{
+							shopbuySound();
+							mPlayer->HpRecovery(true);
+							item->Death();
+						}
+						else if (mPlayer->IsShopPurchase(100))
 						{
 							shopbuySound();
 							mPlayer->HpRecovery(true);
@@ -2881,7 +2890,14 @@ namespace ks
 					break;
 					case ks::eItem::MP:
 					{
-						if (mPlayer->IsShopPurchase(100))
+
+						if (item->IsFreeItem())
+						{
+							shopbuySound();
+							mPlayer->MpRecovery(true);
+							item->Death();
+						}
+						else if (mPlayer->IsShopPurchase(100))
 						{
 							shopbuySound();
 							mPlayer->MpRecovery(true);
