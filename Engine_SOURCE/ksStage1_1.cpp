@@ -30,6 +30,7 @@ namespace ks
 	bool Stage1_1::mKey = false;
 	bool Stage1_1::mKeyCheak = false;
 	bool Stage1_1::m_bSoundCheak = false;
+	bool Stage1_1::m_bOneSound = false;
 	UINT Stage1_1::mKeyCount = 0;
 	Stage_Step Stage1_1::mStep = Stage_Step::None;
 	Vec3 Stage1_1::mMoveCam = Vec3::Zero;
@@ -62,7 +63,7 @@ namespace ks
 		std::shared_ptr<Texture> ground9 = Resources::Load<Texture>(L"Ground9", L"Map\\Ground\\Ground9.png");
 		std::shared_ptr<Texture> start = Resources::Load<Texture>(L"Start", L"Map\\Ground\\Start.png");
 
-
+		loadSound();
 
 
 		switch (mGroundStage)
@@ -148,10 +149,7 @@ namespace ks
 			//아이템 먹으면 트루!
 			if(!m_bSoundCheak)
 			{
-				std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-					(L"Stage_1", L"D:\\50\\Resources\\Sound\\Stage_1.ogg");
-				booksound->SetLoop(true);
-				booksound->Play(0.3f);
+				stage_1Sound();
 				m_bSoundCheak = true;
 			}
 			if (!mKey)
@@ -287,13 +285,9 @@ namespace ks
 					if (!m_bSoundCheak)
 					{
 
-						std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
-						sound->Stop();
+						stage_1SoundStop();
+						flime_BattleSound();
 
-						std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-							(L"Boss_Flime_Battle", L"D:\\50\\Resources\\Sound\\Boss_Flime_Battle.ogg");
-						booksound->SetLoop(true);
-						booksound->Play();
 						m_bSoundCheak = true;
 					}
 
@@ -315,12 +309,8 @@ namespace ks
 
 				if (!m_bSoundCheak)
 				{
-					std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
-					sound->SetLoop(true);
-					sound->Play(0.5);
-
-					std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Flime_Battle");
-					booksound->Stop();
+					stage_1Sound();
+					flime_BattleSoundStop();
 					m_bSoundCheak = true;
 				}
 			}
@@ -429,13 +419,9 @@ namespace ks
 				{
 					if (!m_bSoundCheak)
 					{
-						std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
-						sound->Stop();
+						stage_1SoundStop();
+						ent_BattleSound();
 
-						std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-							(L"Boss_Ent_Battle", L"D:\\50\\Resources\\Sound\\Boss_Ent_Battle.ogg");
-						booksound->SetLoop(true);
-						booksound->Play();
 						m_bSoundCheak = true;
 					}
 
@@ -654,6 +640,7 @@ namespace ks
 			Vec3 playerpos = mTarget->GetComponent<Transform>()->GetPosition();
 			Vec3 flimepos = mEnt->GetComponent<Transform>()->GetPosition();
 			mEndCam = flimepos;
+			mEndCam.y -= 2.0f;
 
 			mBossMeter = object::Instantiate<BossTpMeter>(eLayerType::UI);
 			mBossMeter->SetName(L"FlimeMeter");
@@ -690,16 +677,59 @@ namespace ks
 
 			if (mEndCam.y < pos.y)
 			{
-				mStep = Stage_Step::Stet_2;
-				mFlimeTime = 0.f;
+				mStep = Stage_Step::Stet_2;				
 				mEntTime = 0.f;
+				m_bOneSound = true;
 			}
 
 		}
+
 		if (mStep == Stage_Step::Stet_2)
 		{
+			m_fTime += Time::DeltaTime();
+
+			if (m_bOneSound)
+			{				
+				ent_StartSound1();
+				mEnt->SetEntAnimation(L"Roar1");
+				m_bOneSound = false;
+			}
+			if (m_fTime >= 3.0f)
+			{
+				mStep = Stage_Step::Stet_3;
+				m_fTime = 0.f;
+				m_bOneSound = true;
+			}
+		}
+		if (mStep == Stage_Step::Stet_3)
+		{
+			m_fTime += Time::DeltaTime();
+
+			if (m_bOneSound)
+			{
+				ent_StartSound2();
+				mEnt->SetEntAnimation(L"Roar2");
+				m_bOneSound = false;
+			}
+			if (m_fTime >= 3.0f)
+			{
+				mStep = Stage_Step::Stet_4;
+				m_fTime = 0.f;
+				m_bOneSound = true;
+			}
+		}
+
+		if (mStep == Stage_Step::Stet_4)
+		{
+			if (m_bOneSound)
+			{				
+				ent_StartSound3();
+				mEnt->SetEntAnimation(L"Attack_Start");
+				m_bOneSound = false;
+			}
+
 			mEntTime += Time::DeltaTime();
-			if (mEntTime >= 2.0f)
+			if (mEntTime >= 3.5f)
 			{
 				Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 				Vec3 pos = tr->GetPosition();
@@ -708,13 +738,13 @@ namespace ks
 				mEndCam = playerpos;
 				mMoveCam = playerpos - pos;
 				mMoveCam.Normalize();
-				mStep = Stage_Step::Stet_3;
+				mStep = Stage_Step::Stet_5;
 				mEntTime = 0.f;
+				m_bOneSound = true;
 			}
-
 		}
 
-		if (mStep == Stage_Step::Stet_3)
+		if (mStep == Stage_Step::Stet_5)
 		{
 			Transform* tr = mainCamera->GetOwner()->GetComponent<Transform>();
 			Vec3 pos = tr->GetPosition();
@@ -737,6 +767,89 @@ namespace ks
 
 
 	}
+
+	void Stage1_1::loadSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Load<AudioClip>
+			(L"Stage_1", L"D:\\50\\Resources\\Sound\\Stage_1.ogg");
+
+		std::shared_ptr<AudioClip> flimebattle = Resources::Load<AudioClip>
+			(L"Boss_Flime_Battle", L"D:\\50\\Resources\\Sound\\Boss_Flime_Battle.ogg");
+
+		std::shared_ptr<AudioClip> entbattle = Resources::Load<AudioClip>
+			(L"Boss_Ent_Battle", L"D:\\50\\Resources\\Sound\\Boss_Ent_Battle.ogg");
+
+		std::shared_ptr<AudioClip> entStart1 = Resources::Load<AudioClip>
+			(L"Ent_Start1", L"D:\\50\\Resources\\Sound\\Ent_Start1.ogg");
+
+		std::shared_ptr<AudioClip> entStart2 = Resources::Load<AudioClip>
+			(L"Ent_Start2", L"D:\\50\\Resources\\Sound\\Ent_Start2.ogg");
+
+		std::shared_ptr<AudioClip> entStart3 = Resources::Load<AudioClip>
+			(L"Ent_Start3", L"D:\\50\\Resources\\Sound\\Ent_Attack_Earthquake.ogg");
+
+	}
+
+	void Stage1_1::stage_1Sound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Stage_1");
+		booksound->SetLoop(true);
+		booksound->Play(0.3f);
+	}
+
+	void Stage1_1::stage_1SoundStop()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Stage_1");
+		sound->Stop();
+	}
+
+	void Stage1_1::flime_BattleSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Flime_Battle");
+		booksound->SetLoop(true);
+		booksound->Play(0.3f);
+	}
+
+	void Stage1_1::flime_BattleSoundStop()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Flime_Battle");
+		booksound->Stop();
+	}
+
+	void Stage1_1::ent_BattleSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Ent_Battle");
+		booksound->SetLoop(true);
+		booksound->Play(0.3f);
+	}
+
+	void Stage1_1::ent_BattleSoundStop()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Boss_Ent_Battle");
+		booksound->Stop();
+	}
+
+	void Stage1_1::ent_StartSound1()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Start1");
+		booksound->SetLoop(false);	
+		booksound->Play();
+	}
+
+	void Stage1_1::ent_StartSound2()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Start2");
+		booksound->SetLoop(false);
+		booksound->Play();
+	}
+
+	void Stage1_1::ent_StartSound3()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Start3");
+		booksound->SetLoop(false);
+		booksound->Play();
+	}
+
 
 	template<typename T>
 	void Stage1_1::createGround(const std::wstring& name, std::shared_ptr<T> texture)

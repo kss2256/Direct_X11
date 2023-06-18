@@ -148,6 +148,7 @@ namespace ks
 
 					mTransform->SetScale(Vec3(8.0f, 8.0f, 2.0f));
 					mAnimator->Play(L"Attack_Trap", false);
+					soundTrapAttack();
 					mStep = eStep::Step_1;
 				}
 

@@ -23,7 +23,6 @@
 namespace ks
 {
 
-
 	
 
 	Boss_Flime::Boss_Flime()
@@ -390,7 +389,6 @@ namespace ks
 
 	void Boss_Flime::Render()
 	{
-
 		GameObject::Render();
 	}
 
@@ -548,14 +546,10 @@ namespace ks
 			missiletr->SetScale(Vec3(0.0f, 0.0f, 2.0f));
 			missile->Lineinterval(interval);
 		}
-
 	}
 
 	void Boss_Flime::loadSound()
-	{
-		//std::shared_ptr<AudioClip> Flime_death = Resources::Load<AudioClip>
-		//	(L"Snake_death", L"D:\\50\\Resources\\Sound\\Snake_death.ogg");
-
+	{	
 		std::shared_ptr<AudioClip> Flime_TrapAttack = Resources::Load<AudioClip>
 			(L"Flime_Attack_Trap", L"D:\\50\\Resources\\Sound\\Flime_Attack_Trap.ogg");
 
@@ -570,8 +564,8 @@ namespace ks
 
 		std::shared_ptr<AudioClip> Flime_Clear = Resources::Load<AudioClip>
 			(L"Boss_Clear", L"D:\\50\\Resources\\Sound\\Boss_Clear.ogg");
-
 	}
+
 
 	void Boss_Flime::soundClear()
 	{

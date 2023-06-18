@@ -2835,17 +2835,12 @@ namespace ks
 						break;
 					case ks::eItem::Legend_Staff:
 					{
-						if (mPlayer->IsShopPurchase(100))
-						{
-							shopbuySound();
-							Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
-							inventory->AddItem(item->GetPlayerItem());
-							item->Death();
-						}
-						else
-						{
-							failedSound();
-						}
+
+						itemLootSound();
+						Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
+						inventory->AddItem(item->GetPlayerItem());
+						item->Death();
+
 					}
 						break;
 					case ks::eItem::Legend_Bow:

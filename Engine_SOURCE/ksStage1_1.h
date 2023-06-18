@@ -91,6 +91,17 @@ namespace ks
         void flime_Start();
         void ent_Start();
 
+        void loadSound();
+        void stage_1Sound();
+        void stage_1SoundStop();
+        void flime_BattleSound();
+        void flime_BattleSoundStop();
+        void ent_BattleSound();
+        void ent_BattleSoundStop();
+        void ent_StartSound1();
+        void ent_StartSound2();
+        void ent_StartSound3();
+
 
     private:
 
@@ -99,13 +110,14 @@ namespace ks
         static bool         mKey;
         static bool         mKeyCheak;
         static bool         m_bSoundCheak;
+        static bool         m_bOneSound;
         static GameObject*  mTarget;
         std::wstring        mName;
         eGroundStage        mGroundStage;
         Collider2D*         mCollider;
         float               mFlimeTime;
         float               mEntTime;
-        
+        float               m_fTime;
 
         static Stage_Step                mStep;
 

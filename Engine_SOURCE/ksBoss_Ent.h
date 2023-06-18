@@ -33,6 +33,9 @@ namespace ks
 
 		void SetPhase(Phase phase) { mPhase = phase; }
 
+		void SetEntAnimation(const std::wstring& name);
+
+
 	private:
 		void loadAnimation();
 		void trapAttack();
@@ -41,6 +44,17 @@ namespace ks
 		void targetDir();
 		void sphereAttack_Phase(UINT dir);
 		void earthquakeAttack();
+		void loadSound();
+		void poisonAttackSound();
+		void missileAttackSound();
+		void earthquakeAttackSound();
+		void poisonAttackSoundStop();
+		void missileAttackSoundStop();
+		void earthquakeAttackSoundStop();
+		void soundClear();
+		void soundDeath();
+		void createBox();
+
 
 	private:
 
@@ -48,7 +62,16 @@ namespace ks
 		UINT		mPoisonRnadom;
 		UINT		mEartquake;
 		float		mTargetDir;
+		float       m_fTime;
 		Phase		mPhase;
+
+
+		bool		m_bSoundCheak;
+
+		bool        mEntCheak;
+		bool        mEntSoundCheak;
+
+		bool        m_bSoundDeathCheak;
 
 
 	};

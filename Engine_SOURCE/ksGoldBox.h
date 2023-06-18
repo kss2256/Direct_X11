@@ -52,6 +52,7 @@ namespace ks
 		void createSword();
 		void createHpItem();
 		void createMpItem();
+		void createStaff();
 
 
 	private:
@@ -59,7 +60,7 @@ namespace ks
 		Transform*				mTransform;
 		Animator*				mAnimator;
 		Player*					mTarget;		
-		Vec3					mPlayerPos;
+		Vec3					mBoxFinalPos;
 		Vec3					mUiPos;
 		Vec3					mFinalPos;
 
@@ -81,6 +82,7 @@ namespace ks
 		bool					m_bBoxItemCteate;
 
 		bool					m_bOpenFinsh;
+		bool					m_bCreateBox;
 
 
     };

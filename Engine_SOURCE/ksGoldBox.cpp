@@ -25,6 +25,7 @@ namespace ks
 		, mShakeTime(0.0f)
 		, m_bBoxItemCteate(false)
 		, m_fTime(0.f)
+		, m_bCreateBox(false)
 	{
 
 		mTransform = GetComponent<Transform>();
@@ -56,15 +57,28 @@ namespace ks
 		case e_BoxType::Gold:
 			goldSound();
 			mAnimator->Play(L"Gold_Box_Idle", true);
+			mBoxFinalPos = mUiPos;
+			mBoxFinalPos.y -= 1.0f;
+
+			mFinalPos = mBoxFinalPos - mUiPos;
+			mFinalPos.Normalize();
 			break;
 		case e_BoxType::Platinum:
 			PlatinumSound();
-			mAnimator->Play(L"Platinum_Box_Idle", true);
+			mAnimator->Play(L"Platinum_Box_Idle", true);		
+			mBoxFinalPos = mUiPos;
+			mBoxFinalPos.y -= 1.0f;
+
+			mFinalPos = mBoxFinalPos - mUiPos;
+			mFinalPos.Normalize();
 			break;
 		}
 		
-		
+		m_bCreateBox = true;
 
+
+		
+	
 
 		GameObject::Initalize();
 	}
@@ -72,9 +86,22 @@ namespace ks
 	void GoldBox::Update()
 	{
 
-		if (m_bAniChange)
-		{
 		
+
+		if (m_bCreateBox)
+		{
+			Vec3 pos = mTransform->GetPosition();
+			pos += mFinalPos * 1.5f * Time::DeltaTime();
+			mTransform->SetPosition(pos);
+			if (pos.y <= mBoxFinalPos.y)
+			{
+				m_bCreateBox = false;
+			}
+		}
+
+
+		if (m_bAniChange)
+		{	
 
 			switch (m_eBoxType)
 			{
@@ -99,9 +126,21 @@ namespace ks
 			m_fTime += Time::DeltaTime();
 			if (m_fTime >= 0.8f)
 			{
-				createMpItem();
-				createHpItem();
-				createSword();
+
+				switch (m_eBoxType)
+				{
+				case e_BoxType::Gold:
+					createMpItem();
+					createHpItem();
+					createSword();
+					break;
+				case e_BoxType::Platinum:
+					createStaff();
+
+
+					break;
+				}
+				
 				m_bBoxItemCteate = false;
 				m_fTime = 0.f;
 				m_bOpenFinsh = true;
@@ -225,8 +264,6 @@ namespace ks
 
 		std::shared_ptr<AudioClip> Gold_Box = Resources::Load<AudioClip>
 			(L"Gold_Box", L"D:\\50\\Resources\\Sound\\Gold_Box.ogg");
-
-
 	}
 
 	void GoldBox::boxOpenSound()
@@ -370,5 +407,30 @@ namespace ks
 
 
 	}
+
+	void GoldBox::createStaff()
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Shop_Item);
+		Legendmp->SetName(L"Box_Item_Staff");
+		Legendmp->SetTarget(mTarget);
+		Legendmp->SetShopItem(true);
+		Legendmp->IsBoxItem(true);
+		Legendmp->ItemUnBoxing(true);
+		Legendmp->SetPlayerItem(eItem::Legend_Staff);
+
+
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(mUiPos);
+		mptr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+
+		Legendmp->Initalize();
+
+
+	}
+
 
 }

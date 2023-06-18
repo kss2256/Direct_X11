@@ -15,6 +15,8 @@
 #include "ksEnt_Sphere.h"
 #include "ksCamera.h"
 #include "ksStage1_1.h"
+#include "ksAudioClip.h"
+#include "ksGoldBox.h"
 
 #include "ksMonsterMissile.h"
 
@@ -29,6 +31,10 @@ namespace ks
 	Boss_Ent::Boss_Ent()
 		: mPhase(Phase::None)
 		, mTrapCount(0)
+		, m_bSoundCheak(false)
+		, m_bSoundDeathCheak(false)
+		, mEntSoundCheak(false)
+		, mEntCheak(false)
 	{
 
 
@@ -46,6 +52,7 @@ namespace ks
 		mAttackCool = true;
 
 		loadAnimation();
+		loadSound();
 
 		mHp = 200;
 
@@ -87,11 +94,24 @@ namespace ks
 
 			if (mStateInfo.situation == eSituation::Death)
 			{
-				mTime += Time::DeltaTime();
-				//mAnimator->Play(L"Death", false);
-
-				if (mTime >= 1.0f)
+				m_fTime += Time::DeltaTime();
+				if (!m_bSoundDeathCheak)
 				{
+					soundClear();
+					m_bSoundDeathCheak = true;
+				}
+				if (m_fTime >= 1.5f && !mEntSoundCheak)
+				{
+					soundDeath();
+					mEntSoundCheak = true;
+				}
+				if (m_fTime >= 3.0f)
+				{
+					if (!mEntCheak)
+					{
+						createBox();
+						mEntCheak = true;
+					}
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
 					mPhase = Phase::None;
@@ -160,9 +180,8 @@ namespace ks
 							++mRnadomAttack;
 						}
 
-						mStep = eStep::Step_1;
-						//mRnadomAttack = 0;
-						//mPhase = Phase::Phase_1;
+						m_bSoundCheak = true;
+						mStep = eStep::Step_1;						
 					}
 					if (mRnadomAttack == 0)	//가시 공격
 					{
@@ -201,6 +220,7 @@ namespace ks
 						mTime += Time::DeltaTime();
 						if (mStep == eStep::Step_1)
 						{
+							poisonAttackSound();
 							int a = rand() % 2;		//0 ~ 9 까지 랜덤의 수인데 거기에 +1 을 해서					
 							mPoisonRnadom = a;
 							mStep = eStep::Step_2;
@@ -254,6 +274,7 @@ namespace ks
 						}
 						if (mStep == eStep::Step_4)
 						{
+
 							mStateInfo.situation = eSituation::None;
 							mStep = eStep::None;
 							mAttackCool = true;
@@ -269,6 +290,7 @@ namespace ks
 						if (mStep == eStep::Step_1)
 						{
 							mMonsterPos = mTransform->GetPosition();
+							missileAttackSound();
 							mStep = eStep::Step_2;
 							mTime = 0.f;
 						}
@@ -305,6 +327,7 @@ namespace ks
 						if (mStep == eStep::Step_3)
 						{
 							mStateInfo.situation = eSituation::None;
+
 							mStep = eStep::None;
 							mAttackCool = true;
 							mCheak = false;
@@ -318,12 +341,18 @@ namespace ks
 					{
 						directionAnimation(L"Attack_Direction", false);
 						mTime += Time::DeltaTime();
+						if (m_bSoundCheak)
+						{
+							earthquakeAttackSound();
+							m_bSoundCheak = false;
+						}
+
 						if (mStep == eStep::Step_1)
 						{
-
+							earthquakeAttack();
 							mainCamera->SetShock(true);
 							mainCamera->SetShockDuration(2.0f);
-							earthquakeAttack();
+							
 							mStep = eStep::Step_2;
 							mTime = 0.f;
 						}
@@ -362,7 +391,7 @@ namespace ks
 						{
 							mStateInfo.situation = eSituation::None;
 							mStep = eStep::None;
-							mAttackCool = true;
+							mAttackCool = true;							
 							mCheak = false;
 							mTime = 0.f;
 						}
@@ -375,10 +404,27 @@ namespace ks
 
 			if (mHp <= 120 && mPhase == Phase::None && !(mStateInfo.situation == eSituation::Death))
 			{
+				if (mStateInfo.situation == eSituation::Attack)
+				{
+					if (mRnadomAttack == 1)
+					{
+						poisonAttackSoundStop();
+					}
+					else if (mRnadomAttack == 2)
+					{
+						missileAttackSoundStop();
+					}
+					else if (mRnadomAttack == 3)
+					{
+						earthquakeAttackSoundStop();
+					}
+				}
+
 				mPhase = Phase::Phase_1;
 				mStateInfo.situation = eSituation::Connect;
 				mStep = eStep::None;
 				mAttackCool = true;
+				m_bSoundCheak = true;
 				mCheak = false;
 				mTime = 0.f;
 
@@ -400,6 +446,11 @@ namespace ks
 				{
 					if (mTime >= 2.2f)
 					{
+						if (m_bSoundCheak)
+						{
+							earthquakeAttackSound();
+							m_bSoundCheak = false;
+						}
 						mainCamera->SetShock(true);
 						mainCamera->SetShockDuration(2.5f);
 						mAnimator->Play(L"Phase_Attack_Start", true);
@@ -444,16 +495,14 @@ namespace ks
 
 
 
+	void Boss_Ent::SetEntAnimation(const std::wstring& name)
+	{
+		mAnimator->Play(name, false);
+	}
+
 	void Boss_Ent::loadAnimation()
 	{
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"BossEnt", L"Monster\\BossEnt.png");
-
-
-		mNumbers.push_back(0);
-		mNumbers.push_back(1);
-		mNumbers.push_back(2);
-		CreateAnimation(L"Wake", texture, mAnimator, Vector2(322.0f, 350.0f), Vec2::Zero, mNumbers, 0.3f);
-		mNumbers.clear();
 
 		mNumbers.push_back(0);
 		mNumbers.push_back(1);
@@ -782,6 +831,100 @@ namespace ks
 		missiletr->SetScale(Vec3(0.0f, 0.0f, 2.0f));
 
 
+	}
+
+	void Boss_Ent::loadSound()
+	{
+		std::shared_ptr<AudioClip> attack1= Resources::Load<AudioClip>
+			(L"Ent_Attack_Poison", L"D:\\50\\Resources\\Sound\\Ent_Attack_Poison.ogg");
+
+		std::shared_ptr<AudioClip> attack2= Resources::Load<AudioClip>
+			(L"Ent_Attack_Missile", L"D:\\50\\Resources\\Sound\\Ent_Attack_Missile.ogg");
+
+		std::shared_ptr<AudioClip> attack3= Resources::Load<AudioClip>
+			(L"Ent_Attack_Earthquake", L"D:\\50\\Resources\\Sound\\Ent_Attack_Earthquake.ogg");
+
+		std::shared_ptr<AudioClip> Ent_Death = Resources::Load<AudioClip>
+			(L"Boss_Death", L"D:\\50\\Resources\\Sound\\Boss_Death.ogg");
+
+		std::shared_ptr<AudioClip> Ent_Clear = Resources::Load<AudioClip>
+			(L"Boss_Clear", L"D:\\50\\Resources\\Sound\\Boss_Clear.ogg");
+	}
+
+	void Boss_Ent::poisonAttackSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Attack_Poison");
+		booksound->SetLoop(false);
+		booksound->Play();
+	}
+
+	void Boss_Ent::missileAttackSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Attack_Missile");
+		booksound->SetLoop(false);
+		booksound->Play();
+	}
+
+	void Boss_Ent::poisonAttackSoundStop()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Attack_Poison");
+		booksound->Stop();
+	}
+
+	void Boss_Ent::missileAttackSoundStop()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Attack_Missile");
+		booksound->Stop();
+	}
+
+	void Boss_Ent::earthquakeAttackSoundStop()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Attack_Earthquake");
+		booksound->Stop();
+	}
+
+	void Boss_Ent::soundClear()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Boss_Clear");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Boss_Ent::soundDeath()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Boss_Death");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Boss_Ent::createBox()
+	{
+		GoldBox* goldbox = object::Instantiate<GoldBox>(eLayerType::Shop_Item);
+		goldbox->SetName(L"Platinum_Box");
+		goldbox->SetTarget(mPlayer);
+		goldbox->SetBoxType(e_BoxType::Platinum);
+
+
+
+		Collider2D* collider = goldbox->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+		collider->SetSize(Vector2(0.14f, 0.09f));
+
+
+		Transform* tr = goldbox->GetComponent<Transform>();
+		Vec3 pos = mTransform->GetPosition();
+		pos.y -= 4.0f;
+		tr->SetPosition(pos);
+		tr->SetScale(Vector3(11.0f, 11.0f, 1.0f));
+		goldbox->Initalize();
+
+	}
+
+	void Boss_Ent::earthquakeAttackSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Ent_Attack_Earthquake");
+		booksound->SetLoop(false);
+		booksound->Play();
 	}
 
 }

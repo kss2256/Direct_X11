@@ -124,7 +124,7 @@ namespace ks
 					m_BoxItemFixPos = false;
 				}
 				
-				if (GetName() == L"Box_Item_Hp")
+				if (GetName() == L"Box_Item_Hp" || GetName() == L"Box_Item_Staff")
 				{
 					mUiPos = mTransform->GetPosition();
 					mFinalPos = mUiPos;
