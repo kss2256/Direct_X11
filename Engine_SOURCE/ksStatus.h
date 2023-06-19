@@ -31,6 +31,7 @@ namespace ks
         Skil,
         Patrol,
         Hit,
+        Skil_Hit,
         Sit,
         Item,
         Death,

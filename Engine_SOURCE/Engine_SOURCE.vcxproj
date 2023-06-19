@@ -225,8 +225,10 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="ksPlayerSlot.h" />
     <ClInclude Include="ksPlayerItem.h" />
     <ClInclude Include="ksShop_Ui.h" />
+    <ClInclude Include="ksSkilScript.h" />
     <ClInclude Include="ksSkilSlot.h" />
     <ClInclude Include="ksSkilUi.h" />
+    <ClInclude Include="ksSkil_Dark.h" />
     <ClInclude Include="ksSkil_IceFairy.h" />
     <ClInclude Include="ksSlime_Green.h" />
     <ClInclude Include="ksSnake_Green.h" />
@@ -326,8 +328,10 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="ksPlayerSlot.cpp" />
     <ClCompile Include="ksPlayerItem.cpp" />
     <ClCompile Include="ksShop_Ui.cpp" />
+    <ClCompile Include="ksSkilScript.cpp" />
     <ClCompile Include="ksSkilSlot.cpp" />
     <ClCompile Include="ksSkilUi.cpp" />
+    <ClCompile Include="ksSkil_Dark.cpp" />
     <ClCompile Include="ksSkil_IceFairy.cpp" />
     <ClCompile Include="ksSlime_Green.cpp" />
     <ClCompile Include="ksSnake_Green.cpp" />

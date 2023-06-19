@@ -31,6 +31,7 @@
 #include "ksGoldBox.h"
 #include "ksSkil_IceFairy.h"
 #include "ksSkilUi.h"
+#include "ksSkil_Dark.h"
 
 
 #include <time.h>
@@ -2136,10 +2137,12 @@ namespace ks
 			//½ºÅ³ Å°
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
-				if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
+			/*	if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
 					return;
 				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
 					return;
+
+				angleDirection();
 				mState.situation = eSituation::Skil;
 				mStatus->SetStateInfo(mState);
 				mPlayerState.skil = eSkil::Magic;
@@ -2149,6 +2152,7 @@ namespace ks
 				switch (mPlayer->GetSkilUiTarget()->GetActiveSkil())
 				{				
 				case ks::eItem::Dark:
+					skilDark();
 					break;
 				case ks::eItem::Ice:
 					skilIce();
@@ -2157,11 +2161,11 @@ namespace ks
 					break;
 				case ks::eItem::Lighting:
 					break;			
-				}
+				}*/
 
 
 
-
+				skilDark();
 
 				
 			}
@@ -2708,6 +2712,25 @@ namespace ks
 
 	}
 
+	void PlayerScript::skilDark()
+	{
+
+		Skil_Dark* mAttack = object::Instantiate<Skil_Dark>(eLayerType::Player_Attack);
+
+		mAttack->SetTarget(mPlayer);
+		mAttack->GetComponent<Transform>()->SetPosition(Input::GetMousWorldPosition());
+		mAttack->GetComponent<Transform>()->SetScale(Vec3(12.0f, 12.0f, 0.0f));
+
+
+		Collider2D* collider = mAttack->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+		collider->SetSize(Vec2(0.45f, 0.45f));
+
+
+		mAttack->Initalize();
+
+	}
+
 
 	
 
@@ -2971,6 +2994,9 @@ namespace ks
 
 			}
 		}
+
+
+
 
 
 		if (dynamic_cast<Stage1_1Move*>(collider->GetOwner()))

@@ -68,6 +68,7 @@ namespace ks
 		void staffChargeFinishSound();
 		
 		void skilIce();
+		void skilDark();
 
 	private:
 

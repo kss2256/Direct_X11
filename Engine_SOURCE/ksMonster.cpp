@@ -70,6 +70,17 @@ namespace ks
 
 
 	}
+
+
+
+
+
+	void Monster::SetIdleAnimation()
+	{
+		mAnimator->Play(L"Idle_Down", false);
+
+	}
+
 	void Monster::CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
 		, Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration)
 	{
@@ -190,7 +201,7 @@ namespace ks
 	}
 	void Monster::Patrol()
 	{
-
+		
 		//멀리 떨어져 있으면 가까이 다가옴 탐색 중일 때만 플레이어에게 이동 
 		if (mPlayer != nullptr)
 			mTargetPos = mPlayer->GetComponent<Transform>()->GetPosition();

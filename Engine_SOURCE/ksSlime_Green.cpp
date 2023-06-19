@@ -100,6 +100,7 @@ namespace ks
 					
 					mTransform->SetPosition(Vec3(0.0f, 20.0f, 1.0f));
 					mDetection = false;
+					m_bWalkStop = false;
 					m_bSoundDeathCheak = false;
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
@@ -110,6 +111,8 @@ namespace ks
 
 			else
 			{
+				if (m_bWalkStop)
+					return;
 				AngleDirection();
 				if (mStateInfo.situation == eSituation::None)
 				{
@@ -267,13 +270,16 @@ namespace ks
 					hit(0.1f, 0.2f, 50.f);
 					directionAnimation(L"Idle", true);
 				}
-
+				if (mStateInfo.situation == eSituation::Skil_Hit)
+				{					
+					//directionAnimation(L"Idle", true);
+				}
 
 
 			}
 		}
 
-		GameObject::Update();
+		Monster::Update();
 	}
 
 	void Slime_Green::FixedUpdate()

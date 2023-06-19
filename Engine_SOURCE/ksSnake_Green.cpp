@@ -88,12 +88,12 @@ namespace ks
 					soundDeath();
 					m_bSoundDeathCheak = true;
 				}
-				if (mPlayer->GetGroundStage() == eGroundStage::Ground2)
+				if (mPlayer->GetGroundStage() == eGroundStage::Ground4 && GetName() == L"Snake_Green_Two")
 				{
 					if(!m_bSkillCheak)
 					{
 						skillBookSound();
-						skilBox();
+						IceSkil();
 						m_bSkillCheak = true;
 					}
 				}
@@ -107,6 +107,7 @@ namespace ks
 
 					mTransform->SetPosition(Vec3(0.0f, 20.0f, 1.0f));
 					mDetection = false;
+					m_bWalkStop = false;
 					m_bSoundDeathCheak = false;
 					Stage1_1* stage = nullptr;
 					stage->KeyCount_Up();
@@ -117,6 +118,8 @@ namespace ks
 
 			else
 			{
+				if (m_bWalkStop)
+					return;
 				AngleDirection();
 
 				if (mStateInfo.situation == eSituation::None)
@@ -523,7 +526,7 @@ namespace ks
 		sound->Play();
 	}
 
-	void Snake_Green::skilBox()
+	void Snake_Green::IceSkil()
 	{
 		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
 		Legendmp->SetName(L"Ice_Skil");

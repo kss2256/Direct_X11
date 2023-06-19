@@ -452,6 +452,12 @@
     <ClCompile Include="ksSkilSlot.cpp">
       <Filter>GameObject\UI\SkilUi</Filter>
     </ClCompile>
+    <ClCompile Include="ksSkil_Dark.cpp">
+      <Filter>GameObject\Skil</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSkilScript.cpp">
+      <Filter>GameObject\Skil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -752,6 +758,12 @@
     </ClInclude>
     <ClInclude Include="ksSkilSlot.h">
       <Filter>GameObject\UI\SkilUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSkil_Dark.h">
+      <Filter>GameObject\Skil</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSkilScript.h">
+      <Filter>GameObject\Skil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

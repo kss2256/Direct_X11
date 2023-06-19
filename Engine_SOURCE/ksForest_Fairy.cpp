@@ -89,6 +89,7 @@ namespace ks
 
 					mTransform->SetPosition(Vec3(0.0f, 20.0f, 1.0f));
 					mDetection = false;
+					m_bWalkStop = false;
 					m_bSoundDeathCheak = false;
 
 					Stage1_1* stage = nullptr;
@@ -100,6 +101,8 @@ namespace ks
 
 			else
 			{
+				if (m_bWalkStop)
+					return;
 				AngleDirection();
 				if (mStateInfo.situation == eSituation::None)
 				{

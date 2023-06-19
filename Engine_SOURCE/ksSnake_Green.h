@@ -30,7 +30,7 @@ namespace ks
 		void soundAttack2();
 		void skillBookSound();
 
-		void skilBox();
+		void IceSkil();
 
 	private:
 

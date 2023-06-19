@@ -1,5 +1,5 @@
 #include "ksSkil_IceFairy.h"
-
+#include "ksSkilScript.h"
 
 namespace ks
 {
@@ -8,6 +8,9 @@ namespace ks
 	{
 		mTransform = GetComponent<Transform>();
 		mAnimator = AddComponent<Animator>();
+		AddComponent<SkilScript>()->SetSkil(eItem::Ice);
+		GetComponent<SkilScript>()->SetSkilPos(mTransform->GetPosition());
+		GetComponent<SkilScript>()->SetSkilOwner(this);
 
 		loadAnimation();
 

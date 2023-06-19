@@ -60,12 +60,14 @@ namespace ks
 		void SetDetection(bool value) { mDetection = value; }
 		void SetMonsterStr(float value) { mStr = value; }
 		void SetBossHit(bool value) { mBossHit = value; }
+		void SetWalkStop (bool stop) { m_bWalkStop = stop; }
+
 
 
 		void SetSituation(eSituation value) { mStateInfo.situation = value; }
 		void SetStep(eStep value) { mStep = value; }
 
-
+		void SetIdleAnimation();
 	
 
 
@@ -121,6 +123,8 @@ namespace ks
 		bool					mOnceCheak;
 		bool					mBossHit;
 		bool					m_bCoin;
+		bool					m_bWalkStop;
+
 		float					mRnadomAttack;
 		float					mPrevRnadom;
 
