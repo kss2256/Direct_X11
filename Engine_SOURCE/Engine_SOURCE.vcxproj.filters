@@ -160,6 +160,15 @@
     <Filter Include="GameObject\UI\Box">
       <UniqueIdentifier>{5659f4db-b0e7-4348-abbb-d6ea35fe7b19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Skil">
+      <UniqueIdentifier>{6706147c-a52b-4825-bcf7-6ef4d27af181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Skil\Base">
+      <UniqueIdentifier>{fbf52f92-589d-408c-8887-e2dbe3366354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\SkilUi">
+      <UniqueIdentifier>{aca728ba-d2c6-4a29-81c5-cc788194475f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksApplication.cpp">
@@ -430,6 +439,18 @@
     </ClCompile>
     <ClCompile Include="ksGoldBox.cpp">
       <Filter>GameObject\UI\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSkil_IceFairy.cpp">
+      <Filter>GameObject\Skil</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCSkil.cpp">
+      <Filter>GameObject\Skil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSkilUi.cpp">
+      <Filter>GameObject\UI\SkilUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksSkilSlot.cpp">
+      <Filter>GameObject\UI\SkilUi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -719,6 +740,18 @@
     </ClInclude>
     <ClInclude Include="ksGoldBox.h">
       <Filter>GameObject\UI\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSkil_IceFairy.h">
+      <Filter>GameObject\Skil</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCSkil.h">
+      <Filter>GameObject\Skil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSkilUi.h">
+      <Filter>GameObject\UI\SkilUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSkilSlot.h">
+      <Filter>GameObject\UI\SkilUi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

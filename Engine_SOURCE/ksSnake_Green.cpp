@@ -11,6 +11,7 @@
 #include "ksMonsterMissile.h"
 #include "ksStage1_1.h"
 #include "ksInput.h"
+#include "ksPlayerItem.h"
 
 #include "ksAudioClip.h"
 
@@ -20,6 +21,7 @@ namespace ks
 
 	Snake_Green::Snake_Green()
 		: m_bSoundDeathCheak(false)
+		, m_bSkillCheak(false)
 	{
 		mTransform = GetComponent<Transform>();
 		mAnimator = AddComponent<Animator>();
@@ -82,10 +84,21 @@ namespace ks
 				mTime += Time::DeltaTime();
 				mAnimator->Play(L"Death", false);
 				if (!m_bSoundDeathCheak)
-				{
+				{					
 					soundDeath();
 					m_bSoundDeathCheak = true;
 				}
+				if (mPlayer->GetGroundStage() == eGroundStage::Ground2)
+				{
+					if(!m_bSkillCheak)
+					{
+						skillBookSound();
+						skilBox();
+						m_bSkillCheak = true;
+					}
+				}
+
+				else
 				createCoin(mTransform->GetPosition());
 
 				if (mTime >= 1.0f)
@@ -473,6 +486,9 @@ namespace ks
 		std::shared_ptr<AudioClip> Snake_Attack2 = Resources::Load<AudioClip>
 			(L"Snake_Attack2", L"D:\\50\\Resources\\Sound\\Snake_Attack2.ogg");
 
+		std::shared_ptr<AudioClip> skil_Book = Resources::Load<AudioClip>
+			(L"Skil_Create", L"D:\\50\\Resources\\Sound\\Skil_Create.ogg");
+
 		
 
 
@@ -498,6 +514,35 @@ namespace ks
 		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Snake_Attack2");
 		sound->SetLoop(false);
 		sound->Play();
+	}
+
+	void Snake_Green::skillBookSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Skil_Create");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Snake_Green::skilBox()
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
+		Legendmp->SetName(L"Ice_Skil");
+		Legendmp->SetTarget(mPlayer);
+
+		Legendmp->SetPlayerItem(eItem::Ice);
+		Legendmp->SetSkilBook(true);
+
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(mTransform->GetPosition());
+		mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
+
+		Legendmp->Initalize();
+
+
 	}
 
 	void Snake_Green::resurrection()

@@ -97,6 +97,30 @@ namespace ks
 			mAnimator->Play(L"Mp_Recovery", true);
 		}
 		break;
+		case ks::eItem::Dark:
+		{
+			mUiPos = mTransform->GetPosition();
+			mAnimator->Play(L"Dark_Skil", true);
+		}
+		break;
+		case ks::eItem::Ice:
+		{
+			mUiPos = mTransform->GetPosition();
+			mAnimator->Play(L"Ice_Skil", true);
+		}
+		break;
+		case ks::eItem::Barrier:
+		{
+			mUiPos = mTransform->GetPosition();
+			mAnimator->Play(L"Barrier_Skil", true);
+		}
+		break;
+		case ks::eItem::Lighting:
+		{
+			mUiPos = mTransform->GetPosition();
+			mAnimator->Play(L"Lighting_Skil", true);
+		}
+		break;
 
 		}
 
@@ -231,7 +255,15 @@ namespace ks
 			}
 		}
 
+		if (m_bSkillSlot)
+		{
+			mPlayerPos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 
+
+			mFinalPos = mPlayerPos + mUiPos;
+
+			mTransform->SetPosition(mFinalPos);
+		}
 
 
 
@@ -360,8 +392,9 @@ namespace ks
 	{
 
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"item_test2", L"Player_UI\\item_test2.png");
-
-
+		std::shared_ptr<Texture> skil = Resources::Load<Texture>(L"Skil", L"Skil\\item_magic.png");
+		std::shared_ptr<Texture> mp = Resources::Load<Texture>(L"mp", L"Player_UI\\FullMp.png");
+		std::shared_ptr<Texture> hp = Resources::Load<Texture>(L"hp", L"Player_UI\\FullHp.png");
 
 		mNumbers.push_back(0);		
 		CreateAnimation(L"Staff", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
@@ -387,18 +420,40 @@ namespace ks
 		mNumbers.push_back(44);
 		CreateAnimation(L"Legend_Sword", texture, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.35f);
 		mNumbers.clear();
-
-		std::shared_ptr<Texture> hp = Resources::Load<Texture>(L"hp", L"Player_UI\\FullHp.png");
+			
 
 		mNumbers.push_back(0);
 		CreateAnimation(L"hp_Recovery", hp, mAnimator, Vector2(23.0f, 22.0f), Vec2::Zero, mNumbers, 0.35f);
 		mNumbers.clear();
 
-		std::shared_ptr<Texture> mp = Resources::Load<Texture>(L"mp", L"Player_UI\\FullMp.png");
 
 		mNumbers.push_back(0);
 		CreateAnimation(L"Mp_Recovery", mp, mAnimator, Vector2(24.0f, 24.0f), Vec2::Zero, mNumbers, 0.35f);
 		mNumbers.clear();
+
+
+		mNumbers.push_back(21);
+
+		CreateAnimation(L"Ice_Skil", skil, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.15f);
+		mNumbers.clear();
+
+		mNumbers.push_back(17);
+
+		CreateAnimation(L"Dark_Skil", skil, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.15f);
+		mNumbers.clear();
+
+
+		mNumbers.push_back(13);
+
+		CreateAnimation(L"Barrier_Skil", skil, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.15f);
+		mNumbers.clear();
+
+
+		mNumbers.push_back(16);
+
+		CreateAnimation(L"Lighting_Skil", skil, mAnimator, Vector2(32.0f, 32.0f), Vec2::Zero, mNumbers, 0.15f);
+		mNumbers.clear();
+
 
 	}
 

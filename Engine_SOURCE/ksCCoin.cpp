@@ -33,16 +33,13 @@ namespace ks
 		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"CoinMaterial");
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		sr->SetMesh(mesh);
-
-	
+		sr->SetMesh(mesh);	
 		
 
 	}
 
 	CCoin::~CCoin()
 	{
-
 	
 
 	}

@@ -84,7 +84,8 @@ namespace ks
         template<typename T>
         void createGround(const std::wstring& name, std::shared_ptr<T> texture);
         void createDiary();
-       
+        void createSkilBook(Vec3 pos);
+
         void range_In(Vector4 pos);
         void range_Out(Vector4 pos);
 

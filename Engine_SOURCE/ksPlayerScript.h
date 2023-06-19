@@ -67,7 +67,7 @@ namespace ks
 		void staffChargeSound();
 		void staffChargeFinishSound();
 		
-
+		void skilIce();
 
 	private:
 
@@ -105,6 +105,7 @@ namespace ks
 		bool				mOnceCheak;
 
 		float				mCheakTime;
+		float				m_fSkilTime;
 		static float		mfStaff;
 		float				mDelayTime;
 		float				mTime;

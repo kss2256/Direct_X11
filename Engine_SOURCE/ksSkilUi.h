@@ -3,26 +3,20 @@
 #include "ksPlayer.h"
 #include "ksAnimation.h"
 #include "ksAnimator.h"
-
-enum class eCoin
-{
-	None,
-	Bronze,
-	Silver,
-	Gold,
-};
+#include "ksSkilSlot.h"
 
 namespace ks
 {
 
 	class Transform;
-	class CCoin :
-		public UIBase
-	{
+    class SkilUi :
+        public UIBase
+    {
+
 	public:
 
-		CCoin();
-		virtual ~CCoin();
+		SkilUi();
+		virtual ~SkilUi();
 
 		virtual void Initalize() override;
 		virtual void Update() override;
@@ -31,44 +25,53 @@ namespace ks
 
 		Player* GetTarget() { return mTarget; }
 
-		UINT GetCoinValue() { return m_uCoinValue; }
+		eItem GetActiveSkil() { return m_pActiveSlot->e_skil; }
 
+
+		bool IsActiveSlot()
+		{ 
+			if (m_pActiveSlot == nullptr)
+				return false;
+			else
+			return true;
+		}
 		void SetTarget(Player* player) { mTarget = player; }
-		void SetCoin(eCoin coin, UINT value) { m_eCoin = coin, m_uCoinValue = value; }
-		void SetCoinValue(UINT value) { m_uCoinValue = value; }
-		void ItemLoot(bool loot) { m_bItemLoot = loot; }
 
+		void CreateSkillbook(eItem skil);
+		
 
 	private:
 		void loadAnimation();
 		void CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
 			, Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration);
-
+		void slotCheak(eItem skil);
+		void createSkilSlot(eItem skil, Vec3 pos);
+		void changeAnimation();
 
 	private:
 
 		Transform*		mTransform;
 		Animator*		mAnimator;
 		Player*			mTarget;
+		Vec3			mPlayerPos;
 		Vec3			mUiPos;
-		Vec3			mJumpPos;
-		Vec3			mNomarlizeUp;
-		Vec3			mNomarlizeDown;
 		//Vec3			mUiScale;
 		Vec3			mFinalPos;
-			
-		eCoin			m_eCoin;
-		UINT			m_uCoinValue;
+
+
+		SkilSlot*		m_pSkilSlot_1;
+		SkilSlot*		m_pSkilSlot_2;
+		SkilSlot*		m_pSkilSlot_3;
+		SkilSlot*		m_pSkilSlot_4;
+		SkilSlot*		m_pActiveSlot;
+		
 
 		std::vector<Sprite>		mSprites;
 		std::vector<Sprite>		mSvaeSprite;
 
 		std::vector<UINT>			mNumbers;
-		static std::wstring			mItemName;
 
-		bool		m_bStartCheak;
-		bool		m_bEndCheak;
-		bool		m_bItemLoot;
 
-	};
+
+    };
 }

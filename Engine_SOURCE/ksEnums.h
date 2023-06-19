@@ -47,6 +47,7 @@ namespace ks::enums
 		Fog,
 		UI,
 		Gold_Ui,
+		Skil_Ui,
 		Mouse,
 		End,
 	};

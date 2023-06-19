@@ -28,11 +28,14 @@ namespace ks
 		bool IsFreeItem() { return m_bFreeItem; }
 		bool IsItemUnlock() { return mItemUnlock; }
 		bool IsShopItem() { return m_bShopItem; }
+		bool IsSkilBook() { return m_bSkilBook; }
 
 		void SetTarget(Player* player) { mTarget = player; }
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
 		void SetPlayerItem(eItem item) { mPlayerItem = item; }		
 		void SetShopItem(bool shop) { m_bShopItem = shop; }
+		void SetSkilBook(bool book) { m_bSkilBook = book; }
+		void SetSkilSlot(bool slot) { m_bSkillSlot = slot; }
 		void SetWeaponSlot(bool slot) { mWeaponSlot = slot; }
 		void SetItemChange(bool change) { mItemChangeCheak = change; }
 		void SetItemUnlock(bool unlock) { mItemUnlock = unlock; }
@@ -79,11 +82,13 @@ namespace ks
 		bool					m_bFreeItem;
 		bool					m_BoxItem;
 		bool					m_BoxItemFixPos;
+		bool					m_bSkilBook;
+		bool					m_bSkillSlot;
 
 
 
-		bool		m_bStartCheak;
-		bool		m_bEndCheak;
+		bool					m_bStartCheak;
+		bool					m_bEndCheak;
 
 
 

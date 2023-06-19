@@ -19,6 +19,7 @@
 #include "ksBossLayout.h"
 #include "ksBossTpMeter.h"
 #include "ksAudioClip.h"
+#include "ksPlayerItem.h"
 
 
 using namespace ks::graphics;
@@ -490,6 +491,25 @@ namespace ks
 		//tr->SetPosition(Vec3(350.f, 0.0f, 1.0f));
 		//tr->SetScale(Vec3(0.7f, 0.7f, 2.0f));
 		//diary->Initalize();
+
+
+	}
+
+	void Stage1_1::createSkilBook(Vec3 pos)
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
+		Legendmp->SetName(L"Box_Item_Sword");
+		Legendmp->SetTarget((Player*)mTarget);
+	
+		Legendmp->SetPlayerItem(eItem::Ice);
+
+
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(Vec3(pos.x, pos.y, 0.0f));
+		mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
+
+		Legendmp->Initalize();
 
 
 	}

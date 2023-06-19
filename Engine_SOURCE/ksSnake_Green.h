@@ -28,12 +28,14 @@ namespace ks
 		void soundDeath();
 		void soundAttack1();
 		void soundAttack2();
+		void skillBookSound();
 
-
+		void skilBox();
 
 	private:
 
 		bool        m_bSoundDeathCheak;
+		bool        m_bSkillCheak;
 
 
 	};

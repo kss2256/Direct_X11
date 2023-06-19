@@ -356,6 +356,14 @@ namespace ks::renderer
 			, moneyuiShader->GetVSBlobBufferSize()
 			, moneyuiShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> skiluiShader = Resources::Find<Shader>(L"SkilUiShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, skiluiShader->GetVSBlobBufferPointer()
+			, skiluiShader->GetVSBlobBufferSize()
+			, skiluiShader->GetInputLayoutAddressOf());
+
+
+
 #pragma endregion
 		// Sampler State
 #pragma region sampler state
@@ -699,6 +707,13 @@ namespace ks::renderer
 
 		Resources::Insert<Shader>(L"MoneyUiShader", moneyuiShader);
 
+
+		std::shared_ptr<Shader> skiluiShader = std::make_shared<Shader>();
+		skiluiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		skiluiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"SkilUiShader", skiluiShader);
+
 		std::shared_ptr<Shader> meterShader = std::make_shared<Shader>();
 		meterShader->Create(eShaderStage::VS, L"MeterVS.hlsl", "main");
 		meterShader->Create(eShaderStage::PS, L"MeterPS.hlsl", "main");
@@ -997,6 +1012,14 @@ namespace ks::renderer
 		moneyMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		moneyMaterial->SetShader(moneyShader);
 		Resources::Insert<Material>(L"MoneyUiMaterial", moneyMaterial);
+
+
+		std::shared_ptr<Shader> skilShader = Resources::Find<Shader>(L"SkilUiShader");
+		std::shared_ptr<Material> skilMaterial = std::make_shared<Material>();
+		skilMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		skilMaterial->SetShader(skilShader);
+		Resources::Insert<Material>(L"SkilUiMaterial", skilMaterial);
+
 
 		std::shared_ptr<Shader> meterShader = Resources::Find<Shader>(L"MeterShader");
 		std::shared_ptr<Material> meterMaterial = std::make_shared<Material>();

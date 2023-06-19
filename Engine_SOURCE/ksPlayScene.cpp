@@ -47,6 +47,8 @@
 #include "ksAudioClip.h"
 #include "ksAudioListener.h"
 #include "ksGoldBox.h"
+#include "ksSkilUi.h"
+
 
 #include "ksMonsterMissile.h"
 
@@ -109,11 +111,21 @@ namespace ks
 			mPlayer->AddComponent<Status>();
 			mPlayer->AddComponent<PlayerScript>();
 			mPlayer->SetGroundStage(eGroundStage::Start);
-			cameraComp->SetTarget(mPlayer);
-			
-			
+			cameraComp->SetTarget(mPlayer);		
 
 		}
+
+		{
+			SkilUi *sloat = object::Instantiate<SkilUi>(eLayerType::UI);
+			sloat->SetName(L"SkilUi");
+			sloat->SetTarget(mPlayer);
+			mPlayer->SetSkilUiTarget(sloat);
+
+			Transform* tr = sloat->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-0.1f, -3.32f, 0.0f));
+			tr->SetScale(Vector3(7.5f, 7.5f, 1.0f));
+		}
+
 
 
 		{
@@ -271,6 +283,7 @@ namespace ks
 			Shop_Ui* shop = object::Instantiate<Shop_Ui>(eLayerType::Shop_UI);
 			shop->SetName(L"MoneyUi");
 			shop->SetTarget(mPlayer);
+
 
 			Transform* tr = shop->GetComponent<Transform>();
 			tr->SetPosition(Vector3(105.0f, 1.5f, 0.0f));			
@@ -459,6 +472,7 @@ namespace ks
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::UI, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Shop_Item, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Skil_Ui, true);
 
 
 		Scene::Initalize();

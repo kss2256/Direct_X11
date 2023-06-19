@@ -29,6 +29,8 @@
 #include "ksAudioClip.h"
 #include "ksAudioListener.h"
 #include "ksGoldBox.h"
+#include "ksSkil_IceFairy.h"
+#include "ksSkilUi.h"
 
 
 #include <time.h>
@@ -535,12 +537,24 @@ namespace ks
 							}
 
 						}
-
+						
 					}
 
 				}
 				break;
-
+				case ks::eSkil::Magic:
+				{
+					m_fSkilTime += Time::DeltaTime();
+					if (m_fSkilTime > 0.5f)
+					{
+						mPlayerState.skil = eSkil::None;
+						mPlayer->SetPlayerInfo(mPlayerState);
+						mState.situation = eSituation::None;
+						mStatus->SetStateInfo(mState);						
+						m_fSkilTime = 0.f;
+					}
+				}
+				break;
 				}
 			}
 
@@ -1340,7 +1354,7 @@ namespace ks
 
 			if (Input::GetKeyDown(eKeyCode::SPACE))
 			{
-				if (mPlayerState.skil == eSkil::Evade)
+				if (mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
 					return;
 				if (!mPlayer->Usestamina(10.f, this))
 					return;
@@ -2122,31 +2136,34 @@ namespace ks
 			//½ºÅ³ Å°
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
+				if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
+					return;
+				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
+					return;
+				mState.situation = eSituation::Skil;
+				mStatus->SetStateInfo(mState);
+				mPlayerState.skil = eSkil::Magic;
+				mPlayer->SetPlayerInfo(mPlayerState);
+				directionAnimation(L"Attack_Staffcharge", false);			
+				
+				switch (mPlayer->GetSkilUiTarget()->GetActiveSkil())
+				{				
+				case ks::eItem::Dark:
+					break;
+				case ks::eItem::Ice:
+					skilIce();
+					break;
+				case ks::eItem::Barrier:
+					break;
+				case ks::eItem::Lighting:
+					break;			
+				}
 
 
-				//mPlayer->GetComponent<Camera>()->SetShock(true); //Ä«¸Þ¶ó ½¦ÀÌÅ© È¿°ú
-
-				//mAnimator->Play(L"Charge_Staff", false);
 
 
 
-				//directionAnimation(L"Attack_Dash", false);
-				//mAnimator->Play(L"Sit_Down1", false);
-
-
-
-				//mAnimator->Play(L"Move_Down", false);
-				//mAnimator->GetStartEvent(L"Evade_DownLeft") = std::bind(&PlayerScript::Start, this);
-				//mAnimator->GetEndEvent(L"Evade_DownLeft") = std::bind(&PlayerScript::End, this);
-				//mAnimator->GetEndEvent(L"Move_Down") = std::bind(&PlayerScript::End, this);
-
-				//mAnimator->GetEvent(L"Move_Down", 1) = std::bind(&PlayerScript::End, this);
-				//mAnimator->GetCompleteEvent(L"Idle") = std::bind(&PlayerScript::Action, this);
-				//mAnimator->GetEndEvent(L"Idle") = std::bind(&PlayerScript::End, this);
-				//mAnimator->GetEvent(L"Idle", 1) = std::bind(&PlayerScript::End, this);
-
-				//mState.situation = eSituation::None;
-				//mStatus->SetStateInfo(mState);
+				
 			}
 
 			//°È±â or ¶Ù±â
@@ -2187,15 +2204,7 @@ namespace ks
 				mPlayer->SetSlotChange(true);
 			}
 
-		
-		
 
-
-
-			if (Input::GetKeyDown(eKeyCode::RBTN))
-			{
-
-			}
 
 			if (Input::GetKeyDown(eKeyCode::I))
 			{
@@ -2681,6 +2690,24 @@ namespace ks
 		coinsound->Play(3.0f);
 	}
 
+	void PlayerScript::skilIce()
+	{
+		Skil_IceFairy* mAttack = object::Instantiate<Skil_IceFairy>(eLayerType::Player_Attack);
+
+		mAttack->SetTarget(mPlayer);
+		mAttack->GetComponent<Transform>()->SetPosition(Input::GetMousWorldPosition());
+		mAttack->GetComponent<Transform>()->SetScale(Vec3(18.0f, 18.0f, 0.0f));
+
+
+		Collider2D* collider = mAttack->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+		collider->SetSize(Vec2(0.43f, 0.43f));
+
+
+		mAttack->Initalize();
+
+	}
+
 
 	
 
@@ -2914,8 +2941,24 @@ namespace ks
 
 	
 				}
-				else
+				else if (item->IsSkilBook())
 				{
+					switch (item->GetPlayerItem())
+					{
+					case ks::eItem::Ice:
+					{
+						itemLootSound();
+						SkilUi* skil = mPlayer->GetSkilUiTarget();						
+						skil->CreateSkillbook(eItem::Ice);
+						item->Death();
+
+					}
+					break;
+					}
+				}
+
+				else
+				{		
 					itemLootSound();
 					Inventory* inventory = (Inventory*)mPlayer->GetInventoryTarget();
 					inventory->AddItem(item->GetPlayerItem());

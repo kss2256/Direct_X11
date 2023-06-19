@@ -22,6 +22,7 @@ namespace ks
 		None,
 		Attack,
 		Evade,
+		Magic,
 
 	};
 
@@ -60,6 +61,11 @@ namespace ks
 		Legend_Bow,
 		Hp,
 		MP,
+		Dark,
+		Ice,
+		Barrier,
+		Lighting,
+
 		End,
 	};
 
@@ -72,6 +78,7 @@ namespace ks
 		eProgress progress;
 	};
 
+	class SkilUi;
 	class PlayerItem;
 	class UIBase;
 	class PlayerScript;
@@ -97,9 +104,10 @@ namespace ks
 		float GetPlayerStr() { return mStr; }
 		float GetStamina() { return mStamina; }
 		UIBase* GetInventoryTarget() { return mInventory; }
-		
+		SkilUi* GetSkilUiTarget() { return mSkilUi; }
 
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
+		void SetSkilUiTarget(SkilUi* ui) { mSkilUi = ui; }
 		bool StaminaFull() { return mStaninaFull; }
 		bool Usestamina(float value, PlayerScript* script);
 		void RestoreStamina(float value) { mStamina = value; }
@@ -139,6 +147,7 @@ namespace ks
 
 		eGroundStage					mPlayerStage;
 		UIBase*							mInventory;
+		SkilUi*							mSkilUi;
 		PlayerItem*						mItemSlot_1;
 		PlayerItem*						mItemSlot_2;
 

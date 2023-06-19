@@ -56,57 +56,7 @@ namespace ks
 	void Player::Update()
 	{
 		
-		if (Input::GetKeyDown(eKeyCode::N_1))
-		{
-			if (mHp > 9.f)
-				return;
-			++mHp;
-		}
-		if (Input::GetKeyDown(eKeyCode::N_2))
-		{
-			if (mHp > 9.5f)
-				return;
-			mHp += 0.5f;
-		}
-		if (Input::GetKeyDown(eKeyCode::N_3))
-		{
-			if (mHp < 1)
-				return;
-			--mHp;
-		}
-		if (Input::GetKeyDown(eKeyCode::N_4))
-		{
-			if (mHp < 0.5)
-				return;
-			mHp -= 0.5f;
-		}
-
-		if (Input::GetKeyDown(eKeyCode::N_5))
-		{
-			if (mMp > mFullMp - 1.f)
-				return;
-			++mMp;
-		}	
-		if (Input::GetKeyDown(eKeyCode::N_6))
-		{
-			if (mMp < 1.f)
-				return;
-			--mMp;
-		}	
-
-		if (Input::GetKeyDown(eKeyCode::N_7))
-		{
-			if (mFullMp > 9.f)
-				return;
-			++mFullMp;
-		}
-		//마나통 줄이기는 사용 안할 예정
-		if (Input::GetKeyDown(eKeyCode::N_8))
-		{
-			if (mFullMp < 1.f)
-				return;
-			--mFullMp;
-		}
+	
 
 
 		if (Input::GetKeyDown(eKeyCode::NUM_1))
@@ -121,6 +71,13 @@ namespace ks
 				return;
 			--mPlayerCoin;
 		}
+		if (Input::GetKeyDown(eKeyCode::NUM_3))
+		{
+			if (mHp > 9.5f)
+				return;
+			mHp += 0.5f;
+		}
+
 
 		if (m_bHpRecoveryCheak)
 		{
