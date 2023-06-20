@@ -32,6 +32,7 @@
 #include "ksSkil_IceFairy.h"
 #include "ksSkilUi.h"
 #include "ksSkil_Dark.h"
+#include "ksSkil_Barrier.h"
 
 
 #include <time.h>
@@ -2158,10 +2159,11 @@ namespace ks
 					skilIce();
 					break;
 				case ks::eItem::Barrier:
+					skilBarrier();
 					break;
 				case ks::eItem::Lighting:
 					break;			
-				}				
+				}			
 
 				
 			}
@@ -2727,6 +2729,23 @@ namespace ks
 
 	}
 
+	void PlayerScript::skilBarrier()
+	{
+		Skil_Barrier* mAttack = object::Instantiate<Skil_Barrier>(eLayerType::Player_Attack);
+
+		mAttack->SetTarget(mPlayer);
+		mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
+		mAttack->GetComponent<Transform>()->SetScale(Vec3(12.0f, 12.0f, 0.0f));
+
+
+		Collider2D* collider = mAttack->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+		collider->SetSize(Vec2(0.35f, 0.35f));
+
+		mAttack->Initalize();
+
+	}
+
 
 	
 
@@ -2970,7 +2989,7 @@ namespace ks
 						SkilUi* skil = mPlayer->GetSkilUiTarget();						
 						skil->CreateSkillbook(eItem::Ice);
 						item->Death();
-
+						Stage1_1::KeyCount_Up();
 					}
 					break;
 					case ks::eItem::Dark:

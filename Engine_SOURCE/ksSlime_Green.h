@@ -33,13 +33,15 @@ namespace ks
         void skillBookSound();
 
         void DarkSkil();
+        void BarrierSkil();
 
     private:
 
         bool        m_bSoundCheak;
         bool        m_bSoundOneCheak;
         bool        m_bSoundDeathCheak;
-        bool        m_bSkillCheak;
+        bool        m_bDarkSkillCheak;
+        bool        m_bBarrierSkillCheak;
 
 
     };

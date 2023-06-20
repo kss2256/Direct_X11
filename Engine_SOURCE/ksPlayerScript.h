@@ -69,6 +69,7 @@ namespace ks
 		
 		void skilIce();
 		void skilDark();
+		void skilBarrier();
 
 	private:
 

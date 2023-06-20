@@ -327,7 +327,15 @@ namespace ks
 		case ks::enums::eGroundStage::Ground6:
 		{
 
-
+			if (mKeyCount == 1)
+			{				
+				mSlime->resurrection();
+				mSnake->resurrection();
+				mSnake_Two->resurrection();
+				mFairy->resurrection();
+				mKey = true;						
+				mKeyCount = 0;
+			}
 
 			//아이템 먹으면 트루!
 			if (!mKeyCheak)

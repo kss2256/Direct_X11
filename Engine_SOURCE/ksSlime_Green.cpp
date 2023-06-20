@@ -96,11 +96,21 @@ namespace ks
 
 				if (mPlayer->GetGroundStage() == eGroundStage::Ground2 && GetName() == L"Slime_Green2")
 				{
-					if (!m_bSkillCheak)
+					if (!m_bDarkSkillCheak)
 					{
 						skillBookSound();
 						DarkSkil();
-						m_bSkillCheak = true;
+						m_bDarkSkillCheak = true;
+					}
+				}
+
+				else if(mPlayer->GetGroundStage() == eGroundStage::Ground4 && GetName() == L"Slime_Green")
+				{
+					if (!m_bBarrierSkillCheak)
+					{
+						skillBookSound();
+						BarrierSkil();
+						m_bBarrierSkillCheak = true;
 					}
 				}
 
@@ -578,6 +588,26 @@ namespace ks
 		Legendmp->SetTarget(mPlayer);
 
 		Legendmp->SetPlayerItem(eItem::Dark);
+		Legendmp->SetSkilBook(true);
+
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(mTransform->GetPosition());
+		mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
+
+		Legendmp->Initalize();
+	}
+
+	void Slime_Green::BarrierSkil()
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
+		Legendmp->SetName(L"Barrier_Skil");
+		Legendmp->SetTarget(mPlayer);
+
+		Legendmp->SetPlayerItem(eItem::Barrier);
 		Legendmp->SetSkilBook(true);
 
 		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();

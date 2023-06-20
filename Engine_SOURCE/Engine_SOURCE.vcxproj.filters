@@ -458,6 +458,9 @@
     <ClCompile Include="ksSkilScript.cpp">
       <Filter>GameObject\Skil</Filter>
     </ClCompile>
+    <ClCompile Include="ksSkil_Barrier.cpp">
+      <Filter>GameObject\Skil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -763,6 +766,9 @@
       <Filter>GameObject\Skil</Filter>
     </ClInclude>
     <ClInclude Include="ksSkilScript.h">
+      <Filter>GameObject\Skil</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSkil_Barrier.h">
       <Filter>GameObject\Skil</Filter>
     </ClInclude>
   </ItemGroup>

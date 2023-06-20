@@ -228,6 +228,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="ksSkilScript.h" />
     <ClInclude Include="ksSkilSlot.h" />
     <ClInclude Include="ksSkilUi.h" />
+    <ClInclude Include="ksSkil_Barrier.h" />
     <ClInclude Include="ksSkil_Dark.h" />
     <ClInclude Include="ksSkil_IceFairy.h" />
     <ClInclude Include="ksSlime_Green.h" />
@@ -331,6 +332,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="ksSkilScript.cpp" />
     <ClCompile Include="ksSkilSlot.cpp" />
     <ClCompile Include="ksSkilUi.cpp" />
+    <ClCompile Include="ksSkil_Barrier.cpp" />
     <ClCompile Include="ksSkil_Dark.cpp" />
     <ClCompile Include="ksSkil_IceFairy.cpp" />
     <ClCompile Include="ksSlime_Green.cpp" />

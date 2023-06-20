@@ -203,6 +203,24 @@ namespace ks
 
 		}
 
+
+		{
+			PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
+			Legendmp->SetName(L"Ice_Skil");
+			Legendmp->SetTarget(mPlayer);
+
+			Legendmp->SetPlayerItem(eItem::Ice);
+			Legendmp->SetSkilBook(true);
+
+			Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+			mpcollider->SetType(eColliderType::Rect);
+			mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+			Transform* mptr = Legendmp->GetComponent<Transform>();
+			mptr->SetPosition(Vector3(210.0f, 4.0f, 2.0f));
+			mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
+		}
+
 		{
 			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);
 			weapon->SetName(L"Weapon_Sword");
@@ -475,6 +493,7 @@ namespace ks
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::UI, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Shop_Item, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Skil_Ui, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster_Attack, eLayerType::Player_Attack, true);
 
 
 		Scene::Initalize();
@@ -501,15 +520,16 @@ namespace ks
 
 	void PlayScene::FixedUpdate()
 	{
+
 		Scene::FixedUpdate();
 	}
 
 	void PlayScene::Render()
 	{
-
 		//{
-		//	FontWrapper::DrawFont(L"Tkkkk", 350.f, 0.0f, 20.0f, FONT_RGBA(255, 0, 0,125));
+		//	FontWrapper::DrawFont(L"Tkkkk", 350.f, 0.0f, 200.0f, FONT_RGBA(255, 0, 0, 2));
 		//}
+		
 		Scene::Render();
 	}
 

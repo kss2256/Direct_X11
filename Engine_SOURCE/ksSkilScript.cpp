@@ -1,11 +1,14 @@
 #include "ksSkilScript.h"
 #include "ksSkil_Dark.h"
+#include "ksSkil_Barrier.h"
 #include "ksSnake_Green.h"
 #include "ksSlime_Green.h"
 #include "ksForest_Fairy.h"
 #include "ksTime.h"
 #include "ksBoss_Ent.h"
 #include "ksBoss_Flime.h"
+#include "ksMonsterMissile.h"
+#include "ksFlime_Missile.h"
 #include "ksAudioClip.h"
 
 namespace ks
@@ -165,10 +168,43 @@ namespace ks
 
 	void SkilScript::OnCollisionStay(Collider2D* collider)
 	{
+		if (dynamic_cast<MonsterMissile*>(collider->GetOwner()))
+		{
+			switch (m_eSkil)
+			{
+			case ks::eItem::Barrier:
+			{
+				Skil_Barrier* skil = (Skil_Barrier*)mSkilOwner;
+				MonsterMissile* monmissile = (MonsterMissile*)collider->GetOwner();
+				if (skil->IsBarrier())
+				{
+					monmissile->Death();
+				}
+			}
+			break;
+			}
+		}
+		if (dynamic_cast<Flime_Missile*>(collider->GetOwner()))
+		{
+			switch (m_eSkil)
+			{
+			case ks::eItem::Barrier:
+			{
+				Skil_Barrier* skil = (Skil_Barrier*)mSkilOwner;
+				Flime_Missile* monmissile = (Flime_Missile*)collider->GetOwner();
+				if (skil->IsBarrier())
+				{
+					monmissile->Death();
+				}
+			}
+			break;
+			}
+		}
+
+
 		if (dynamic_cast<Forest_Fairy*>(collider->GetOwner()))
 		{
 			switch (m_eSkil)
-
 			{
 			case ks::eItem::Dark:
 			{
@@ -206,8 +242,7 @@ namespace ks
 					fairy->SetMonsterHp(25);				
 				}
 			}
-			break;
-
+			break;			
 			}
 		}
 
