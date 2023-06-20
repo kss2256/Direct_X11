@@ -4,6 +4,7 @@
 
 namespace ks
 {
+    class SkilScript;
     class Skil_IceFairy :
         public CSkil
     {
@@ -22,10 +23,15 @@ namespace ks
     private:
        void loadAnimation();
 
+       void loadSound();
+
+       void iceStartSound();
+
 
     private:
 
 
+        SkilScript*     m_pSkilScript;
 
 
     };

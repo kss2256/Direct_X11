@@ -30,15 +30,16 @@ namespace ks
         void soundtripleAttack();
         void soundMultipleJump();
         void soundMultipleAttack();
+        void skillBookSound();
 
-
+        void DarkSkil();
 
     private:
 
         bool        m_bSoundCheak;
         bool        m_bSoundOneCheak;
         bool        m_bSoundDeathCheak;
-     
+        bool        m_bSkillCheak;
 
 
     };

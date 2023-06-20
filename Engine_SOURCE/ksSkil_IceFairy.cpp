@@ -1,5 +1,6 @@
 #include "ksSkil_IceFairy.h"
 #include "ksSkilScript.h"
+#include "ksAudioClip.h"
 
 namespace ks
 {
@@ -8,12 +9,14 @@ namespace ks
 	{
 		mTransform = GetComponent<Transform>();
 		mAnimator = AddComponent<Animator>();
-		AddComponent<SkilScript>()->SetSkil(eItem::Ice);
-		GetComponent<SkilScript>()->SetSkilPos(mTransform->GetPosition());
-		GetComponent<SkilScript>()->SetSkilOwner(this);
+
+		m_pSkilScript = AddComponent<SkilScript>();
+		m_pSkilScript->SetSkil(eItem::Ice);
+
+		m_pSkilScript->SetSkilOwner(this);
 
 		loadAnimation();
-
+		loadSound();
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 
@@ -36,6 +39,8 @@ namespace ks
 		if (mTarget != nullptr)
 		{
 			mAnimator->Play(L"Ice_Start", false);
+			iceStartSound();
+
 
 			m_bSkilStart = true;
 		}
@@ -120,6 +125,21 @@ namespace ks
 		mNumbers.clear();
 
 
+	}
+
+	void Skil_IceFairy::loadSound()
+	{
+		std::shared_ptr<AudioClip> Ice_Spear = Resources::Load<AudioClip>
+			(L"Ice_Spear", L"D:\\50\\Resources\\Sound\\Ice_Spear.ogg");
+
+	}
+
+	void Skil_IceFairy::iceStartSound()
+	{
+
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Ice_Spear");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 }

@@ -17,6 +17,7 @@ namespace ks
 		, mBossHit(false)
 		, mOnceCheak(false)
 		, m_bCoin(false)
+		, m_bWalkStop(false)
 	{
 	}
 	Monster::~Monster()

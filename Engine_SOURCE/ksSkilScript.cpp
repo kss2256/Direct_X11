@@ -65,7 +65,7 @@ namespace ks
 				{
 					Vec3 pos = fairy->GetComponent<Transform>()->GetPosition();
 
-					pos += m_vNomal * 3.0f * Time::DeltaTime();
+					pos += m_vNomal * 0.5f * Time::DeltaTime();
 
 					fairy->GetComponent<Transform>()->SetPosition(pos);
 				}
@@ -73,7 +73,7 @@ namespace ks
 				if (m_bDarkAttackFinsh)
 				{
 					fairy->SetMonsterHp(25);					
-					
+					fairy->SetIdleAnimation();
 				}
 
 			}
@@ -105,31 +105,35 @@ namespace ks
 			{
 				Skil_Dark* skil = (Skil_Dark*)mSkilOwner;
 				Slime_Green* slime = (Slime_Green*)collider->GetOwner();
-				if (skil->IsVoidAttack())
-				{			
-					slime->SetWalkStop(true);
-					m_bDarkVoid = true;									
-					m_vTargetPos = slime->GetComponent<Transform>()->GetPosition();
-					m_vPos = mSkilOwner->GetComponent<Transform>()->GetPosition();
-					m_vNomal = m_vPos - m_vTargetPos;
-
-					m_vNomal.Normalize();
-				}
-				
-
-				if (m_bDarkVoid)
+				if(!m_bNomalOneCheak)
 				{
-					Vec3 pos = slime->GetComponent<Transform>()->GetPosition();
+					if (skil->IsVoidAttack())
+					{
 
-					pos += m_vNomal * 3.0f * Time::DeltaTime();
+						slime->SetWalkStop(true);
+						m_bDarkVoid = true;
+						m_vTargetPos = slime->GetComponent<Transform>()->GetPosition();
+						m_vPos = mSkilOwner->GetComponent<Transform>()->GetPosition();
+						m_vNomal = m_vPos - m_vTargetPos;
 
-					slime->GetComponent<Transform>()->SetPosition(pos);
-				}
-				if (m_bDarkAttackFinsh)
-				{
-					slime->SetMonsterHp(25);	
-					slime->SetIdleAnimation();
-					
+						m_vNomal.Normalize();
+					}
+
+
+					if (m_bDarkVoid)
+					{
+						Vec3 pos = slime->GetComponent<Transform>()->GetPosition();
+
+						pos += m_vNomal * 0.5f * Time::DeltaTime();
+
+						slime->GetComponent<Transform>()->SetPosition(pos);
+					}
+					if (m_bDarkAttackFinsh)
+					{
+						slime->SetMonsterHp(25);
+						slime->SetIdleAnimation();
+						m_bNomalOneCheak = true;
+					}
 				}
 			}
 			break;
@@ -176,7 +180,7 @@ namespace ks
 				{
 					Vec3 pos = snake->GetComponent<Transform>()->GetPosition();
 
-					pos += m_vNomal * 3.0f * Time::DeltaTime();
+					pos += m_vNomal * 0.5f * Time::DeltaTime();
 
 					snake->GetComponent<Transform>()->SetPosition(pos);
 				}
@@ -184,7 +188,7 @@ namespace ks
 				if (m_bDarkAttackFinsh)
 				{
 					snake->SetMonsterHp(25);					
-					
+					snake->SetIdleAnimation();
 				}
 
 			}

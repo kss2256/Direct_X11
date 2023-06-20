@@ -2137,7 +2137,7 @@ namespace ks
 			//½ºÅ³ Å°
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
-			/*	if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
+				if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
 					return;
 				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
 					return;
@@ -2161,11 +2161,7 @@ namespace ks
 					break;
 				case ks::eItem::Lighting:
 					break;			
-				}*/
-
-
-
-				skilDark();
+				}				
 
 				
 			}
@@ -2973,6 +2969,33 @@ namespace ks
 						itemLootSound();
 						SkilUi* skil = mPlayer->GetSkilUiTarget();						
 						skil->CreateSkillbook(eItem::Ice);
+						item->Death();
+
+					}
+					break;
+					case ks::eItem::Dark:
+					{
+						itemLootSound();
+						SkilUi* skil = mPlayer->GetSkilUiTarget();
+						skil->CreateSkillbook(eItem::Dark);
+						item->Death();
+
+					}
+					break;
+					case ks::eItem::Barrier:
+					{
+						itemLootSound();
+						SkilUi* skil = mPlayer->GetSkilUiTarget();
+						skil->CreateSkillbook(eItem::Barrier);
+						item->Death();
+
+					}
+					break;
+					case ks::eItem::Lighting:
+					{
+						itemLootSound();
+						SkilUi* skil = mPlayer->GetSkilUiTarget();
+						skil->CreateSkillbook(eItem::Lighting);
 						item->Death();
 
 					}

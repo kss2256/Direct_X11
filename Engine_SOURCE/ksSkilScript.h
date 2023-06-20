@@ -58,6 +58,7 @@ namespace ks
 
 		bool					m_bDarkVoid;		
 		bool					m_bDarkAttackFinsh;
+		bool					m_bNomalOneCheak;
 
 
     };

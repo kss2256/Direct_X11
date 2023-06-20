@@ -11,6 +11,7 @@
 #include "ksMonsterMissile.h"
 #include "ksStage1_1.h"
 #include "ksAudioClip.h"
+#include "ksPlayerItem.h"
 
 #include "ksInput.h"
 
@@ -89,15 +90,26 @@ namespace ks
 				if(!m_bSoundDeathCheak)
 				{
 					soundDeath();
+					
 					m_bSoundDeathCheak = true;
 				}
 
+				if (mPlayer->GetGroundStage() == eGroundStage::Ground2 && GetName() == L"Slime_Green2")
+				{
+					if (!m_bSkillCheak)
+					{
+						skillBookSound();
+						DarkSkil();
+						m_bSkillCheak = true;
+					}
+				}
+
+				else				
 				createCoin(mTransform->GetPosition());
 
 				if (mTime >= 1.0f)
 				{
-					//this->Death();
-					
+					//this->Death();					
 					mTransform->SetPosition(Vec3(0.0f, 20.0f, 1.0f));
 					mDetection = false;
 					m_bWalkStop = false;
@@ -447,6 +459,8 @@ namespace ks
 		std::shared_ptr<AudioClip> slime_jump_Attack = Resources::Load<AudioClip>
 			(L"slime_jump_Attack", L"D:\\50\\Resources\\Sound\\slime_jump_Attack.ogg");
 
+		std::shared_ptr<AudioClip> skil_Book = Resources::Load<AudioClip>
+			(L"Skil_Create", L"D:\\50\\Resources\\Sound\\Skil_Create.ogg");
 	}
 
 	void Slime_Green::tripleAttack()
@@ -547,6 +561,33 @@ namespace ks
 		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"slime_jump_Attack");
 		sound->SetLoop(false);
 		sound->Play(3.0f);
+	}
+
+	void Slime_Green::skillBookSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Skil_Create");
+		sound->SetLoop(false);
+		sound->Play();
+	}
+
+	void Slime_Green::DarkSkil()
+	{
+		PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
+		Legendmp->SetName(L"Dark_Skil");
+		Legendmp->SetTarget(mPlayer);
+
+		Legendmp->SetPlayerItem(eItem::Dark);
+		Legendmp->SetSkilBook(true);
+
+		Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+		mpcollider->SetType(eColliderType::Rect);
+		mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+		Transform* mptr = Legendmp->GetComponent<Transform>();
+		mptr->SetPosition(mTransform->GetPosition());
+		mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
+
+		Legendmp->Initalize();
 	}
 
 	void Slime_Green::resurrection()
