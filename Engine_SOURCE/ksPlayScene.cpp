@@ -52,7 +52,7 @@
 
 #include "ksMonsterMissile.h"
 
-
+#define FONT_RGBA(r, g, b, a) (((((BYTE)a << 24 ) | (BYTE)b << 16) | (BYTE)g << 8) | (BYTE)r)
 
 namespace ks
 {
@@ -159,7 +159,9 @@ namespace ks
 			tr->SetPosition(Vector3(8.3f, -4.1f, 0.0f));
 			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 		}
-
+		//{
+		//	FontWrapper::DrawFont(L"Tkkkk", 0.f, 0.0f, 20.0f, FONT_RGBA(255, 0, 0,125));
+		//}
 
 
 
@@ -504,6 +506,10 @@ namespace ks
 
 	void PlayScene::Render()
 	{
+
+		//{
+		//	FontWrapper::DrawFont(L"Tkkkk", 350.f, 0.0f, 20.0f, FONT_RGBA(255, 0, 0,125));
+		//}
 		Scene::Render();
 	}
 

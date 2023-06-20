@@ -257,13 +257,13 @@ namespace ks
 	void GoldBox::loadSound()
 	{
 		std::shared_ptr<AudioClip> Box_Open = Resources::Load<AudioClip>
-			(L"Box_Open", L"D:\\50\\Resources\\Sound\\Box_Open.ogg");
+			(L"Box_Open", L"..\\Resources\\Sound\\Box_Open.ogg");
 
 		std::shared_ptr<AudioClip> Platinum_Box = Resources::Load<AudioClip>
-			(L"Platinum_Box", L"D:\\50\\Resources\\Sound\\Platinum_Box.ogg");
+			(L"Platinum_Box", L"..\\Resources\\Sound\\Platinum_Box.ogg");
 
 		std::shared_ptr<AudioClip> Gold_Box = Resources::Load<AudioClip>
-			(L"Gold_Box", L"D:\\50\\Resources\\Sound\\Gold_Box.ogg");
+			(L"Gold_Box", L"..\\Resources\\Sound\\Gold_Box.ogg");
 	}
 
 	void GoldBox::boxOpenSound()

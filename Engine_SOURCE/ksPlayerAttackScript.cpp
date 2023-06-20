@@ -184,10 +184,10 @@ namespace ks
 	{
 
 		std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-			(L"None_Attack_Hit", L"D:\\50\\Resources\\Sound\\None_Attack_Hit.ogg");
+			(L"None_Attack_Hit", L"..\\Resources\\Sound\\None_Attack_Hit.ogg");
 
 		std::shared_ptr<AudioClip> coinsound = Resources::Load<AudioClip>
-			(L"Bow_Attack_Hit", L"D:\\50\\Resources\\Sound\\Bow_Attack_Hit.ogg");	
+			(L"Bow_Attack_Hit", L"..\\Resources\\Sound\\Bow_Attack_Hit.ogg");
 
 
 	}

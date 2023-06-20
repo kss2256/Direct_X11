@@ -279,7 +279,8 @@ namespace ks
 
 				if (mStateInfo.situation == eSituation::Hit)
 				{
-					hit(0.1f, 0.2f, 50.f);
+					//hit(0.1f, 0.2f, 50.f);
+					hit(0.1f, 0.01f, 25.f);
 					directionAnimation(L"Idle", true);
 				}
 				if (mStateInfo.situation == eSituation::Skil_Hit)
@@ -448,19 +449,19 @@ namespace ks
 	{
 
 		std::shared_ptr<AudioClip> slime_death = Resources::Load<AudioClip>
-			(L"slime_death", L"D:\\50\\Resources\\Sound\\slime_death.ogg");
+			(L"slime_death", L"..\\Resources\\Sound\\slime_death.ogg");
 
 		std::shared_ptr<AudioClip> slime_Triple_Attack = Resources::Load<AudioClip>
-			(L"slime_Triple_Attack", L"D:\\50\\Resources\\Sound\\slime_Triple_Attack.ogg");
+			(L"slime_Triple_Attack", L"..\\Resources\\Sound\\slime_Triple_Attack.ogg");
 
 		std::shared_ptr<AudioClip> slime_jump = Resources::Load<AudioClip>
-			(L"slime_jump", L"D:\\50\\Resources\\Sound\\slime_jump.ogg");
+			(L"slime_jump", L"..\\Resources\\Sound\\slime_jump.ogg");
 
 		std::shared_ptr<AudioClip> slime_jump_Attack = Resources::Load<AudioClip>
-			(L"slime_jump_Attack", L"D:\\50\\Resources\\Sound\\slime_jump_Attack.ogg");
+			(L"slime_jump_Attack", L"..\\Resources\\Sound\\slime_jump_Attack.ogg");
 
 		std::shared_ptr<AudioClip> skil_Book = Resources::Load<AudioClip>
-			(L"Skil_Create", L"D:\\50\\Resources\\Sound\\Skil_Create.ogg");
+			(L"Skil_Create", L"..\\Resources\\Sound\\Skil_Create.ogg");
 	}
 
 	void Slime_Green::tripleAttack()

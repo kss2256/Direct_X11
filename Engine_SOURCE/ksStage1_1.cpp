@@ -791,22 +791,22 @@ namespace ks
 	void Stage1_1::loadSound()
 	{
 		std::shared_ptr<AudioClip> sound = Resources::Load<AudioClip>
-			(L"Stage_1", L"D:\\50\\Resources\\Sound\\Stage_1.ogg");
+			(L"Stage_1", L"..\\Resources\\Sound\\Stage_1.ogg");
 
 		std::shared_ptr<AudioClip> flimebattle = Resources::Load<AudioClip>
-			(L"Boss_Flime_Battle", L"D:\\50\\Resources\\Sound\\Boss_Flime_Battle.ogg");
+			(L"Boss_Flime_Battle", L"..\\Resources\\Sound\\Boss_Flime_Battle.ogg");
 
 		std::shared_ptr<AudioClip> entbattle = Resources::Load<AudioClip>
-			(L"Boss_Ent_Battle", L"D:\\50\\Resources\\Sound\\Boss_Ent_Battle.ogg");
+			(L"Boss_Ent_Battle", L"..\\Resources\\Sound\\Boss_Ent_Battle.ogg");
 
 		std::shared_ptr<AudioClip> entStart1 = Resources::Load<AudioClip>
-			(L"Ent_Start1", L"D:\\50\\Resources\\Sound\\Ent_Start1.ogg");
+			(L"Ent_Start1", L"..\\Resources\\Sound\\Ent_Start1.ogg");
 
 		std::shared_ptr<AudioClip> entStart2 = Resources::Load<AudioClip>
-			(L"Ent_Start2", L"D:\\50\\Resources\\Sound\\Ent_Start2.ogg");
+			(L"Ent_Start2", L"..\\Resources\\Sound\\Ent_Start2.ogg");
 
 		std::shared_ptr<AudioClip> entStart3 = Resources::Load<AudioClip>
-			(L"Ent_Start3", L"D:\\50\\Resources\\Sound\\Ent_Attack_Earthquake.ogg");
+			(L"Ent_Start3", L"..\\Resources\\Sound\\Ent_Attack_Earthquake.ogg");
 
 	}
 

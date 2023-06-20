@@ -210,16 +210,16 @@ namespace ks
 	void Skil_Dark::loadSound()
 	{
 		std::shared_ptr<AudioClip> Dark_Void = Resources::Load<AudioClip>
-			(L"Dark_Void", L"D:\\50\\Resources\\Sound\\Dark_Void.ogg");
+			(L"Dark_Void", L"..\\Resources\\Sound\\Dark_Void.ogg");
 
 		std::shared_ptr<AudioClip> Dark_Attack = Resources::Load<AudioClip>
-			(L"Dark_Attack", L"D:\\50\\Resources\\Sound\\Dark_Attack.ogg");
+			(L"Dark_Attack", L"..\\Resources\\Sound\\Dark_Attack.ogg");
 
 		std::shared_ptr<AudioClip> Dark_End = Resources::Load<AudioClip>
-			(L"Dark_End", L"D:\\50\\Resources\\Sound\\Dark_End.ogg");
+			(L"Dark_End", L"..\\Resources\\Sound\\Dark_End.ogg");
 
 		std::shared_ptr<AudioClip> Dark_Start = Resources::Load<AudioClip>
-			(L"Dark_Start", L"D:\\50\\Resources\\Sound\\Dark_Start.ogg");
+			(L"Dark_Start", L"..\\Resources\\Sound\\Dark_Start.ogg");
 
 	}
 

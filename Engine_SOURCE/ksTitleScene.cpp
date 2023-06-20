@@ -181,7 +181,7 @@ namespace ks
 		if(!m_BgmSound)
 		{
 			std::shared_ptr<AudioClip> titlesound = Resources::Load<AudioClip>
-				(L"TiTle", L"D:\\50\\Resources\\Sound\\TiTle.ogg");
+				(L"TiTle", L"..\\Resources\\Sound\\TiTle.ogg");
 			titlesound->SetLoop(false);
 			titlesound->Play();
 			m_BgmSound = true;	

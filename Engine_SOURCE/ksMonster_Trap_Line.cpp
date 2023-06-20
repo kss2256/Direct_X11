@@ -330,7 +330,7 @@ namespace ks
 	void Monster_Trap_Line::loadSound()
 	{
 		std::shared_ptr<AudioClip> Flime_TrapAttack = Resources::Load<AudioClip>
-			(L"Flime_Attack_Trap", L"D:\\50\\Resources\\Sound\\Flime_Attack_Trap.ogg");
+			(L"Flime_Attack_Trap", L"..\\Resources\\Sound\\Flime_Attack_Trap.ogg");
 
 	}
 

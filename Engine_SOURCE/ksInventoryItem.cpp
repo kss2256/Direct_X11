@@ -377,19 +377,19 @@ namespace ks
 	void InventoryItem::loadSound()
 	{
 		std::shared_ptr<AudioClip> Bow_Item_Slot = Resources::Load<AudioClip>
-			(L"Bow_Item_Slot", L"D:\\50\\Resources\\Sound\\Bow_Item_Slot.ogg");
+			(L"Bow_Item_Slot", L"..\\Resources\\Sound\\Bow_Item_Slot.ogg");
 
 		std::shared_ptr<AudioClip> Staff_Item_Slot = Resources::Load<AudioClip>
-			(L"Staff_Item_Slot", L"D:\\50\\Resources\\Sound\\Staff_Item_Slot.ogg");
+			(L"Staff_Item_Slot", L"..\\Resources\\Sound\\Staff_Item_Slot.ogg");
 
 		std::shared_ptr<AudioClip> Sword_Item_Slot = Resources::Load<AudioClip>
-			(L"Sword_Item_Slot", L"D:\\50\\Resources\\Sound\\Sword_Item_Slot.ogg");
+			(L"Sword_Item_Slot", L"..\\Resources\\Sound\\Sword_Item_Slot.ogg");
 
 		std::shared_ptr<AudioClip> Potion_Item_Slot = Resources::Load<AudioClip>
-			(L"Hp_Potion", L"D:\\50\\Resources\\Sound\\Hp_Potion.ogg");
+			(L"Hp_Potion", L"..\\Resources\\Sound\\Hp_Potion.ogg");
 
 		std::shared_ptr<AudioClip> Recovery_Item_Slot = Resources::Load<AudioClip>
-			(L"Hp_Recovery", L"D:\\50\\Resources\\Sound\\Hp_Recovery.ogg");
+			(L"Hp_Recovery", L"..\\Resources\\Sound\\Hp_Recovery.ogg");
 
 
 	}

@@ -130,7 +130,7 @@ namespace ks
 	void Skil_IceFairy::loadSound()
 	{
 		std::shared_ptr<AudioClip> Ice_Spear = Resources::Load<AudioClip>
-			(L"Ice_Spear", L"D:\\50\\Resources\\Sound\\Ice_Spear.ogg");
+			(L"Ice_Spear", L"..\\Resources\\Sound\\Ice_Spear.ogg");
 
 	}
 

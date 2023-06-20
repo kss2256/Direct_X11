@@ -264,7 +264,8 @@ namespace ks
 
 				if (mStateInfo.situation == eSituation::Hit)
 				{
-					hit(0.1f, 0.2f, 50.f);
+					//hit(0.1f, 0.2f, 50.f);
+					hit(0.1f, 0.01f, 25.f);
 					directionAnimation(L"Idle", true);
 
 				}
@@ -481,16 +482,16 @@ namespace ks
 	{
 
 		std::shared_ptr<AudioClip> Snake_death = Resources::Load<AudioClip>
-			(L"Snake_death", L"D:\\50\\Resources\\Sound\\Snake_death.ogg");
+			(L"Snake_death", L"..\\Resources\\Sound\\Snake_death.ogg");
 
 		std::shared_ptr<AudioClip> Snake_Attack1 = Resources::Load<AudioClip>
-			(L"Snake_Attack1", L"D:\\50\\Resources\\Sound\\Snake_Attack1.ogg");
+			(L"Snake_Attack1", L"..\\Resources\\Sound\\Snake_Attack1.ogg");
 
 		std::shared_ptr<AudioClip> Snake_Attack2 = Resources::Load<AudioClip>
-			(L"Snake_Attack2", L"D:\\50\\Resources\\Sound\\Snake_Attack2.ogg");
+			(L"Snake_Attack2", L"..\\Resources\\Sound\\Snake_Attack2.ogg");
 
 		std::shared_ptr<AudioClip> skil_Book = Resources::Load<AudioClip>
-			(L"Skil_Create", L"D:\\50\\Resources\\Sound\\Skil_Create.ogg");
+			(L"Skil_Create", L"..\\Resources\\Sound\\Skil_Create.ogg");
 
 		
 

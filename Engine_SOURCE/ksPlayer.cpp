@@ -451,10 +451,10 @@ namespace ks
 	void Player::loadSound()
 	{
 		std::shared_ptr<AudioClip> Recovery_Item_Slot = Resources::Load<AudioClip>
-			(L"Hp_Recovery", L"D:\\50\\Resources\\Sound\\Hp_Recovery.ogg");
+			(L"Hp_Recovery", L"..\\Resources\\Sound\\Hp_Recovery.ogg");
 
 		std::shared_ptr<AudioClip> Potion_Item_Slot = Resources::Load<AudioClip>
-			(L"Hp_Potion", L"D:\\50\\Resources\\Sound\\Hp_Potion.ogg");
+			(L"Hp_Potion", L"..\\Resources\\Sound\\Hp_Potion.ogg");
 
 	}
 

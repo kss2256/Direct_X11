@@ -2623,31 +2623,31 @@ namespace ks
 	void PlayerScript::loadSound()
 	{
 		std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-			(L"Wood_run_01", L"D:\\50\\Resources\\Sound\\Wood_run_01.ogg");
+			(L"Wood_run_01", L"..\\Resources\\Sound\\Wood_run_01.ogg");
 
 		std::shared_ptr<AudioClip> sound = Resources::Load<AudioClip>
-			(L"Attack_Sound", L"D:\\50\\Resources\\Sound\\Attack_Sound.ogg");		
+			(L"Attack_Sound", L"..\\Resources\\Sound\\Attack_Sound.ogg");
 
 		std::shared_ptr<AudioClip> coinsound = Resources::Load<AudioClip>
-			(L"Coin", L"D:\\50\\Resources\\Sound\\Coin.ogg");
+			(L"Coin", L"..\\Resources\\Sound\\Coin.ogg");
 
 		std::shared_ptr<AudioClip> inventorysound = Resources::Load<AudioClip>
-			(L"Inventory", L"D:\\50\\Resources\\Sound\\Inventory.ogg");
+			(L"Inventory", L"..\\Resources\\Sound\\Inventory.ogg");
 
 		std::shared_ptr<AudioClip> Itemsound = Resources::Load<AudioClip>
-			(L"Item", L"D:\\50\\Resources\\Sound\\Item.ogg");
+			(L"Item", L"..\\Resources\\Sound\\Item.ogg");
 
 		std::shared_ptr<AudioClip> Shopbuysound = Resources::Load<AudioClip>
-			(L"Shop_buy", L"D:\\50\\Resources\\Sound\\Shop_buy.ogg");
+			(L"Shop_buy", L"..\\Resources\\Sound\\Shop_buy.ogg");
 
 		std::shared_ptr<AudioClip> Failed = Resources::Load<AudioClip>
-			(L"Failed", L"D:\\50\\Resources\\Sound\\Failed.ogg");
+			(L"Failed", L"..\\Resources\\Sound\\Failed.ogg");
 
 		std::shared_ptr<AudioClip> Staff_Charge_Finish = Resources::Load<AudioClip>
-			(L"Staff_Charge_Finish", L"D:\\50\\Resources\\Sound\\Staff_Charge_Finish.ogg");
+			(L"Staff_Charge_Finish", L"..\\Resources\\Sound\\Staff_Charge_Finish.ogg");
 
 		std::shared_ptr<AudioClip> Staff_Chrage = Resources::Load<AudioClip>
-			(L"Staff_Chrage", L"D:\\50\\Resources\\Sound\\Staff_Chrage.ogg");
+			(L"Staff_Chrage", L"..\\Resources\\Sound\\Staff_Chrage.ogg");
 
 
 	}
@@ -2840,7 +2840,7 @@ namespace ks
 				diary->SetTarget(mPlayer);
 
 				std::shared_ptr<AudioClip> booksound = Resources::Load<AudioClip>
-					(L"Book", L"D:\\50\\Resources\\Sound\\Book.ogg");
+					(L"Book", L"..\\Resources\\Sound\\Book.ogg");
 				booksound->SetLoop(false);
 				booksound->Play();
 

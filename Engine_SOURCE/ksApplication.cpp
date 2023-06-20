@@ -56,12 +56,13 @@ namespace ks
 
 	void Application::Render()
 	{
-		Time::Render(mHdc);
+	
 
 		graphicDevice->Clear();
 		graphicDevice->AdjustViewPorts();
 
 		//SceneManager::Render();
+		Time::Render(mHdc);
 		renderer::Render();
 		CollisionManager::Render();
 		//graphicDevice->Render();

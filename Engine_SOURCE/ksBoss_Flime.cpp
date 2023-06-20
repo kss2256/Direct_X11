@@ -551,19 +551,19 @@ namespace ks
 	void Boss_Flime::loadSound()
 	{	
 		std::shared_ptr<AudioClip> Flime_TrapAttack = Resources::Load<AudioClip>
-			(L"Flime_Attack_Trap", L"D:\\50\\Resources\\Sound\\Flime_Attack_Trap.ogg");
+			(L"Flime_Attack_Trap", L"..\\Resources\\Sound\\Flime_Attack_Trap.ogg");		
 
 		std::shared_ptr<AudioClip> Flime_multipleAttack = Resources::Load<AudioClip>
-			(L"Flime_Attack_multiple", L"D:\\50\\Resources\\Sound\\Flime_Attack_multiple.ogg");
+			(L"Flime_Attack_multiple", L"..\\Resources\\Sound\\Flime_Attack_multiple.ogg");
 
 		std::shared_ptr<AudioClip> Flime_Direction_Trap = Resources::Load<AudioClip>
-			(L"Flime_Direction_Trap", L"D:\\50\\Resources\\Sound\\Flime_Direction_Trap.ogg");
+			(L"Flime_Direction_Trap", L"..\\Resources\\Sound\\Flime_Direction_Trap.ogg");
 
 		std::shared_ptr<AudioClip> Flime_Death = Resources::Load<AudioClip>
-			(L"Boss_Death", L"D:\\50\\Resources\\Sound\\Boss_Death.ogg");
+			(L"Boss_Death", L"..\\Resources\\Sound\\Boss_Death.ogg");
 
 		std::shared_ptr<AudioClip> Flime_Clear = Resources::Load<AudioClip>
-			(L"Boss_Clear", L"D:\\50\\Resources\\Sound\\Boss_Clear.ogg");
+			(L"Boss_Clear", L"..\\Resources\\Sound\\Boss_Clear.ogg");
 	}
 
 

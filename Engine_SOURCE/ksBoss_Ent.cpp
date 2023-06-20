@@ -836,19 +836,19 @@ namespace ks
 	void Boss_Ent::loadSound()
 	{
 		std::shared_ptr<AudioClip> attack1= Resources::Load<AudioClip>
-			(L"Ent_Attack_Poison", L"D:\\50\\Resources\\Sound\\Ent_Attack_Poison.ogg");
+			(L"Ent_Attack_Poison", L"..\\Resources\\Sound\\Ent_Attack_Poison.ogg");
 
 		std::shared_ptr<AudioClip> attack2= Resources::Load<AudioClip>
-			(L"Ent_Attack_Missile", L"D:\\50\\Resources\\Sound\\Ent_Attack_Missile.ogg");
+			(L"Ent_Attack_Missile", L"..\\Resources\\Sound\\Ent_Attack_Missile.ogg");
 
 		std::shared_ptr<AudioClip> attack3= Resources::Load<AudioClip>
-			(L"Ent_Attack_Earthquake", L"D:\\50\\Resources\\Sound\\Ent_Attack_Earthquake.ogg");
+			(L"Ent_Attack_Earthquake", L"..\\Resources\\Sound\\Ent_Attack_Earthquake.ogg");
 
 		std::shared_ptr<AudioClip> Ent_Death = Resources::Load<AudioClip>
-			(L"Boss_Death", L"D:\\50\\Resources\\Sound\\Boss_Death.ogg");
+			(L"Boss_Death", L"..\\Resources\\Sound\\Boss_Death.ogg");
 
 		std::shared_ptr<AudioClip> Ent_Clear = Resources::Load<AudioClip>
-			(L"Boss_Clear", L"D:\\50\\Resources\\Sound\\Boss_Clear.ogg");
+			(L"Boss_Clear", L"..\\Resources\\Sound\\Boss_Clear.ogg");
 	}
 
 	void Boss_Ent::poisonAttackSound()

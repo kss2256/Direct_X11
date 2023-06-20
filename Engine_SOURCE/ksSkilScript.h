@@ -41,6 +41,12 @@ namespace ks
 
 	private:
 
+		void loadSound();
+		void darkTickSound();
+		void iceHitSound();
+
+	private:
+
 
 		float					mStr;
 		float					m_fTime;

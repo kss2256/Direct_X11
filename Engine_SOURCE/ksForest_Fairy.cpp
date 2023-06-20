@@ -201,7 +201,8 @@ namespace ks
 
 				if (mStateInfo.situation == eSituation::Hit)
 				{
-					hit(0.1f, 0.2f, 50.f);
+					//hit(0.1f, 0.2f, 50.f);
+					hit(0.1f, 0.01f, 25.f);
 					directionAnimation(L"Idle", true);
 				}
 
@@ -422,10 +423,10 @@ namespace ks
 	{
 
 		std::shared_ptr<AudioClip> Snake_death = Resources::Load<AudioClip>
-			(L"Fairy_death", L"D:\\50\\Resources\\Sound\\Fairy_death.ogg");
+			(L"Fairy_death", L"..\\Resources\\Sound\\Fairy_death.ogg");
 
 		std::shared_ptr<AudioClip> Snake_Attack1 = Resources::Load<AudioClip>
-			(L"Fairy_Attack", L"D:\\50\\Resources\\Sound\\Fairy_Attack.ogg");
+			(L"Fairy_Attack", L"..\\Resources\\Sound\\Fairy_Attack.ogg");
 
 
 

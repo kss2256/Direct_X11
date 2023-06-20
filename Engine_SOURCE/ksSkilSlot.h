@@ -1,6 +1,6 @@
 #pragma once
 #include "ksUIBase.h"
-
+#include "ksPlayer.h"
 
 
 
