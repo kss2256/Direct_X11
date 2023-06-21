@@ -66,6 +66,7 @@ namespace ks
 		void failedSound();
 		void staffChargeSound();
 		void staffChargeFinishSound();
+		void skillSound();
 		
 		void skilIce();
 		void skilDark();

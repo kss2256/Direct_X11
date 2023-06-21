@@ -55,8 +55,10 @@ namespace ks
 		if (m_bSkilStart)
 		{
 			m_fTime += Time::DeltaTime();
-			if (m_fTime >= 0.51f)
+
+			if (m_fTime >= 1.02f)
 			{
+				barrierSound();
 				m_bBarrier = true;
 				mAnimator->Play(L"Barrier_End", false);
 				m_bSkilStart = false;
@@ -69,11 +71,12 @@ namespace ks
 		{
 			m_fTime += Time::DeltaTime();
 			Vec3 scale = mTransform->GetScale();
-			scale.x += Time::DeltaTime() * 10 ;
-			scale.y += Time::DeltaTime() * 10 ;
+			scale.x += Time::DeltaTime() * 7 ;
+			scale.y += Time::DeltaTime() * 7 ;
 
 			mTransform->SetScale(scale);
-			if (m_fTime >= 1.5f)
+		
+			if (m_fTime >= 3.0f)
 			{
 				Vec3 scale = mTransform->GetScale();
 				m_bBarrierScale = false;
@@ -111,11 +114,10 @@ namespace ks
 	}
 
 	void Skil_Barrier::loadAnimation()
-	{
-		std::shared_ptr<Texture> skil = Resources::Load<Texture>(L"30FPS_AC2Q017_Barrier", L"Skil\\30FPS_AC2Q017_Barrier.png");
-		//43
-		mNumbers.push_back(2);
-		mNumbers.push_back(3);
+	{		
+
+		std::shared_ptr<Texture> skil = Resources::Load<Texture>(L"60FPS_AC2Q017_Barrier", L"Skil\\60FPS_AC2Q017_Barrier.png");
+		
 		mNumbers.push_back(4);
 		mNumbers.push_back(5);
 		mNumbers.push_back(6);
@@ -131,9 +133,6 @@ namespace ks
 		mNumbers.push_back(16);
 		mNumbers.push_back(17);
 		mNumbers.push_back(18);
-		CreateAnimation(L"Barrier_Start", skil, mAnimator, Vector2(192.0f, 192.0f), Vec2::Zero, mNumbers, 0.03f);
-		mNumbers.clear();
-
 		mNumbers.push_back(19);
 		mNumbers.push_back(20);
 		mNumbers.push_back(21);
@@ -153,17 +152,64 @@ namespace ks
 		mNumbers.push_back(35);
 		mNumbers.push_back(36);
 		mNumbers.push_back(37);
+		CreateAnimation(L"Barrier_Start", skil, mAnimator, Vector2(192.0f, 192.0f), Vec2::Zero, mNumbers, 0.03f);
+		mNumbers.clear();
+
+
+	
 		mNumbers.push_back(38);
 		mNumbers.push_back(39);
 		mNumbers.push_back(40);
 		mNumbers.push_back(41);
 		mNumbers.push_back(42);
 		mNumbers.push_back(43);
+		mNumbers.push_back(44);
+		mNumbers.push_back(45);
+		mNumbers.push_back(46);
+		mNumbers.push_back(47);
+		mNumbers.push_back(48);
+		mNumbers.push_back(49);
+		mNumbers.push_back(50);
+		mNumbers.push_back(51);
+		mNumbers.push_back(52);
+		mNumbers.push_back(53);
+		mNumbers.push_back(54);
+		mNumbers.push_back(55);
+		mNumbers.push_back(56);
+		mNumbers.push_back(57);
+		mNumbers.push_back(58);
+		mNumbers.push_back(59);
+		mNumbers.push_back(60);
+		mNumbers.push_back(61);
+		mNumbers.push_back(62);
+		mNumbers.push_back(63);
+		mNumbers.push_back(64);
+		mNumbers.push_back(65);
+		mNumbers.push_back(66);
+		mNumbers.push_back(67);
+		mNumbers.push_back(68);
+		mNumbers.push_back(69);
+		mNumbers.push_back(70);
+		mNumbers.push_back(71);
+		mNumbers.push_back(72);
+		mNumbers.push_back(73);
+		mNumbers.push_back(74);
+		mNumbers.push_back(75);
+		mNumbers.push_back(76);
+		mNumbers.push_back(77);
+		mNumbers.push_back(78);
+		mNumbers.push_back(79);
+		mNumbers.push_back(80);
+		mNumbers.push_back(81);
+		mNumbers.push_back(82);
+		mNumbers.push_back(83);
+		mNumbers.push_back(84);
+		mNumbers.push_back(85);
+		mNumbers.push_back(86);
+		mNumbers.push_back(87);
 
 		CreateAnimation(L"Barrier_End", skil, mAnimator, Vector2(192.0f, 192.0f), Vec2::Zero, mNumbers, 0.06f);
 		mNumbers.clear();
-
-
 
 
 
@@ -174,8 +220,17 @@ namespace ks
 	void Skil_Barrier::loadSound()
 	{
 
-		/*std::shared_ptr<AudioClip> Ice_Spear = Resources::Load<AudioClip>
-			(L"Ice_Spear", L"..\\Resources\\Sound\\Ice_Spear.ogg");*/
+		std::shared_ptr<AudioClip> Barrier = Resources::Load<AudioClip>
+			(L"Barrier", L"..\\Resources\\Sound\\Barrier.ogg");
+
+
+	}
+
+	void Skil_Barrier::barrierSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Barrier");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 }

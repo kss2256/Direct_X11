@@ -2138,11 +2138,12 @@ namespace ks
 			//½ºÅ³ Å°
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
+
 				if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
 					return;
 				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
 					return;
-
+				skillSound();
 				angleDirection();
 				mState.situation = eSituation::Skil;
 				mStatus->SetStateInfo(mState);
@@ -2163,9 +2164,9 @@ namespace ks
 					break;
 				case ks::eItem::Lighting:
 					break;			
-				}			
-
-				
+				}		
+	
+		
 			}
 
 			//°È±â or ¶Ù±â
@@ -2651,6 +2652,9 @@ namespace ks
 		std::shared_ptr<AudioClip> Staff_Chrage = Resources::Load<AudioClip>
 			(L"Staff_Chrage", L"..\\Resources\\Sound\\Staff_Chrage.ogg");
 
+		std::shared_ptr<AudioClip> Skill = Resources::Load<AudioClip>
+			(L"Skill", L"..\\Resources\\Sound\\Skill.ogg");
+
 
 	}
 
@@ -2688,6 +2692,13 @@ namespace ks
 	{
 
 		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Staff_Charge_Finish");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
+	void PlayerScript::skillSound()
+	{		
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Skill");
 		coinsound->SetLoop(false);
 		coinsound->Play(3.0f);
 	}
@@ -2735,12 +2746,12 @@ namespace ks
 
 		mAttack->SetTarget(mPlayer);
 		mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
-		mAttack->GetComponent<Transform>()->SetScale(Vec3(12.0f, 12.0f, 0.0f));
+		mAttack->GetComponent<Transform>()->SetScale(Vec3(7.0f, 7.0f, 0.0f));
 
 
 		Collider2D* collider = mAttack->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
-		collider->SetSize(Vec2(0.35f, 0.35f));
+		collider->SetSize(Vec2(0.31f, 0.31f));
 
 		mAttack->Initalize();
 

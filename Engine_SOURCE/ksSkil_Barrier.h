@@ -25,6 +25,7 @@ namespace ks
 		void loadAnimation();
 
 		void loadSound();
+		void barrierSound();
 
 
 	private:
