@@ -66,7 +66,7 @@ namespace ks
 	void Snake_Green::Update()
 	{
 
-
+		Monster::Update();
 		mHp;
 
 		if (mDetection)
@@ -270,7 +270,7 @@ namespace ks
 
 
 	
-		GameObject::Update();
+		
 	}
 
 	void Snake_Green::FixedUpdate()

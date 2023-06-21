@@ -217,9 +217,27 @@ namespace ks
 			mpcollider->SetSize(Vector2(0.07f, 0.09f));
 
 			Transform* mptr = Legendmp->GetComponent<Transform>();
-			mptr->SetPosition(Vector3(210.0f, 4.0f, 2.0f));
+			mptr->SetPosition(Vector3(208.0f, 4.0f, 2.0f));
 			mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
 		}
+
+		{
+			PlayerItem* Legendmp = object::Instantiate<PlayerItem>(eLayerType::Skil_Ui);
+			Legendmp->SetName(L"Lighting_Skil");
+			Legendmp->SetTarget(mPlayer);
+
+			Legendmp->SetPlayerItem(eItem::Lighting);
+			Legendmp->SetSkilBook(true);
+
+			Collider2D* mpcollider = Legendmp->AddComponent<Collider2D>();
+			mpcollider->SetType(eColliderType::Rect);
+			mpcollider->SetSize(Vector2(0.07f, 0.09f));
+
+			Transform* mptr = Legendmp->GetComponent<Transform>();
+			mptr->SetPosition(Vector3(212.0f, 4.0f, 2.0f));
+			mptr->SetScale(Vector3(8.5f, 8.8f, 1.0f));
+		}
+
 
 		{
 			PlayerItem* weapon = object::Instantiate<PlayerItem>(eLayerType::UI);

@@ -68,7 +68,7 @@ namespace ks
 		void SetStep(eStep value) { mStep = value; }
 
 		void SetIdleAnimation();
-	
+		void YourDeath(bool death) { m_bDeath = death; }
 
 
 	protected:
@@ -124,9 +124,11 @@ namespace ks
 		bool					mBossHit;
 		bool					m_bCoin;
 		bool					m_bWalkStop;
+		bool					m_bDeath;
 
 		float					mRnadomAttack;
 		float					mPrevRnadom;
+		float					m_fDeathTime;
 
 		
 

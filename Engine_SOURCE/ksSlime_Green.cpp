@@ -70,7 +70,7 @@ namespace ks
 
 	void Slime_Green::Update()
 	{
-
+		Monster::Update();
 
 		mHp;
 
@@ -302,7 +302,7 @@ namespace ks
 			}
 		}
 
-		Monster::Update();
+		
 	}
 
 	void Slime_Green::FixedUpdate()

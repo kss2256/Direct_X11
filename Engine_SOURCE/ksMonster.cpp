@@ -44,6 +44,20 @@ namespace ks
 	}
 	void Monster::Update()
 	{
+		if (m_bDeath)
+		{
+			m_fDeathTime += Time::DeltaTime();
+			if (m_fDeathTime >= 0.8f)
+			{
+				this->SetMonsterHp(25.0f);
+				m_fDeathTime = 0.f;
+				m_bDeath = false;
+			}
+
+
+
+		}
+
 
 
 		GameObject::Update();
@@ -81,6 +95,10 @@ namespace ks
 		mAnimator->Play(L"Idle_Down", false);
 
 	}
+
+	
+
+	
 
 	void Monster::CreateAnimation(const std::wstring& name, std::shared_ptr<Texture> texture, Animator* animaotr
 		, Vec2 scale, Vector2 offset, std::vector<UINT> numbers, float duration)

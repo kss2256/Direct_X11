@@ -34,7 +34,7 @@
 #include "ksSkil_Dark.h"
 #include "ksSkil_Barrier.h"
 #include "ksSkil_Lighting.h"
-
+#include "ksCollider2D.h"
 
 #include <time.h>
 
@@ -548,13 +548,45 @@ namespace ks
 				case ks::eSkil::Magic:
 				{
 					m_fSkilTime += Time::DeltaTime();
-					if (m_fSkilTime > 0.5f)
+					if(mPlayer->GetSkilUiTarget()->GetActiveSkil() == eItem::Lighting)
 					{
-						mPlayerState.skil = eSkil::None;
-						mPlayer->SetPlayerInfo(mPlayerState);
-						mState.situation = eSituation::None;
-						mStatus->SetStateInfo(mState);						
-						m_fSkilTime = 0.f;
+						if (m_bLightingOneCheak)
+						{							
+							Collider2D* collider = mPlayer->GetComponent<Collider2D>();
+							collider->SetSize(Vector2(1.2f, 0.8f));
+							m_bLightingOneCheak = true;
+						}
+						Vec3 pos = mTransform->GetPosition();
+						pos += m_vLightingPos * 8.5f * Time::DeltaTime();;
+
+						mTransform->SetPosition(pos);
+
+						if (m_fSkilTime > 0.6f)
+						{
+							
+							targetLighting();
+							Collider2D* collider = mPlayer->GetComponent<Collider2D>();
+							collider->SetSize(Vector2(0.08f, 0.12f));
+							m_bLightingAttack = false;
+							mPlayerState.skil = eSkil::None;
+							mPlayer->SetPlayerInfo(mPlayerState);
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							m_vectorLightingTargetPos.clear();
+							m_fSkilTime = 0.f;
+						}					
+					}
+					else
+					{
+						
+						if (m_fSkilTime > 0.5f)
+						{
+							mPlayerState.skil = eSkil::None;
+							mPlayer->SetPlayerInfo(mPlayerState);
+							mState.situation = eSituation::None;
+							mStatus->SetStateInfo(mState);
+							m_fSkilTime = 0.f;
+						}
 					}
 				}
 				break;
@@ -2144,7 +2176,7 @@ namespace ks
 					return;
 				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
 					return;
-				skillSound();
+				
 				angleDirection();
 				mState.situation = eSituation::Skil;
 				mStatus->SetStateInfo(mState);
@@ -2153,10 +2185,12 @@ namespace ks
 
 				if(mPlayer->GetSkilUiTarget()->GetActiveSkil() == eItem::Lighting)
 				{
+					skillLightingSound();
 					directionAnimation(L"Attack_Dash", false);
 				}
 				else 
 				{
+					skillSound();
 					directionAnimation(L"Attack_Staffcharge", false);
 				}
 
@@ -2173,9 +2207,18 @@ namespace ks
 					skilBarrier();
 					break;
 				case ks::eItem::Lighting:
-					skilLighting();
+					Vec3 playerpos = mTransform->GetPosition();
+					Vec3 mousepos = Input::GetMousWorldPosition();
+					 m_vLightingPos =  mousepos - playerpos;
+					 m_vLightingPos.Normalize();
+					 m_bLightingAttack = true;
+					 m_bLightingOneCheak = true;
+					Collider2D* collider = mPlayer->GetComponent<Collider2D>();
+					collider->SetSize(Vector2(0.0f, 0.0f));
 					break;			
 				}	
+
+				
 						
 			}
 
@@ -2665,6 +2708,9 @@ namespace ks
 		std::shared_ptr<AudioClip> Skill = Resources::Load<AudioClip>
 			(L"Skill", L"..\\Resources\\Sound\\Skill.ogg");
 
+		std::shared_ptr<AudioClip> Lighting_Attack = Resources::Load<AudioClip>
+			(L"Lighting_Attack", L"..\\Resources\\Sound\\Lighting_Attack.ogg");
+
 
 	}
 
@@ -2709,6 +2755,13 @@ namespace ks
 	void PlayerScript::skillSound()
 	{		
 		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Skill");
+		coinsound->SetLoop(false);
+		coinsound->Play(3.0f);
+	}
+
+	void PlayerScript::skillLightingSound()
+	{
+		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Lighting_Attack");
 		coinsound->SetLoop(false);
 		coinsound->Play(3.0f);
 	}
@@ -2792,11 +2845,41 @@ namespace ks
 		mAttack->GetComponent<Transform>()->SetScale(Vec3(13.0f, 13.0f, 0.0f));
 
 	
-		Collider2D* collider = mAttack->AddComponent<Collider2D>();
+		/*Collider2D* collider = mAttack->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
-		collider->SetSize(Vec2(0.35f, 0.35f));
+		collider->SetSize(Vec2(0.35f, 0.35f));*/
 
 		mAttack->Initalize();
+
+	}
+
+	void PlayerScript::targetLighting()
+	{
+		for (size_t i = 0; i < m_vectorLightingTargetPos.size(); i++)
+		{
+			Skil_Lighting* mAttack = object::Instantiate<Skil_Lighting>(eLayerType::Player_Attack);
+
+			mAttack->SetTarget(mPlayer);
+
+			int a = rand() % 2;		
+			if (a == 0)
+			{
+				mAttack->SetLightionLeft(true);
+			}
+			else if (a == 1)
+			{
+				mAttack->SetLightionRight(true);
+			}
+
+			m_vectorLightingTargetPos[i].y += 1.9f;
+	 
+
+			mAttack->GetComponent<Transform>()->SetPosition(m_vectorLightingTargetPos[i]);
+			
+			mAttack->GetComponent<Transform>()->SetScale(Vec3(13.0f, 13.0f, 0.0f));
+			mAttack->Initalize();
+		}
+
 
 	}
 
@@ -2805,18 +2888,36 @@ namespace ks
 
 	void PlayerScript::OnCollisionEnter(Collider2D* collider)
 	{
+
 		if (dynamic_cast<Snake_Green*>(collider->GetOwner()))
 		{
-			int a = 0;
+			Snake_Green* sanke = (Snake_Green*)collider->GetOwner();
+			if (m_bLightingAttack)
+			{
+				sanke->YourDeath(true);
+				sanke->SetWalkStop(true);
+				m_vectorLightingTargetPos.push_back(collider->GetOwner()->GetComponent<Transform>()->GetPosition());
+			}
 		}
 		if (dynamic_cast<Forest_Fairy*>(collider->GetOwner()))
 		{
-			int a = 0;
+			Snake_Green* forest = (Snake_Green*)collider->GetOwner();
+			if (m_bLightingAttack)
+			{
+				forest->YourDeath(true);
+				forest->SetWalkStop(true);
+				m_vectorLightingTargetPos.push_back(collider->GetOwner()->GetComponent<Transform>()->GetPosition());
+			}
 		}
-
-		if (dynamic_cast<MonsterMissile*>(collider->GetOwner()))
+		if (dynamic_cast<Slime_Green*>(collider->GetOwner()))
 		{
-			int a = 0;
+			Snake_Green* slime = (Snake_Green*)collider->GetOwner();
+			if (m_bLightingAttack)
+			{
+				slime->YourDeath(true);
+				slime->SetWalkStop(true);
+				m_vectorLightingTargetPos.push_back(collider->GetOwner()->GetComponent<Transform>()->GetPosition());
+			}
 		}
 
 		if (dynamic_cast<CCoin*>(collider->GetOwner()))
@@ -2918,7 +3019,8 @@ namespace ks
 				booksound->Play();
 
 			}
-		}
+		}	
+
 
 		if (dynamic_cast<GoldBox*>(collider->GetOwner()))
 		{
@@ -3070,7 +3172,7 @@ namespace ks
 						SkilUi* skil = mPlayer->GetSkilUiTarget();
 						skil->CreateSkillbook(eItem::Lighting);
 						item->Death();
-
+						Stage1_1::KeyCount_Up();
 					}
 					break;
 					}

@@ -67,11 +67,13 @@ namespace ks
 		void staffChargeSound();
 		void staffChargeFinishSound();
 		void skillSound();
-		
+		void skillLightingSound();
+
 		void skilIce();
 		void skilDark();
 		void skilBarrier();
 		void skilLighting();
+		void targetLighting();
 
 	private:
 
@@ -90,6 +92,9 @@ namespace ks
 		Vec3				mPrevPos;
 		Vec3				mFixPos;
 		Vec3				mShakePos;
+		Vec3				m_vLightingPos;
+
+		std::vector<Vec3>	m_vectorLightingTargetPos;
 
 
 		static bool			mbRunning;
@@ -107,6 +112,9 @@ namespace ks
 		bool				mAttackFailed;
 		bool				mPlayerShake;
 		bool				mOnceCheak;
+		bool				m_bLightingAttack;
+		bool				m_bLightingOneCheak;
+
 
 		float				mCheakTime;
 		float				m_fSkilTime;

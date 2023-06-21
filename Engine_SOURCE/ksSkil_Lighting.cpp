@@ -58,6 +58,15 @@ namespace ks
 
 	void Skil_Lighting::Update()
 	{
+
+		m_fTime += Time::DeltaTime();
+		if (m_fTime >= 0.7f)
+		{
+			Death();
+			m_fTime = 0.f;
+		}
+
+
 		GameObject::Update();
 	}
 

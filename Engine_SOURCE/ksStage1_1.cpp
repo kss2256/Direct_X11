@@ -327,7 +327,7 @@ namespace ks
 		case ks::enums::eGroundStage::Ground6:
 		{
 
-			if (mKeyCount == 1)
+			if (mKeyCount == 2)
 			{				
 				mSlime->resurrection();
 				mSnake->resurrection();

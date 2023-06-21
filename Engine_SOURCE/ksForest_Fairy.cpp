@@ -61,6 +61,8 @@ namespace ks
 	void Forest_Fairy::Update()
 	{
 
+		Monster::Update();
+
 		if (mDetection)
 		{
 
@@ -212,7 +214,7 @@ namespace ks
 
 		}
 
-		GameObject::Update();
+		
 	}
 
 	void Forest_Fairy::FixedUpdate()
