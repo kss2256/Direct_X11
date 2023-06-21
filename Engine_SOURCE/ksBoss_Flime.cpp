@@ -363,7 +363,10 @@ namespace ks
 
 
 			if (mBossHit)
-				boss_hit(0.1f, 0.2f, 50.f);
+			{
+				//boss_hit(0.1f, 0.2f, 50.f);
+				boss_hit(0.1f, 0.01f, 25.f);
+			}
 				
 
 			/*if (mStateInfo.situation == eSituation::Hit)

@@ -28,8 +28,9 @@ namespace ks
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		sr->SetMesh(mesh);
 
-		mAnimator->Play(L"Right_Attack", false);
+		
 
+		lightionStartSound();
 	}
 
 	Skil_Lighting::~Skil_Lighting()
@@ -42,7 +43,10 @@ namespace ks
 		{
 			//mAnimator->Play(L"Ice_Start", false);
 			//iceStartSound();
-
+			if (m_bRight)
+				mAnimator->Play(L"Right_Attack", false);
+			else if (m_bLeft)
+				mAnimator->Play(L"Left_Attack", false);
 
 			m_bSkilStart = true;
 		}
@@ -134,12 +138,16 @@ namespace ks
 	void Skil_Lighting::loadSound()
 	{
 
-		//std::shared_ptr<AudioClip> Barrier = Resources::Load<AudioClip>
-		//	(L"Barrier", L"..\\Resources\\Sound\\Barrier.ogg");
-		//
-		//std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Barrier");
-		//sound->SetLoop(false);
-		//sound->Play();
+		std::shared_ptr<AudioClip> Barrier = Resources::Load<AudioClip>
+			(L"Lighting_Start", L"..\\Resources\\Sound\\Lighting_Start.ogg");
+
+	}
+
+	void Skil_Lighting::lightionStartSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Lighting_Start");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 }

@@ -485,14 +485,20 @@ namespace ks
 		{
 			mShakePos = mTransform->GetPosition();
 
-			if (mFixPos.x - distance < mShakePos.x && mShakePos.x < mFixPos.x + distance)
-			{
-				// 왼쪽과 오른쪽으로 번갈아가며 이동
-				if (mShakePos.x > mFixPos.x)
-					mShakePos.x -= speed * Time::DeltaTime();
-				else
-					mShakePos.x += speed * Time::DeltaTime();
-			}
+			// 왼쪽과 오른쪽으로 번갈아가며 이동
+			if (mShakePos.x > mFixPos.x)
+				mShakePos.x -= speed * Time::DeltaTime();
+			else
+				mShakePos.x += speed * Time::DeltaTime();			
+
+			//if (mFixPos.x - distance < mShakePos.x && mShakePos.x < mFixPos.x + distance)
+			//{
+			//	// 왼쪽과 오른쪽으로 번갈아가며 이동
+			//	if (mShakePos.x > mFixPos.x)
+			//		mShakePos.x -= speed * Time::DeltaTime();
+			//	else
+			//		mShakePos.x += speed * Time::DeltaTime();
+			//}
 
 			mTransform->SetPosition(mShakePos);
 		}		

@@ -2140,35 +2140,43 @@ namespace ks
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
 
-				//if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
-				//	return;
-				//if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
-				//	return;
-				//skillSound();
-				//angleDirection();
-				//mState.situation = eSituation::Skil;
-				//mStatus->SetStateInfo(mState);
-				//mPlayerState.skil = eSkil::Magic;
-				//mPlayer->SetPlayerInfo(mPlayerState);
-				//directionAnimation(L"Attack_Staffcharge", false);			
-				//
-				//switch (mPlayer->GetSkilUiTarget()->GetActiveSkil())
-				//{				
-				//case ks::eItem::Dark:
-				//	skilDark();
-				//	break;
-				//case ks::eItem::Ice:
-				//	skilIce();
-				//	break;
-				//case ks::eItem::Barrier:
-				//	skilBarrier();
-				//	break;
-				//case ks::eItem::Lighting:
-				//	skilLighting();
-				//	break;			
-				//}		
-					
-				skilLighting();
+				if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
+					return;
+				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
+					return;
+				skillSound();
+				angleDirection();
+				mState.situation = eSituation::Skil;
+				mStatus->SetStateInfo(mState);
+				mPlayerState.skil = eSkil::Magic;
+				mPlayer->SetPlayerInfo(mPlayerState);
+
+				if(mPlayer->GetSkilUiTarget()->GetActiveSkil() == eItem::Lighting)
+				{
+					directionAnimation(L"Attack_Dash", false);
+				}
+				else 
+				{
+					directionAnimation(L"Attack_Staffcharge", false);
+				}
+
+
+				switch (mPlayer->GetSkilUiTarget()->GetActiveSkil())
+				{				
+				case ks::eItem::Dark:
+					skilDark();
+					break;
+				case ks::eItem::Ice:
+					skilIce();
+					break;
+				case ks::eItem::Barrier:
+					skilBarrier();
+					break;
+				case ks::eItem::Lighting:
+					skilLighting();
+					break;			
+				}	
+						
 			}
 
 			//°È±â or ¶Ù±â
@@ -2483,7 +2491,7 @@ namespace ks
 			//}
 
 
-	}
+	}	
 
 	void PlayerScript::attackCommand(eLayerType type, eDirection dir, eSkil skil, eProgress progress, float colldowntime)
 	{
@@ -2765,8 +2773,22 @@ namespace ks
 
 		mAttack->SetTarget(mPlayer);
 
+		Vec3 dir = Input::GetMousWorldPosition();
+		Vec3 playerdir = mTransform->GetPosition();
+		if (playerdir.x > dir.x)
+		{
+			mAttack->SetLightionLeft(true);
+		}
+		else if (playerdir.x < dir.x)
+		{
+			mAttack->SetLightionRight(true);
+		}
 
-		mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
+		Vec3 playerpos = mTransform->GetPosition();
+		playerpos.y += 1.9f;
+
+		mAttack->GetComponent<Transform>()->SetPosition(playerpos);
+		//mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
 		mAttack->GetComponent<Transform>()->SetScale(Vec3(13.0f, 13.0f, 0.0f));
 
 	

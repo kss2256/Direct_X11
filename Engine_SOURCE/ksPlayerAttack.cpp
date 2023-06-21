@@ -405,7 +405,7 @@ namespace ks
 				if (mState.progress == eProgress::Step_1)
 				{
 					mCollider->SetSize(Vec2(0.25f, 0.2f));
-					bulletAnipos(Vector3(BASIC_SCALE, BASIC_SCALE, 1.0f), 1);
+					bulletAnipos(Vector3(BASIC_SCALE * 1.2f, BASIC_SCALE * 1.2f, 1.0f), 1);
 					dirAnimation(1.56f);
 					mAnimator->Play(L"Legend_Bow", false);
 					mState.progress = eProgress::Step_2;
