@@ -71,6 +71,7 @@ namespace ks
 		void skilIce();
 		void skilDark();
 		void skilBarrier();
+		void skilLighting();
 
 	private:
 

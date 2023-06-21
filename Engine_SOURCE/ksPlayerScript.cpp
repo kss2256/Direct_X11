@@ -33,6 +33,7 @@
 #include "ksSkilUi.h"
 #include "ksSkil_Dark.h"
 #include "ksSkil_Barrier.h"
+#include "ksSkil_Lighting.h"
 
 
 #include <time.h>
@@ -2139,34 +2140,35 @@ namespace ks
 			if (Input::GetKeyDown(eKeyCode::RBTN))
 			{
 
-				if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
-					return;
-				if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
-					return;
-				skillSound();
-				angleDirection();
-				mState.situation = eSituation::Skil;
-				mStatus->SetStateInfo(mState);
-				mPlayerState.skil = eSkil::Magic;
-				mPlayer->SetPlayerInfo(mPlayerState);
-				directionAnimation(L"Attack_Staffcharge", false);			
-				
-				switch (mPlayer->GetSkilUiTarget()->GetActiveSkil())
-				{				
-				case ks::eItem::Dark:
-					skilDark();
-					break;
-				case ks::eItem::Ice:
-					skilIce();
-					break;
-				case ks::eItem::Barrier:
-					skilBarrier();
-					break;
-				case ks::eItem::Lighting:
-					break;			
-				}		
-	
-		
+				//if (!(mPlayer->GetSkilUiTarget()->IsActiveSlot()))
+				//	return;
+				//if (mAttackStop || mState.situation == eSituation::Skil || mState.situation == eSituation::Attack)
+				//	return;
+				//skillSound();
+				//angleDirection();
+				//mState.situation = eSituation::Skil;
+				//mStatus->SetStateInfo(mState);
+				//mPlayerState.skil = eSkil::Magic;
+				//mPlayer->SetPlayerInfo(mPlayerState);
+				//directionAnimation(L"Attack_Staffcharge", false);			
+				//
+				//switch (mPlayer->GetSkilUiTarget()->GetActiveSkil())
+				//{				
+				//case ks::eItem::Dark:
+				//	skilDark();
+				//	break;
+				//case ks::eItem::Ice:
+				//	skilIce();
+				//	break;
+				//case ks::eItem::Barrier:
+				//	skilBarrier();
+				//	break;
+				//case ks::eItem::Lighting:
+				//	skilLighting();
+				//	break;			
+				//}		
+					
+				skilLighting();
 			}
 
 			//°È±â or ¶Ù±â
@@ -2752,6 +2754,25 @@ namespace ks
 		Collider2D* collider = mAttack->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 		collider->SetSize(Vec2(0.31f, 0.31f));
+
+		mAttack->Initalize();
+
+	}
+
+	void PlayerScript::skilLighting()
+	{
+		Skil_Lighting* mAttack = object::Instantiate<Skil_Lighting>(eLayerType::Player_Attack);
+
+		mAttack->SetTarget(mPlayer);
+
+
+		mAttack->GetComponent<Transform>()->SetPosition(mTransform->GetPosition());
+		mAttack->GetComponent<Transform>()->SetScale(Vec3(13.0f, 13.0f, 0.0f));
+
+	
+		Collider2D* collider = mAttack->AddComponent<Collider2D>();
+		collider->SetType(eColliderType::Rect);
+		collider->SetSize(Vec2(0.35f, 0.35f));
 
 		mAttack->Initalize();
 
