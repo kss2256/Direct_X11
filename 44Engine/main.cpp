@@ -73,7 +73,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             }
         }
         else
-        {
+        {         
             application.Run();
             editor.Run();
             application.Present();

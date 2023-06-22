@@ -210,6 +210,13 @@ namespace ks::renderer
 			, afterimageShader->GetInputLayoutAddressOf());
 
 
+		std::shared_ptr<Shader> titleuiShader = Resources::Find<Shader>(L"TitleUIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, titleuiShader->GetVSBlobBufferPointer()
+			, titleuiShader->GetVSBlobBufferSize()
+			, titleuiShader->GetInputLayoutAddressOf());
+
+
 
 		for (size_t i = 1; i < 10; i++)
 		{
@@ -577,6 +584,13 @@ namespace ks::renderer
 		
 		Resources::Insert<Shader>(L"AfterimageShader", afterimageShader);
 
+
+
+		std::shared_ptr<Shader> titleuiShader = std::make_shared<Shader>();
+		titleuiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		titleuiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"TitleUIShader", titleuiShader);
 
 
 		// Ground + Shadows + Parts
@@ -967,6 +981,15 @@ namespace ks::renderer
 		inventoryslot_1uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		inventoryslot_1uiMaterial->SetShader(inventoryslot_1uiShader);
 		Resources::Insert<Material>(L"InventorySlot_1UIMaterial", inventoryslot_1uiMaterial);
+
+
+		std::shared_ptr<Shader> titleuiShader = Resources::Find<Shader>(L"TitleUIShader");
+		std::shared_ptr<Material> titleuiMaterial = std::make_shared<Material>();
+		titleuiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		titleuiMaterial->SetShader(titleuiShader);
+		Resources::Insert<Material>(L"TitleUIMaterial", titleuiMaterial);
+
+
 
 		std::shared_ptr<Shader> fullhpShader = Resources::Find<Shader>(L"FullHpShader");
 		std::shared_ptr<Material> fullhpMaterial = std::make_shared<Material>();

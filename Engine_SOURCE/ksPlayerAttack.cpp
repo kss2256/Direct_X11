@@ -58,11 +58,10 @@ namespace ks
 		mTransform = GetComponent<Transform>();
 		
 
-		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
+		SpriteRenderer* sr = AddComponent<SpriteRenderer>();		
 
 		
-
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"CoinMaterial");
 		sr->SetMaterial(material);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		sr->SetMesh(mesh);

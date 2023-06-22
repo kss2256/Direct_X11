@@ -142,9 +142,6 @@
     <Filter Include="GameObject\UI\UIManager">
       <UniqueIdentifier>{b3535caa-74f8-4f8d-8cb2-5c0efc30b76e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\UI\DungeonUi">
-      <UniqueIdentifier>{c2ef499e-041e-4199-bced-5766fe22197f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\UI\Coin">
       <UniqueIdentifier>{8643195e-f6b5-4801-8bc3-33784e665579}</UniqueIdentifier>
     </Filter>
@@ -168,6 +165,9 @@
     </Filter>
     <Filter Include="GameObject\UI\SkilUi">
       <UniqueIdentifier>{aca728ba-d2c6-4a29-81c5-cc788194475f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\TitleUi">
+      <UniqueIdentifier>{c2ef499e-041e-4199-bced-5766fe22197f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="ksSkil_Lighting.cpp">
       <Filter>GameObject\Skil</Filter>
+    </ClCompile>
+    <ClCompile Include="ksTitleUi.cpp">
+      <Filter>GameObject\UI\TitleUi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -776,6 +779,9 @@
     </ClInclude>
     <ClInclude Include="ksSkil_Lighting.h">
       <Filter>GameObject\Skil</Filter>
+    </ClInclude>
+    <ClInclude Include="ksTitleUi.h">
+      <Filter>GameObject\UI\TitleUi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

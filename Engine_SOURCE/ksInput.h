@@ -86,7 +86,7 @@ namespace ks
 			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::UP;
 		}
 
-
+		
 
 	private:
 		Input() = delete;

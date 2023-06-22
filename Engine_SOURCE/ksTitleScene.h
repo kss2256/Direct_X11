@@ -17,9 +17,14 @@ namespace ks
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
+		void SetChangeScene(bool change) { m_bChangeScene = change; }
+
 	private:
 
 		bool			m_BgmSound;
+		bool			m_bChangeScene;
+
+
 
 	};
 }

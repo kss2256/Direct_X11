@@ -273,6 +273,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="ksTexture.h" />
     <ClInclude Include="ksTime.h" />
     <ClInclude Include="ksTitleScene.h" />
+    <ClInclude Include="ksTitleUi.h" />
     <ClInclude Include="ksTransform.h" />
     <ClInclude Include="ksUIBase.h" />
     <ClInclude Include="ksUiMgr.h" />
@@ -374,6 +375,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="ksTexture.cpp" />
     <ClCompile Include="ksTime.cpp" />
     <ClCompile Include="ksTitleScene.cpp" />
+    <ClCompile Include="ksTitleUi.cpp" />
     <ClCompile Include="ksTransform.cpp" />
     <ClCompile Include="ksUIBase.cpp" />
     <ClCompile Include="ksUiMgr.cpp" />

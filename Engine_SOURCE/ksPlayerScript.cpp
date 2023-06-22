@@ -557,7 +557,7 @@ namespace ks
 							m_bLightingOneCheak = true;
 						}
 						Vec3 pos = mTransform->GetPosition();
-						pos += m_vLightingPos * 8.5f * Time::DeltaTime();;
+						pos += m_vLightingPos * 9.5f * Time::DeltaTime();;
 
 						mTransform->SetPosition(pos);
 
@@ -2260,7 +2260,10 @@ namespace ks
 				mPlayer->SetSlotChange(true);
 			}
 
-
+			if (Input::GetKeyDown(eKeyCode::G))
+			{
+				
+			}
 
 			if (Input::GetKeyDown(eKeyCode::I))
 			{
@@ -2343,6 +2346,7 @@ namespace ks
 
 
 
+	
 	void PlayerScript::directionAnimation(const std::wstring& name, bool loop, bool save)
 	{
 

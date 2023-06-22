@@ -21,7 +21,7 @@
 #include "ksAudioClip.h"
 #include "ksAudioListener.h"
 #include "ksFontWrapper.h"
-
+#include "ksTitleUi.h"
 
 #include "ksApplication.h"
 
@@ -158,7 +158,16 @@ namespace ks
 
 		}
 
+		{
+			TitleUi* titleui = object::Instantiate<TitleUi>(eLayerType::Skil_Ui);
+			titleui->SetName(L"Title_UI");
+			titleui->SetTarget(this);
+			Transform* montr = titleui->GetComponent<Transform>();
+			montr->SetScale(Vector3(3.f, 3.f, 1.0f));
+			montr->SetPosition(Vector3(1.0f, -1.5f, 2.0f));		
+			
 
+		}
 	
 
 
@@ -168,11 +177,15 @@ namespace ks
 	}
 	void TitleScene::Update()
 	{
-
-		if (Input::GetKeyDown(eKeyCode::N))
+		if (m_bChangeScene)
 		{
 			SceneManager::LoadScene(eSceneType::Play);
+			m_bChangeScene = false;
 		}
+		/*if (Input::GetKeyDown(eKeyCode::N))
+		{
+			SceneManager::LoadScene(eSceneType::Play);
+		}*/
 
 		Scene::Update();
 	}
@@ -182,8 +195,8 @@ namespace ks
 		{
 			std::shared_ptr<AudioClip> titlesound = Resources::Load<AudioClip>
 				(L"TiTle", L"..\\Resources\\Sound\\TiTle.ogg");
-			titlesound->SetLoop(false);
-			titlesound->Play();
+			titlesound->SetLoop(true);
+			titlesound->Play(0.5f);
 			m_BgmSound = true;	
 			
 
@@ -210,6 +223,7 @@ namespace ks
 		//LayerObjectClear(eLayerType::Camera);
 		LayerObjectClear(eLayerType::Player);
 		LayerObjectClear(eLayerType::Mouse);
+		LayerObjectClear(eLayerType::Skil_Ui);
 
 		Destroy();
 	}
