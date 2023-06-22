@@ -1,9 +1,13 @@
 #pragma once
 #include "ksUIBase.h"
 #include "ksPlayer.h"
+#include "ksVolume.h"
+
+
 
 namespace ks
 {
+    class Volume;
     class OnOff;
     class OptionCheak;
     class OptionUi :
@@ -36,6 +40,8 @@ namespace ks
 
         void optionCheakCreate();
         void onOffCreate();
+        void volumeCreate();
+        void soundVolume(float volume);
 
     private:
 
@@ -43,6 +49,7 @@ namespace ks
         Player*         mTarget;
         OptionCheak*    mOptionCheak;
         OnOff*          mOnOff;
+        Volume*         mVolume;
         Vec3            m_vMousePos;
         Vec3            m_vUiScale;
         Vec3            mUiPos;

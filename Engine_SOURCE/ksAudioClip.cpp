@@ -3,6 +3,7 @@
 
 namespace ks
 {
+	float AudioClip::m_fVolume = 1.0f;
 
 	AudioClip::AudioClip()
 		: Resource(eResourceType::AudioClip)
@@ -45,6 +46,8 @@ namespace ks
 
 		Fmod::SoundPlay(mSound, &mChannel);
 		
+
+		mChannel->setVolume(m_fVolume);
 	}
 
 	void AudioClip::Play(float volume)
@@ -57,7 +60,10 @@ namespace ks
 
 		Fmod::SoundPlay(mSound, &mChannel);
 
-		mChannel->setVolume(volume);
+		float vol = volume * m_fVolume;
+
+
+		mChannel->setVolume(vol);
 
 
 	}

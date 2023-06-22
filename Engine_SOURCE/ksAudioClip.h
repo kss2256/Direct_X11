@@ -20,6 +20,8 @@ namespace ks
 		void Set3DAttributes(const Vector3 pos, const Vector3 vel);
 		void SetLoop(bool loop) { mbLoop = loop; }
 
+		static void SetVolume(float vol) { m_fVolume = vol; }
+
 	private:
 
 		FMOD::Sound* mSound;
@@ -27,5 +29,8 @@ namespace ks
 		float mMinDistance;
 		float mMaxDistance;
 		bool mbLoop;
+
+		static float m_fVolume;
+
 	};
 }

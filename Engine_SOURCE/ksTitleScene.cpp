@@ -96,13 +96,39 @@ namespace ks
 			//monobj->DontDestroy(false);
 		}
 
+		{
+			Player* layer2obj = object::Instantiate<Player>(eLayerType::Player);
+			layer2obj->SetName(L"LAYER3");
+			Transform* montr = layer2obj->GetComponent<Transform>();
+			montr->SetScale(Vector3(18.f, 10.f, 1.0f));
+			montr->SetPosition(Vector3(0.8f, 0.5f, 2.0f));
+			MeshRenderer* monmr = layer2obj->AddComponent<MeshRenderer>();
+
+			std::shared_ptr<Material> monmateiral = Resources::Find<Material>(L"Layer2Material");
+			monmr->SetMaterial(monmateiral);
+			std::shared_ptr<Mesh> monmesh = Resources::Find<Mesh>(L"RectMesh");
+			monmr->SetMesh(monmesh);
+		}
+		{
+			Player* layer2obj = object::Instantiate<Player>(eLayerType::Player);
+			layer2obj->SetName(L"LAYER2");
+			Transform* montr = layer2obj->GetComponent<Transform>();
+			montr->SetScale(Vector3(18.f, 10.f, 1.2f));
+			montr->SetPosition(Vector3(1.2f, 0.5f, 2.0f));
+			MeshRenderer* monmr = layer2obj->AddComponent<MeshRenderer>();
+
+			std::shared_ptr<Material> monmateiral = Resources::Find<Material>(L"Layer3Material");
+			monmr->SetMaterial(monmateiral);
+			std::shared_ptr<Mesh> monmesh = Resources::Find<Mesh>(L"RectMesh");
+			monmr->SetMesh(monmesh);
+		}
 
 		{
 			Player* monobj = object::Instantiate<Player>(eLayerType::Player);
 			monobj->SetName(L"LAYER1");
 			Transform* montr = monobj->GetComponent<Transform>();
-			montr->SetScale(Vector3(10.f, 10.f, 1.0f));
-			montr->SetPosition(Vector3(1.f, 0.f, 2.0f));
+			montr->SetScale(Vector3(18.f, 10.f, 1.0f));
+			montr->SetPosition(Vector3(1.f, 0.8f, 2.0f));
 			MeshRenderer* monmr = monobj->AddComponent<MeshRenderer>();
 
 			std::shared_ptr<Material> monmateiral = Resources::Find<Material>(L"Layer1Material");
@@ -111,43 +137,11 @@ namespace ks
 			monmr->SetMesh(monmesh);
 
 		}
-
-		{
-			Player* layer2obj = object::Instantiate<Player>(eLayerType::Player);
-			layer2obj->SetName(L"LAYER2");
-			Transform* montr = layer2obj->GetComponent<Transform>();
-			montr->SetScale(Vector3(10.f, 10.f, 1.0f));
-			montr->SetPosition(Vector3(-4.0f, 0.f, 2.0f));
-			MeshRenderer* monmr = layer2obj->AddComponent<MeshRenderer>();
-
-			std::shared_ptr<Material> monmateiral = Resources::Find<Material>(L"Layer2Material");
-			monmr->SetMaterial(monmateiral);
-			std::shared_ptr<Mesh> monmesh = Resources::Find<Mesh>(L"RectMesh");
-			monmr->SetMesh(monmesh);
-
-
-		}
-
-		{
-			Player* layer2obj = object::Instantiate<Player>(eLayerType::Player);
-			layer2obj->SetName(L"LAYER3");
-			Transform* montr = layer2obj->GetComponent<Transform>();
-			montr->SetScale(Vector3(10.f, 10.f, 1.0f));
-			montr->SetPosition(Vector3(6.0f, 0.f, 2.0f));
-			MeshRenderer* monmr = layer2obj->AddComponent<MeshRenderer>();
-
-			std::shared_ptr<Material> monmateiral = Resources::Find<Material>(L"Layer3Material");
-			monmr->SetMaterial(monmateiral);
-			std::shared_ptr<Mesh> monmesh = Resources::Find<Mesh>(L"RectMesh");
-			monmr->SetMesh(monmesh);
-
-		}
-
 		{
 			Player* layer2obj = object::Instantiate<Player>(eLayerType::Player);
 			layer2obj->SetName(L"LOGO");
 			Transform* montr = layer2obj->GetComponent<Transform>();
-			montr->SetScale(Vector3(10.f, 10.f, 1.0f));
+			montr->SetScale(Vector3(15.f, 10.f, 1.0f));
 			montr->SetPosition(Vector3(1.0f, 1.f, 2.0f));
 			MeshRenderer* monmr = layer2obj->AddComponent<MeshRenderer>();
 
@@ -158,6 +152,7 @@ namespace ks
 
 		}
 
+		
 		{
 			TitleUi* titleui = object::Instantiate<TitleUi>(eLayerType::Skil_Ui);
 			titleui->SetName(L"Title_UI");

@@ -280,6 +280,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="ksTransform.h" />
     <ClInclude Include="ksUIBase.h" />
     <ClInclude Include="ksUiMgr.h" />
+    <ClInclude Include="ksVolume.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ksAfterimage.cpp" />
@@ -305,6 +306,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="ksCSkil.cpp" />
     <ClCompile Include="ksCursor.cpp" />
     <ClCompile Include="ksCursorScript.cpp" />
+    <ClCompile Include="ksdef.cpp" />
     <ClCompile Include="ksDiary.cpp" />
     <ClCompile Include="ksEnt_Poison.cpp" />
     <ClCompile Include="ksEnt_Sphere.cpp" />
@@ -385,6 +387,7 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="ksTransform.cpp" />
     <ClCompile Include="ksUIBase.cpp" />
     <ClCompile Include="ksUiMgr.cpp" />
+    <ClCompile Include="ksVolume.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ksMath.inl" />

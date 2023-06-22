@@ -479,6 +479,12 @@
     <ClCompile Include="ksOnOff.cpp">
       <Filter>GameObject\UI\OptionUi</Filter>
     </ClCompile>
+    <ClCompile Include="ksVolume.cpp">
+      <Filter>GameObject\UI\OptionUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ksdef.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -802,6 +808,9 @@
       <Filter>GameObject\UI\OptionUi</Filter>
     </ClInclude>
     <ClInclude Include="ksOnOff.h">
+      <Filter>GameObject\UI\OptionUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksVolume.h">
       <Filter>GameObject\UI\OptionUi</Filter>
     </ClInclude>
   </ItemGroup>

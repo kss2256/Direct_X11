@@ -1109,6 +1109,13 @@ namespace ks::renderer
 		onoffmaterial->SetShader(onoffshader);
 		Resources::Insert<Material>(L"OnOffMaterial", onoffmaterial);
 
+		
+		std::shared_ptr<Shader> volumeshader = Resources::Find<Shader>(L"TitleShader");
+		std::shared_ptr<Material> volumematerial = std::make_shared<Material>();
+		volumematerial->SetRenderingMode(eRenderingMode::Transparent);
+		volumematerial->SetShader(volumeshader);
+		Resources::Insert<Material>(L"VolumeMaterial", volumematerial);
+
 	}
 
 	void Initialize()

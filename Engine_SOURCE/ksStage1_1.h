@@ -78,7 +78,12 @@ namespace ks
         void SetSnake(Snake_Green* snake) { mSnake = snake; }
         void SetSnake_Two(Snake_Green* snake) { mSnake_Two = snake; }
 
-
+        static void stage_1Sound();
+        static void stage_1SoundStop();
+        static void flime_BattleSound();
+        static void flime_BattleSoundStop();
+        static void ent_BattleSound();
+        static void ent_BattleSoundStop();
 
     private:
         template<typename T>
@@ -93,15 +98,11 @@ namespace ks
         void ent_Start();
 
         void loadSound();
-        void stage_1Sound();
-        void stage_1SoundStop();
-        void flime_BattleSound();
-        void flime_BattleSoundStop();
-        void ent_BattleSound();
-        void ent_BattleSoundStop();
         void ent_StartSound1();
         void ent_StartSound2();
         void ent_StartSound3();
+
+
 
 
     private:
