@@ -32,7 +32,7 @@ namespace ks
 		sr->SetMaterial(mateiral);
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		sr->SetMesh(mesh);
-
+		
 	}
 
 	OptionCheak::~OptionCheak()
@@ -59,7 +59,8 @@ namespace ks
 		}
 		else if (m_bOneCheak2)
 		{
-
+			
+		
 			mTransform->SetPosition(m_vUiFinalPos);			
 			m_bOneCheak2 = false;
 			
@@ -67,18 +68,21 @@ namespace ks
 		}
 		else if (m_bOneCheak3)
 		{
+			
 			mTransform->SetPosition(m_vUiFinalPos);		
 			m_bOneCheak3 = false;
 		
 		}
 		else if (m_bOneCheak4)
 		{
+			
 			mTransform->SetPosition(m_vUiFinalPos);		
 			m_bOneCheak4 = false;
 		
 		}
 		else if (m_bOneCheak5)
 		{
+			
 			mTransform->SetPosition(m_vUiFinalPos);			
 			m_bOneCheak5 = false;
 		}
@@ -101,6 +105,19 @@ namespace ks
 
 	void OptionCheak::loadSound()
 	{
+		std::shared_ptr<AudioClip> Option_MouseOn = Resources::Load<AudioClip>
+			(L"Option_MouseOn", L"..\\Resources\\Sound\\Option_MouseOn.ogg");
+
+
+	}
+
+	void OptionCheak::optionSound()
+	{
+		std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Option_MouseOn");
+		booksound->SetLoop(false);
+		booksound->Play();
+
+
 	}
 
 }

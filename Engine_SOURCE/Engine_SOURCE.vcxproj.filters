@@ -476,6 +476,9 @@
     <ClCompile Include="ksOptionCheak.cpp">
       <Filter>GameObject\UI\OptionUi</Filter>
     </ClCompile>
+    <ClCompile Include="ksOnOff.cpp">
+      <Filter>GameObject\UI\OptionUi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -796,6 +799,9 @@
       <Filter>GameObject\UI\OptionUi</Filter>
     </ClInclude>
     <ClInclude Include="ksOptionCheak.h">
+      <Filter>GameObject\UI\OptionUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ksOnOff.h">
       <Filter>GameObject\UI\OptionUi</Filter>
     </ClInclude>
   </ItemGroup>

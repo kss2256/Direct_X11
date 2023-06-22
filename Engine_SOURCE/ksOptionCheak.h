@@ -35,6 +35,7 @@ namespace ks
     private:
 
         void loadSound();
+        void optionSound();
 
 
 

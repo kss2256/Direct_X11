@@ -10,6 +10,7 @@
 #include "ksInventory.h"
 #include "ksOptionCheak.h"
 #include "ksObject.h"
+#include "ksOnOff.h"
 
 #include "ksInput.h"
 
@@ -36,11 +37,13 @@ namespace ks
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		sr->SetMesh(mesh);
 		optionCheakCreate();
+		onOffCreate();
 
 	}
 
 	OptionUi::~OptionUi()
 	{
+
 	}
 
 	void OptionUi::Initalize()
@@ -61,14 +64,20 @@ namespace ks
 		{
 			//Vec3 pos = mTarget->GetComponent<Transform>()->GetPosition();
 			Vec3 pos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
-			pos += mUiPos;
+			pos += mUiPos;			
 			mTransform->SetPosition(pos);
+
+			pos.y += 1.75f;
+			pos.x += 1.4f;
+			mOnOff->GetComponent<Transform>()->SetPosition(pos);
+
 
 		}
 		//인벤토리 켜진상태에서 다시 i 누르면 안보이는 장소로 인벤토리 이동
 		else
 		{
 			mTransform->SetPosition(mUiPos);
+			mOnOff->GetComponent<Transform>()->SetPosition(Vec3::Zero);
 			m_bOptionCheak = false;
 		}
 
@@ -81,9 +90,30 @@ namespace ks
 			Vec3 campos = mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 			Vec3 finalpos = m_vMousePos - campos;
 			
+			bool lbtndown = Input::GetKeyDown(eKeyCode::LBTN);
+			bool lbtnup = Input::GetKeyUp(eKeyCode::LBTN);
+
+
 
 			if (finalpos.y <= 2.2f && finalpos.y >= 0.8f)
 			{
+				if(lbtndown)
+				{
+					optionSelectSound();
+					mOnOff->SetOnOffOneCheak(true);
+					if (mOnOff->GetOnOffCheak())
+					{
+						//걷게 하기
+						PlayerScript::SetPlayerRunning(false);
+						mOnOff->SetOnOffCheak(false);
+					}
+					else
+					{
+						//뛰게 하기
+						PlayerScript::SetPlayerRunning(true);
+						mOnOff->SetOnOffCheak(true);
+					}
+				}
 
 				Vec3 pos = mTransform->GetPosition();
 				pos.y += 1.75f;
@@ -129,17 +159,8 @@ namespace ks
 			}
 
 
-			bool lbtndown = Input::GetKeyDown(eKeyCode::LBTN);
-			bool lbtnup = Input::GetKeyUp(eKeyCode::LBTN);
-			if (lbtndown)
-			{
-
-			}
-
-			if (lbtnup)
-			{
-
-			}
+			
+			
 		}
 		//마우스가 인벤토리에서 벗어나면 공격 기능 On
 		else
@@ -174,9 +195,19 @@ namespace ks
 	void OptionUi::loadSound()
 	{
 
+		std::shared_ptr<AudioClip> Option_Select = Resources::Load<AudioClip>
+			(L"Option_Select", L"..\\Resources\\Sound\\Option_Select.ogg");
 
 
 
+
+	}
+
+	void OptionUi::optionSelectSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Option_Select");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 	void OptionUi::optionCheakCreate()
@@ -191,7 +222,26 @@ namespace ks
 			Transform* tr = mOptionCheak->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			tr->SetScale(Vector3(7.3f, 1.3f, 1.0f));
+
+			
 		}
+	}
+
+	void OptionUi::onOffCreate()
+	{
+		{
+			mOnOff = object::Instantiate<OnOff>(eLayerType::Gold_Ui);
+			mOnOff->SetName(L"OnOff");
+			
+
+
+			Transform* tr = mOnOff->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			tr->SetScale(Vector3(0.8f, 0.8f, 1.0f));
+
+			
+		}
+
 	}
 
 

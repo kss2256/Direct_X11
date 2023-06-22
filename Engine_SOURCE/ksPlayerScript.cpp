@@ -2224,7 +2224,7 @@ namespace ks
 			}
 
 			//°È±â or ¶Ù±â
-			if (Input::GetKeyUp(eKeyCode::LSHIFT))
+			/*if (Input::GetKeyUp(eKeyCode::LSHIFT))
 			{
 				mState = mStatus->GetStateInfo();
 				if (mbRunning)
@@ -2240,7 +2240,7 @@ namespace ks
 						directionAnimation(L"Run", true);
 				}
 
-			}
+			}*/
 
 			if (Input::GetKeyDown(eKeyCode::R))
 			{

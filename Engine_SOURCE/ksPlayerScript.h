@@ -46,6 +46,7 @@ namespace ks
 
 		static void SetPlayerStop(bool stop) { mPlayerStop = stop; }
 		static void SetPlayerAttackStop(bool stop) { mAttackStop = stop; }
+		static void SetPlayerRunning(bool running) { mbRunning = running; }
 		
 
 	private:

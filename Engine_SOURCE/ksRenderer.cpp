@@ -1103,7 +1103,11 @@ namespace ks::renderer
 		optioncheakmaterial->SetShader(optioncheakshader);
 		Resources::Insert<Material>(L"OptionCheakMaterial", optioncheakmaterial);
 
-
+		std::shared_ptr<Shader> onoffshader = Resources::Find<Shader>(L"TitleShader");
+		std::shared_ptr<Material> onoffmaterial = std::make_shared<Material>();
+		onoffmaterial->SetRenderingMode(eRenderingMode::Transparent);
+		onoffmaterial->SetShader(onoffshader);
+		Resources::Insert<Material>(L"OnOffMaterial", onoffmaterial);
 
 	}
 

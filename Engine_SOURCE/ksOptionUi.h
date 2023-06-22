@@ -4,6 +4,7 @@
 
 namespace ks
 {
+    class OnOff;
     class OptionCheak;
     class OptionUi :
         public UIBase
@@ -31,14 +32,17 @@ namespace ks
     private:
 
         void loadSound();
+        void optionSelectSound();
+
         void optionCheakCreate();
-    
+        void onOffCreate();
 
     private:
 
         Transform*      mTransform;
         Player*         mTarget;
         OptionCheak*    mOptionCheak;
+        OnOff*          mOnOff;
         Vec3            m_vMousePos;
         Vec3            m_vUiScale;
         Vec3            mUiPos;
