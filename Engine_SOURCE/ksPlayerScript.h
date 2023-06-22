@@ -6,6 +6,7 @@
 
 namespace ks
 {
+	class OptionUi;
 	class Inventory;
 	class Afterimage;
 	class PlayerAttack;
@@ -68,12 +69,14 @@ namespace ks
 		void staffChargeFinishSound();
 		void skillSound();
 		void skillLightingSound();
+		void optionOpenSound();
 
 		void skilIce();
 		void skilDark();
 		void skilBarrier();
 		void skilLighting();
 		void targetLighting();
+		void optionCreate();
 
 	private:
 
@@ -83,6 +86,7 @@ namespace ks
 		Player*				mPlayer;
 		Afterimage*			mAfterimage;
 		Inventory*			mInventory;
+		OptionUi*			mOption;
 
 		//PlayerAttack*		mAttack;
 

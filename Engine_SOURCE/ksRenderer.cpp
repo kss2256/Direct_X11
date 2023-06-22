@@ -1090,6 +1090,20 @@ namespace ks::renderer
 
 		Resources::Insert<Material>(L"FlimeMaterial", flimeMaterial);
 
+	
+		std::shared_ptr<Shader> optionshader = Resources::Find<Shader>(L"TitleShader");
+		std::shared_ptr<Material> optionsmaterial = std::make_shared<Material>();
+		optionsmaterial->SetRenderingMode(eRenderingMode::Transparent);
+		optionsmaterial->SetShader(optionshader);
+		Resources::Insert<Material>(L"OptionMaterial", optionsmaterial);
+
+		std::shared_ptr<Shader> optioncheakshader = Resources::Find<Shader>(L"TitleShader");
+		std::shared_ptr<Material> optioncheakmaterial = std::make_shared<Material>();
+		optioncheakmaterial->SetRenderingMode(eRenderingMode::Transparent);
+		optioncheakmaterial->SetShader(optioncheakshader);
+		Resources::Insert<Material>(L"OptionCheakMaterial", optioncheakmaterial);
+
+
 
 	}
 

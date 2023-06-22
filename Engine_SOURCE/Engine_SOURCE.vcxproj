@@ -214,6 +214,8 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="ksMonsterMissile.h" />
     <ClInclude Include="ksMonster_Trap_Line.h" />
     <ClInclude Include="ksMouse.h" />
+    <ClInclude Include="ksOptionCheak.h" />
+    <ClInclude Include="ksOptionUi.h" />
     <ClInclude Include="ksPlayerAttack.h" />
     <ClInclude Include="ksPlayerAttackScript.h" />
     <ClInclude Include="ksPlayerCreateHp.h" />
@@ -320,6 +322,8 @@ copy "$(SolutionDir)FW1FontWrapperL.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="ksMonsterMissile.cpp" />
     <ClCompile Include="ksMonster_Trap_Line.cpp" />
     <ClCompile Include="ksMouse.cpp" />
+    <ClCompile Include="ksOptionCheak.cpp" />
+    <ClCompile Include="ksOptionUi.cpp" />
     <ClCompile Include="ksPlayerAttack.cpp" />
     <ClCompile Include="ksPlayerAttackScript.cpp" />
     <ClCompile Include="ksPlayerCreateHp.cpp" />

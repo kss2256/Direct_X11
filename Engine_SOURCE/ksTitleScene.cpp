@@ -182,10 +182,6 @@ namespace ks
 			SceneManager::LoadScene(eSceneType::Play);
 			m_bChangeScene = false;
 		}
-		/*if (Input::GetKeyDown(eKeyCode::N))
-		{
-			SceneManager::LoadScene(eSceneType::Play);
-		}*/
 
 		Scene::Update();
 	}

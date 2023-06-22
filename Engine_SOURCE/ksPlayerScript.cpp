@@ -35,6 +35,7 @@
 #include "ksSkil_Barrier.h"
 #include "ksSkil_Lighting.h"
 #include "ksCollider2D.h"
+#include "ksOptionUi.h"
 
 #include <time.h>
 
@@ -2260,9 +2261,17 @@ namespace ks
 				mPlayer->SetSlotChange(true);
 			}
 
-			if (Input::GetKeyDown(eKeyCode::G))
+			if (Input::GetKeyDown(eKeyCode::ESC))
 			{
-				
+				optionOpenSound();
+				if (mOption->GetOption())
+				{
+					mOption->SetOption(false);
+				}
+				else
+				{
+					mOption->SetOption(true);
+				}
 			}
 
 			if (Input::GetKeyDown(eKeyCode::I))
@@ -2715,6 +2724,9 @@ namespace ks
 		std::shared_ptr<AudioClip> Lighting_Attack = Resources::Load<AudioClip>
 			(L"Lighting_Attack", L"..\\Resources\\Sound\\Lighting_Attack.ogg");
 
+		std::shared_ptr<AudioClip> Option_OPen = Resources::Load<AudioClip>
+			(L"Option_OPen", L"..\\Resources\\Sound\\Option_OPen.ogg");
+
 
 	}
 
@@ -2768,6 +2780,13 @@ namespace ks
 		std::shared_ptr<AudioClip> coinsound = Resources::Find<AudioClip>(L"Lighting_Attack");
 		coinsound->SetLoop(false);
 		coinsound->Play(3.0f);
+	}
+
+	void PlayerScript::optionOpenSound()
+	{
+		std::shared_ptr<AudioClip> sound = Resources::Find<AudioClip>(L"Option_OPen");
+		sound->SetLoop(false);
+		sound->Play();
 	}
 
 	void PlayerScript::skilIce()
@@ -2883,6 +2902,13 @@ namespace ks
 			mAttack->GetComponent<Transform>()->SetScale(Vec3(13.0f, 13.0f, 0.0f));
 			mAttack->Initalize();
 		}
+
+
+	}
+
+	void PlayerScript::optionCreate()
+	{
+		
 
 
 	}

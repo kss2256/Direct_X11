@@ -8,6 +8,7 @@
 #include "ksPlayerScript.h"
 #include "ksInventoryItem.h"
 #include "ksInventorySlot.h"
+#include "ksOptionUi.h"
 
 #include "ksInput.h"
 
@@ -134,8 +135,11 @@ namespace ks
 		//마우스가 인벤토리에서 벗어나면 공격 기능 On
 		else
 		{
-			PlayerScript* player = nullptr;
-			player->SetPlayerAttackStop(false);		
+			if (!mInventoryOnOff && !OptionUi::GetOption())
+			{
+				PlayerScript* player = nullptr;
+				player->SetPlayerAttackStop(false);
+			}
 		}
 		
 

@@ -48,6 +48,7 @@
 #include "ksAudioListener.h"
 #include "ksGoldBox.h"
 #include "ksSkilUi.h"
+#include "ksOptionUi.h"
 
 
 #include "ksMonsterMissile.h"
@@ -164,7 +165,27 @@ namespace ks
 		//}
 
 
+		{
+			OptionUi* option = object::Instantiate<OptionUi>(eLayerType::Gold_Ui);
+			option->SetName(L"Option");
+			option->SetTarget(mPlayer);
+			mPlayer->SetOptionTarget(option);
 
+			Transform* tr = option->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			tr->SetScale(Vector3(8.5f, 7.0f, 1.0f));
+		}
+
+		{
+			OptionUi* option = object::Instantiate<OptionUi>(eLayerType::Gold_Ui);
+			option->SetName(L"Option");
+			option->SetTarget(mPlayer);
+			mPlayer->SetOptionTarget(option);
+
+			Transform* tr = option->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			tr->SetScale(Vector3(8.5f, 7.0f, 1.0f));
+		}
 		{
 
 			mInventory = object::Instantiate<Inventory>(eLayerType::UI);

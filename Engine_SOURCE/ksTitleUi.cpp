@@ -7,6 +7,7 @@
 #include "ksAudioClip.h"
 #include "ksSceneManager.h"
 
+
 #include "ksInput.h"
 
 
@@ -119,6 +120,13 @@ namespace ks
 			}
 			else if (m_vMousePos.y <= -2.22f && m_vMousePos.y >= -2.96f)
 			{
+
+				bool lbtn = Input::GetKeyDown(eKeyCode::LBTN);
+				if (lbtn)
+				{					
+				
+				}
+
 				if(!m_bOneCheak4)
 				{
 					selectMouseOnSound();

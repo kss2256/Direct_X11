@@ -1,7 +1,7 @@
 #pragma once
 #include "ksUIBase.h"
 #include "ksTitleScene.h"
-
+#include <stdlib.h>
 
 namespace ks
 {
@@ -18,7 +18,7 @@ namespace ks
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-
+        
         void SetTarget(TitleScene* title) { mTitle = title; }
 
     private:

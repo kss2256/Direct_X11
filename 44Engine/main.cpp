@@ -56,7 +56,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY44ENGINE));
 
-    MSG msg;
+   MSG msg;
 
     // 기본 메시지 루프입니다:
     while (true)

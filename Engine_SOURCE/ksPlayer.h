@@ -104,9 +104,11 @@ namespace ks
 		float GetPlayerStr() { return mStr; }
 		float GetStamina() { return mStamina; }
 		UIBase* GetInventoryTarget() { return mInventory; }
+		UIBase* GetOptionTarget() { return mOption; }
 		SkilUi* GetSkilUiTarget() { return mSkilUi; }
 
 		void SetInventoryTarget(UIBase* inventory) { mInventory = inventory; }
+		void SetOptionTarget(UIBase* option) { mOption = option; }
 		void SetSkilUiTarget(SkilUi* ui) { mSkilUi = ui; }
 		bool StaminaFull() { return mStaninaFull; }
 		bool Usestamina(float value, PlayerScript* script);
@@ -147,6 +149,7 @@ namespace ks
 
 		eGroundStage					mPlayerStage;
 		UIBase*							mInventory;
+		UIBase*							mOption;
 		SkilUi*							mSkilUi;
 		PlayerItem*						mItemSlot_1;
 		PlayerItem*						mItemSlot_2;
