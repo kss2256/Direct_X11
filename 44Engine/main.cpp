@@ -75,14 +75,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {         
             application.Run();
-            editor.Run();
+            //editor.Run();
             application.Present();
         }
     }
 
     ks::SceneManager::Release();
     application.Release();
-    editor.Release();
+    //editor.Release();
     return (int)msg.wParam;
 }
 
@@ -138,7 +138,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     application.SetWindow(hWnd, 1920, 1080);
     application.Initalize();
-    editor.Initalize();
+    //editor.Initalize();
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 

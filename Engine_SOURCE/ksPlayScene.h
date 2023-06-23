@@ -35,6 +35,8 @@ namespace ks
 		virtual void OnExit() override;
 
 
+		static void SetChangeScene(bool change) { m_sbSceneChange = change; }
+
 	private:
 		void loadAnimation();
 		void loadGround(eLayerType layer, eGroundStage stage, const std::wstring name, Vec3 pos);
@@ -64,6 +66,7 @@ namespace ks
 
 		UINT					mSlotname;
 
+		static bool				m_sbSceneChange;
 
 		FadeEffect*				mFadeEffect;
 

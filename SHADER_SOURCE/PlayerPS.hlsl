@@ -37,6 +37,20 @@ float4 main(VSOut In) : SV_Target
         //color = atlasTexture.Sample(anisotropicSampler, UV);
         color = atlasTexture.Sample(pointSampler, UV);
         //color = atlasTexture.Sample(, UV);
+        
+        if (color.a == 1.0f)
+        {          
+            if (playerhit == 0.0f)
+            {
+            color = float4(color.rgb, color.a);                
+            }
+            else if (playerhit == 1.0f)
+            {               
+                color = float4(1.0f, 1.0f, 1.0f, color.a);
+                //color = float4(1.0f, 1.0f, 1.0f, playerhittime);
+            }
+            
+        }
     }
     else
     {

@@ -43,10 +43,11 @@ namespace ks
 		void SetTarget(GameObject* target) { mPlayer = (Player*)target; }
 		void SetAttackFailed(bool failed) { mAttackFailed = failed; }
 		
-
+		static bool IsPlayerPower() { return m_sbPlayerPower ; }
 		static void SetPlayerStop(bool stop) { mPlayerStop = stop; }
 		static void SetPlayerAttackStop(bool stop) { mAttackStop = stop; }
 		static void SetPlayerRunning(bool running) { mbRunning = running; }
+		static void SetPlayerPower(bool power) { m_sbPlayerPower = power; }
 		
 
 	private:
@@ -57,6 +58,8 @@ namespace ks
 		void attackCommandmagic(eLayerType type, eDirection dir, eSkil skil, eProgress progress, float colldowntime, float scale);
 		void effectDeath(eLayerType layer);
 		void playerShake(float time, float distance, float speed);
+
+		void playerHitColor();
 		void playerRunSound();
 		void playerRunSoundStop();
 		void PlayerAttackSound();
@@ -71,6 +74,11 @@ namespace ks
 		void skillSound();
 		void skillLightingSound();
 		void optionOpenSound();
+		void evadeOkSound();
+		void evadeClearSound();
+		void playerHitSound();
+		void playerDeathSound();
+
 
 		void skilIce();
 		void skilDark();
@@ -110,6 +118,8 @@ namespace ks
 		static bool			mCargeFinsh;
 		static bool			mAttackStop;
 		static bool			mPlayerStop;
+		static bool			m_sbPlayerPower;
+		static bool			m_sbPlayerHit;
 		bool				mCheak;
 		bool				mStaffStnmina;
 		bool				mStaffStnminaRecovery;
@@ -119,14 +129,22 @@ namespace ks
 		bool				mOnceCheak;
 		bool				m_bLightingAttack;
 		bool				m_bLightingOneCheak;
+		bool				m_bHitCol;
+		bool				m_bDeathOneCheak;
+		bool				m_bChangeScene;
 
 
 		float				mCheakTime;
 		float				m_fSkilTime;
 		static float		mfStaff;
+		static float		m_sfPlayerHit;
+		static float		m_sfPlayerHitTime;
+		float				m_fPlayerHitTime;
 		float				mDelayTime;
 		float				mTime;
 		float				mShakeTime;
+		float				m_fPowerTime;
+		float				m_fPlayerDeathTime;
 
 		static UINT			miRef;
 

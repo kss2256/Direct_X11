@@ -85,6 +85,13 @@ namespace ks::renderer
 		Vector2		monstermetersize;
 	};
 
+	CBUFFER(PLAYEREFFECT, CBSLOT_PLATEREFFECT)
+	{
+		float		playerhit;
+		float		playerhittime;
+		Vector2		player;
+	};
+
 
 	extern Vertex vertexes[4];
 	extern Vertex fadeeffect[4];

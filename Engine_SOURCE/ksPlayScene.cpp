@@ -57,6 +57,8 @@
 
 namespace ks
 {
+	bool PlayScene::m_sbSceneChange = false;
+
 	PlayScene::PlayScene()
 		: Scene(eSceneType::Play)
 		, mSlotname(1)
@@ -538,9 +540,14 @@ namespace ks
 
 	void PlayScene::Update()
 	{
-		if (Input::GetKeyDown(eKeyCode::N))
+
+		if(m_sbSceneChange)
 		{
 			SceneManager::LoadScene(eSceneType::Tilte);
+			std::shared_ptr<AudioClip> booksound = Resources::Find<AudioClip>(L"Stage_1");
+			booksound->Stop();
+
+			m_sbSceneChange = false;
 		}
 
 

@@ -20,6 +20,7 @@
 #define CBSLOT_TRAP 5
 #define CBSLOT_METER 6
 #define CBSLOT_MONTSERMETER 7
+#define CBSLOT_PLATEREFFECT 8
 
 
 
@@ -115,6 +116,7 @@ namespace ks::graphics
 		Trap_Line,
 		Meter,
 		Monster_Meter,
+		Player_Effect,
 		End,
 	};
 

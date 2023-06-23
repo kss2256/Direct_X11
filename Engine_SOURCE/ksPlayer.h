@@ -112,6 +112,7 @@ namespace ks
 		void SetSkilUiTarget(SkilUi* ui) { mSkilUi = ui; }
 		bool StaminaFull() { return mStaninaFull; }
 		bool Usestamina(float value, PlayerScript* script);
+		bool UseMp(float value, PlayerScript* script);
 		void RestoreStamina(float value) { mStamina = value; }
 		bool GetItemWear() { return mItemWear; }
 		bool IsShopPurchase(UINT money);

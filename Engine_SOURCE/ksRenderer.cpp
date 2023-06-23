@@ -538,6 +538,9 @@ namespace ks::renderer
 		constantBuffers[(UINT)eCBType::Monster_Meter] = new ConstantBuffer(eCBType::Monster_Meter);
 		constantBuffers[(UINT)eCBType::Monster_Meter]->Create(sizeof(MONSTERMeter));
 
+		constantBuffers[(UINT)eCBType::Player_Effect] = new ConstantBuffer(eCBType::Player_Effect);
+		constantBuffers[(UINT)eCBType::Player_Effect]->Create(sizeof(PLAYEREFFECT));
+
 	}
 
 	void LoadShader()

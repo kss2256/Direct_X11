@@ -69,6 +69,14 @@ cbuffer MONSTERMeter : register(b7)
 }
 
 
+cbuffer PLAYEREFFECT : register(b8)
+{
+    float   playerhit;
+    float   playerhittime;
+    float2  player;   
+}
+
+
 
 
 SamplerState pointSampler : register(s0);

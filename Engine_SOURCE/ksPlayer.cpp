@@ -21,8 +21,8 @@ namespace ks
 
 		mHp = 5;	
 		mFullHp = 5;
-		mMp = 5;	
-		mFullMp = 5;
+		mMp = 0;	
+		mFullMp = 7;
 
 		mStamina = 100;
 		mItemWear = false;
@@ -63,19 +63,26 @@ namespace ks
 		{
 			if (mPlayerCoin >= 999)
 				return;
-			mPlayerCoin += 10;
+			mPlayerCoin += 50;
 		}
 		if (Input::GetKeyDown(eKeyCode::NUM_2))
 		{
-			if(mPlayerCoin <= 1)
+			if (mMp > 9.0f)
 				return;
-			--mPlayerCoin;
+			if (mFullMp < mMp + 1.0f)
+				return;
+			mMp += 1.0f;
 		}
 		if (Input::GetKeyDown(eKeyCode::NUM_3))
 		{
 			if (mHp > 9.5f)
 				return;
 			mHp += 0.5f;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::NUM_4))
+		{			
+			mHp -= 1.0f;
 		}
 
 
@@ -374,6 +381,20 @@ namespace ks
 		else
 		{
 			mStamina -= value;
+			return true;
+		}
+	}
+
+	bool Player::UseMp(float value, PlayerScript* script)
+	{
+		if (mMp < value)
+		{
+			script->SetAttackFailed(true);
+			return false;
+		}
+		else
+		{
+			mMp -= value;
 			return true;
 		}
 	}
